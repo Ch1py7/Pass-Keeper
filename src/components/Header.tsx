@@ -6,8 +6,10 @@ import { Button } from './common/Button'
 export const Header: React.FC = () => {
 	const { setOpen, setModal, file } = useAppStore()
 
+	const date = formatDateFromMilliseconds(file.lastModified ? file.lastModified : Date.now())
+
 	return (
-		<header className='flex justify-between items-center'>
+		<header className='flex flex-col md:flex-row items-center justify-between mb-8 gap-4'>
 			<div className='flex items-center gap-3'>
 				<div className='bg-gradient-to-r from-purple-600 to-pink-600 p-3 rounded-xl shadow-lg'>
 					<Icon icon='mynaui:lock' className='text-white h-8 w-8' />
@@ -16,12 +18,9 @@ export const Header: React.FC = () => {
 					<h1 className='text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600'>
 						Vault Keeper
 					</h1>
-					<div className='flex gap-5 mt-1'>
-						<p className='text-slate-500'>{file.name}</p>
-						<p className='flex items-center text-xs rounded-full border border-solid border-slate-300 px-3 font-bold'>
-							Last modified:{' '}
-							{formatDateFromMilliseconds(file.lastModified ? file.lastModified : Date.now())}
-						</p>
+					<div className='flex items-center gap-2'>
+						<p className='text-slate-500 dark:text-slate-400'>{file?.name}</p>
+						<p className='flex items-center text-xs rounded-full border border-solid border-slate-300 px-3 font-bold'>Last modified: {date}</p>
 					</div>
 				</div>
 			</div>
