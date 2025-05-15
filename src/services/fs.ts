@@ -2,6 +2,7 @@ import { ErrorCode } from '@/errors/errors'
 import { typedArrayToBuffer } from '@/utils/common'
 import { open, save } from '@tauri-apps/plugin-dialog'
 import { readFile, writeFile } from '@tauri-apps/plugin-fs'
+import * as kdbxweb from 'kdbxweb'
 
 let globalPath: string
 
@@ -27,9 +28,9 @@ export const selectFile = async (): Promise<string> => {
 		filters: [{ name: 'KeePass KDBX Files', extensions: ['kdbx'] }],
 	})
 
-	if (!filePath) throw new Error(ErrorCode.AbortError)
+	if (!filePath) throw new DOMException(ErrorCode.AbortError)
 	const [name, ext] = filePath.split('\\').pop()!.split('.')
-	if (ext !== 'kdbx') throw new Error(ErrorCode.Unsupported)
+	if (ext !== 'kdbx') throw new kdbxweb.KdbxError(ErrorCode.Unsupported)
 	globalPath = filePath
 	return name ?? 'My Database'
 }

@@ -15,8 +15,17 @@ import { Button } from './common/Button'
 import { MasterKey } from './masterKey/MasterKey'
 
 const handleFileUpload = async (setFile: (value: CFile | ((prev: CFile) => CFile)) => void) => {
-	const name = await selectFile()
-	setFile((p) => ({ ...p, name }))
+	try {
+		const name = await selectFile()
+		setFile((p) => ({ ...p, name }))
+	} catch (err) {
+		if (err instanceof DOMException) errorsHandle(err.message)
+		else if (err instanceof kdbxweb.KdbxError) errorsHandle(err.code)
+		else {
+			console.error(err)
+			toasty.error('An unknown error occurred')
+		}
+	}
 }
 
 export const UploadFile: React.FC = () => {
