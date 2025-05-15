@@ -23,11 +23,9 @@ export const NewCategory: React.FC = () => {
 				setActiveCategory(newCategory)
 			}
 		} catch (err) {
-			if (err instanceof DOMException) {
-				errorsHandle(err.name)
-			} else if (err instanceof kdbxweb.KdbxError) {
-				errorsHandle(err.code)
-			} else {
+			if (err instanceof DOMException) errorsHandle(err.name)
+			else if (err instanceof kdbxweb.KdbxError) errorsHandle(err.code)
+			else {
 				console.error(err)
 				toasty.error('An unknown error occurred')
 			}
