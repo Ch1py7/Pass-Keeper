@@ -1,35 +1,23 @@
-import { getKdbxInstance } from '@/services/kdbxSingleton'
-import { useAppStore } from '@/store/AppStore'
+import { Button } from '@/components/common/Button'
 import { cn } from '@/utils/cn'
 import { formatDateFromMilliseconds } from '@/utils/common'
-import { sampleEntry } from '@/utils/constants'
-import { useEffect, useState } from 'react'
-import { Button } from '../common/Button'
+interface EntryFormProps {
+	entry: Entry | null
+	noDefaultCategories: Group[]
+	newEntry: Entry
+	onHandleChange: (key: string, value: string) => void
+	onSubmit: () => void
+	onCancel: () => void
+}
 
-export const NewEntry: React.FC = () => {
-	const kdbx = getKdbxInstance()
-	const [newEntry, setNewEntry] = useState<Entry>(sampleEntry)
-	const { setOpen, categories, setFile, setEntries, entry } = useAppStore()
-	const noDefaultCategories = categories.slice(2)
-
-	const onHandleChange = (key: string, value: string) => {
-		setNewEntry((p) => ({ ...p, [key]: value }))
-	}
-
-	const handleEntry = async () => {
-		const updatedFile = entry ? await kdbx.updateEntry(newEntry) : await kdbx.addEntry(newEntry)
-		const entries = kdbx.listEntries()
-		setEntries(entries)
-		setOpen(false)
-		setFile(updatedFile!)
-	}
-
-	useEffect(() => {
-		if (entry) {
-			setNewEntry(entry)
-		}
-	}, [entry])
-
+export const EntryForm: React.FC<EntryFormProps> = ({
+	entry,
+	noDefaultCategories,
+	newEntry,
+	onHandleChange,
+	onSubmit,
+	onCancel,
+}) => {
 	return (
 		<div className='sm:max-w-[450px] border-0 shadow-2xl bg-white rounded-xl p-8'>
 			<div>
@@ -122,20 +110,8 @@ export const NewEntry: React.FC = () => {
 				</div>
 			</div>
 			<div className='flex space-x-4'>
-				<Button
-					fullWidth
-					content='Cancel'
-					style='secondary'
-					shadows={false}
-					onClick={() => setOpen(false)}
-				/>
-				<Button
-					fullWidth
-					content='Save Entry'
-					style='primary'
-					shadows={false}
-					onClick={handleEntry}
-				/>
+				<Button fullWidth content='Cancel' style='secondary' shadows={false} onClick={onCancel} />
+				<Button fullWidth content='Save Entry' style='primary' shadows={false} onClick={onSubmit} />
 			</div>
 		</div>
 	)

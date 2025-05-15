@@ -7,6 +7,5 @@ export const setKdbxInstance = (instance: Kdbx) => {
 }
 
 export const getKdbxInstance = () => {
-	if (!kdbxInstance) throw new Error('Non-existent instance')
-	return kdbxInstance
+	return kdbxInstance!
 }

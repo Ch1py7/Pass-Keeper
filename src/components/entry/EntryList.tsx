@@ -1,14 +1,14 @@
 import { usePasswordTrie } from '@/hooks/usePasswordTrie'
 import { useAppStore } from '@/store/AppStore'
 import { Icon } from '@iconify/react'
-import { PasswordCard } from './PasswordCard'
-import { Button } from './common/Button'
+import { Button } from '../common/Button'
+import { EntryCard } from './EntryCard'
 
 interface PasswordsProps {
 	searchQuery: string
 }
 
-export const PasswordsList: React.FC<PasswordsProps> = ({ searchQuery }) => {
+export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 	const { setOpen, setModal, setEntry, categories, activeCategory } = useAppStore()
 	const results = usePasswordTrie(searchQuery)
 
@@ -39,7 +39,7 @@ export const PasswordsList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 			) : (
 				<div className='grid gap-6 md:grid-cols-2'>
 					{results.map((entry, index) => (
-						<PasswordCard
+						<EntryCard
 							key={index}
 							entry={entry}
 							category={

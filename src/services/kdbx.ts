@@ -1,3 +1,4 @@
+import { ErrorCode } from '@/errors/errors'
 import { passwordsParser } from '@/services/parser'
 import * as kdbxweb from 'kdbxweb'
 import { createFile, updateFile } from './fs'
@@ -11,12 +12,8 @@ export class Kdbx {
 	}
 
 	public async load(arrayBuffer: ArrayBuffer) {
-		try {
-			this._db = await kdbxweb.Kdbx.load(arrayBuffer, this._credentials)
-		} catch (err) {
-			console.error(err)
-			throw err
-		}
+		this._db = await kdbxweb.Kdbx.load(arrayBuffer, this._credentials)
+		this._validateRecycleBin()
 	}
 
 	public async createDatabase(password: string) {
@@ -106,6 +103,20 @@ export class Kdbx {
 		return passwords
 	}
 
+	public getRecycleBinId() {
+		return this._validateRecycleBin().id
+	}
+
+	private _validateRecycleBin() {
+		const db = this._requireDb()
+		let recycleBin = db.meta.recycleBinUuid
+		if (!recycleBin) {
+			db.createRecycleBin()
+			recycleBin = db.meta.recycleBinUuid!
+		}
+		return recycleBin
+	}
+
 	private async _persist() {
 		const db = this._requireDb()
 		const data = await db.save()
@@ -120,7 +131,7 @@ export class Kdbx {
 	private _getGroupById(id: string) {
 		const db = this._requireDb()
 		const group = db.getGroup(id)
-		if (!group) throw new Error('Group not found')
+		if (!group) throw new kdbxweb.KdbxError(ErrorCode.GroupNotFound)
 
 		return group
 	}

@@ -1,61 +1,44 @@
-let savedHandle: FileSystemFileHandle | null = null
+import { ErrorCode } from '@/errors/errors'
+import { typedArrayToBuffer } from '@/utils/common'
+import { open, save } from '@tauri-apps/plugin-dialog'
+import { readFile, writeFile } from '@tauri-apps/plugin-fs'
 
-export const createFile = async (binaryData: ArrayBuffer) => {
-	try {
-		const handle = await (window as any).showSaveFilePicker({
-			suggestedName: 'Database.kdbx',
-			types: [
-				{
-					description: 'KeePass Database',
-					accept: { 'application/x-keepass2': ['.kdbx'] },
-				},
-			],
-		})
+let globalPath: string
 
-		const writable = await handle.createWritable()
-		await writable.write(binaryData)
-		await writable.close()
-	} catch (err) {
-		console.error('error', err)
-		throw err
-	}
+export const createFile = async (binaryData: ArrayBuffer): Promise<void> => {
+	const filePath = await save({
+		title: 'Database',
+		defaultPath: 'Database.kdbx',
+		filters: [{ name: 'KeePass KDBX Files', extensions: ['kdbx'] }],
+	})
+
+	if (!filePath) throw new DOMException('', 'AbortError')
+
+	await writeFile(filePath, new Uint8Array(binaryData))
 }
 
-export const selectFile = async () => {
-	try {
-		const [handle] = (await (window as any).showOpenFilePicker({
-			types: [
-				{
-					description: 'KeePass Database',
-					accept: { 'application/x-keepass2': ['.kdbx'] },
-				},
-			],
-			multiple: false,
-		})) as FileSystemFileHandle[]
-
-		savedHandle = handle
-		const file = await handle.getFile()
-
-		return file
-	} catch (err) {
-		console.error('error', err)
-		throw err
-	}
+export const getFile = async () => {
+	const fileContent = await readFile(globalPath)
+	return typedArrayToBuffer(fileContent)
 }
 
-export const updateFile = async (data: ArrayBuffer) => {
+export const selectFile = async (): Promise<string> => {
+	const filePath = await open({
+		filters: [{ name: 'KeePass KDBX Files', extensions: ['kdbx'] }],
+	})
+
+	if (!filePath) throw new Error(ErrorCode.AbortError)
+	const [name, ext] = filePath.split('\\').pop()!.split('.')
+	if (ext !== 'kdbx') throw new Error(ErrorCode.Unsupported)
+	globalPath = filePath
+	return name ?? 'My Database'
+}
+
+export const updateFile = async (binaryData: ArrayBuffer): Promise<void> => {
 	try {
-		if (!savedHandle) return
-		const writable = await savedHandle.createWritable()
-
-		await writable.write(data)
-		await writable.close()
-
-		const file = await savedHandle.getFile()
-
-		return file
-	} catch (err) {
-		console.error('error', err)
-		throw err
+		await writeFile(globalPath, new Uint8Array(binaryData))
+	} catch (error) {
+		console.error('Error writing file:', error)
+		throw error
 	}
 }

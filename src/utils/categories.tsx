@@ -86,7 +86,3 @@ export const getCategory = (key: string) => {
 		}
 	)
 }
-
-export const containUpperCase = new RegExp(/[A-Z]/)
-export const containNumbers = new RegExp(/[0-9]/)
-export const containSpecialChars = new RegExp(/[^A-Za-z0-9]/)

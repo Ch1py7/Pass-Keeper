@@ -1,3 +1,16 @@
+interface Params {
+	color: string
+}
+
+type Modals = 'category' | 'entry' | 'delete'
+
+interface CFile {
+	name: string
+	isUnlocked: boolean
+	recycleBinId: string
+	masterKey: string
+}
+
 interface Entries {
 	name: string
 	groups: Group[]

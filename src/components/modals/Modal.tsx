@@ -1,8 +1,8 @@
 import { useAppStore } from '@/store/AppStore'
 import { useEffect, useRef } from 'react'
+import { NewCategory } from './Category/NewCategory'
 import { Delete } from './Delete'
-import { NewCategory } from './NewCategory'
-import { NewEntry } from './NewEntry'
+import { NewEntry } from './Entry/NewEntry'
 
 export const Modal: React.FC = () => {
 	const containerRef = useRef<HTMLDivElement>(null)

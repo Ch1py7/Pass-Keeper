@@ -1,5 +1,5 @@
-import { containNumbers, containSpecialChars, containUpperCase } from '@/utils/categories'
 import { cn } from '@/utils/cn'
+import { containNumbers, containSpecialChars, containUpperCase } from '@/utils/common'
 import { Icon } from '@iconify/react'
 
 interface PasswordChecklistProps {
@@ -16,7 +16,7 @@ const ChecklistItem = ({ passed, label }: { passed: boolean; label: string }) =>
 	</p>
 )
 
-export const PasswordChecklist: React.FC<PasswordChecklistProps> = ({ masterKey }) => {
+export const Checklist: React.FC<PasswordChecklistProps> = ({ masterKey }) => {
 	return (
 		<div className='text-xs text-slate-500 mt-3 space-y-1'>
 			<ChecklistItem passed={masterKey.length >= 8} label='At least 8 characters' />

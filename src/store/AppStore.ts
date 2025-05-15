@@ -1,3 +1,4 @@
+import { sampleCategory, sampleFile } from '@/utils/constants'
 import { create } from 'zustand'
 
 interface AppState {
@@ -14,6 +15,7 @@ interface AppState {
 	setCategories: (value: Group[]) => void
 	activeCategory: Group
 	setActiveCategory: (value: Group) => void
+	noDefaultCategories: () => Group[]
 
 	// Entries
 	entry: Entry | null
@@ -22,13 +24,11 @@ interface AppState {
 	setEntries: (value: Entries) => void
 
 	// File
-	masterKey: string
-	setMasterKey: (value: string) => void
 	file: CFile
-	setFile: (value: CFile) => void
+	setFile: (value: CFile | ((prev: CFile) => CFile)) => void
 }
 
-export const useAppStore = create<AppState>()((set) => ({
+export const useAppStore = create<AppState>()((set, get) => ({
 	// Modal
 	open: false,
 	setOpen: (value) => {
@@ -41,21 +41,27 @@ export const useAppStore = create<AppState>()((set) => ({
 
 	// Categories
 	category: null,
-	setCategory(value) {
+	setCategory: (value) => {
 		set({ category: value })
 	},
-	categories: [{ id: 'All', name: 'All', params: { color: '' }, entries: [] }],
-	setCategories(value) {
-		set({ categories: [{ id: 'All', name: 'All', params: { color: '' }, entries: [] }, ...value] })
+	categories: [{ ...sampleCategory, id: 'All', name: 'All' }],
+	setCategories: (value) => {
+		set({ categories: [{ ...sampleCategory, id: 'All', name: 'All' }, ...value] })
 	},
-	activeCategory: { id: 'All', name: 'All', params: { color: '' }, entries: [] },
+	activeCategory: { ...sampleCategory, id: 'All', name: 'All' },
 	setActiveCategory: (value) => {
 		set({ activeCategory: value })
+	},
+	noDefaultCategories: () => {
+		const { categories, file } = get()
+		return categories.filter(
+			(category) => category.id !== file.recycleBinId && category.id !== 'All'
+		)
 	},
 
 	// Entries
 	entry: null,
-	setEntry(value) {
+	setEntry: (value) => {
 		set({ entry: value })
 	},
 	entries: {
@@ -67,16 +73,14 @@ export const useAppStore = create<AppState>()((set) => ({
 	},
 
 	// File
-	masterKey: '',
-	setMasterKey(value) {
-		set({ masterKey: value })
-	},
-	file: {
-		name: '',
-		lastModified: 0,
-		size: 0,
-	},
+	file: sampleFile,
 	setFile: (value) => {
-		set({ file: value })
+		if (typeof value === 'function') {
+			set((state) => ({
+				file: (value as (prev: CFile) => CFile)(state.file),
+			}))
+		} else {
+			set({ file: value })
+		}
 	},
 }))

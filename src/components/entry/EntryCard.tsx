@@ -3,7 +3,7 @@ import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
-import { ActionButtons } from './common/ActionButtons'
+import { ActionButtons } from '../common/ActionButtons'
 
 interface PasswordCardProps {
 	entry: Entry
@@ -12,12 +12,7 @@ interface PasswordCardProps {
 	onDelete: () => void
 }
 
-export const PasswordCard: React.FC<PasswordCardProps> = ({
-	entry,
-	category,
-	onEdit,
-	onDelete,
-}) => {
+export const EntryCard: React.FC<PasswordCardProps> = ({ entry, category, onEdit, onDelete }) => {
 	const [showEntry, setShowEntry] = useState(false)
 	const { color } = category.params
 	const { icon } = getCategory(entry.groupName)

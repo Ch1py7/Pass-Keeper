@@ -2,9 +2,10 @@ import { getCategory } from '@/utils/categories'
 import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
 import { Icon } from '@iconify/react'
-import { ActionButtons } from './common/ActionButtons'
+import { ActionButtons } from '../common/ActionButtons'
 
 interface CategoryRowProps {
+	recycleBinId: string
 	category: Group
 	isActive: boolean
 	total: number
@@ -23,8 +24,9 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 	onSelect,
 	onEdit,
 	onDelete,
+	recycleBinId,
 }) => {
-	const isDefaultCategory = ['Recycle Bin', 'Common', 'All'].includes(category.name)
+	const isDefaultCategory = [recycleBinId, 'All'].includes(category.id)
 	const { color } = category.params
 	const { icon } = getCategory(category.name)
 

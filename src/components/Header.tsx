@@ -1,12 +1,9 @@
 import { useAppStore } from '@/store/AppStore'
-import { formatDateFromMilliseconds } from '@/utils/common'
 import { Icon } from '@iconify/react'
 import { Button } from './common/Button'
 
 export const Header: React.FC = () => {
 	const { setOpen, setModal, file } = useAppStore()
-
-	const date = formatDateFromMilliseconds(file.lastModified ? file.lastModified : Date.now())
 
 	return (
 		<header className='flex flex-col md:flex-row items-center justify-between mb-8 gap-4'>
@@ -19,8 +16,7 @@ export const Header: React.FC = () => {
 						Vault Keeper
 					</h1>
 					<div className='flex items-center gap-2'>
-						<p className='text-slate-500 dark:text-slate-400'>{file?.name}</p>
-						<p className='flex items-center text-xs rounded-full border border-solid border-slate-300 px-3 font-bold'>Last modified: {date}</p>
+						<p className='text-slate-500 dark:text-slate-400'>{file.name}</p>
 					</div>
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-import { containNumbers, containSpecialChars, containUpperCase } from '@/utils/categories'
+import { containNumbers, containSpecialChars, containUpperCase } from '@/utils/common'
 
 export const usePasswordStrength = (password: string) => {
 	let strength = 0

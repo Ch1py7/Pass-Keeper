@@ -1,11 +1,19 @@
 import { useAppStore } from '@/store/AppStore'
 import { totalEntries } from '@/utils/common'
+import { Button } from '../common/Button'
 import { CategoryRow } from './CategoryRow'
-import { Button } from './common/Button'
 
 export const Categories: React.FC = () => {
-	const { setOpen, setModal, categories, activeCategory, entries, setActiveCategory, setCategory } =
-		useAppStore()
+	const {
+		setOpen,
+		setModal,
+		categories,
+		activeCategory,
+		entries,
+		setActiveCategory,
+		setCategory,
+		file,
+	} = useAppStore()
 
 	return (
 		<div className='w-full lg:w-1/4'>
@@ -19,6 +27,7 @@ export const Categories: React.FC = () => {
 							<CategoryRow
 								key={category.id}
 								category={category}
+								recycleBinId={file.recycleBinId}
 								isActive={activeCategory.id === category.id}
 								total={
 									category.name === 'All'

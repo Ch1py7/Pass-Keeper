@@ -1,46 +1,22 @@
-import { getKdbxInstance } from '@/services/kdbxSingleton'
-import { useAppStore } from '@/store/AppStore'
+import { Button } from '@/components/common/Button'
 import { cn } from '@/utils/cn'
-import { availableColors, sampleCategory } from '@/utils/constants'
+import { availableColors } from '@/utils/constants'
 import { Icon } from '@iconify/react'
-import { useEffect, useState } from 'react'
-import { Button } from '../common/Button'
+import type React from 'react'
 
-export const NewCategory: React.FC = () => {
-	const kdbx = getKdbxInstance()
-	const [newCategory, setNewCategory] = useState<Group>(sampleCategory)
-	const { setOpen, setCategories, category, setFile, setEntries, setActiveCategory } = useAppStore()
+interface CategoryFormProps {
+	newCategory: Group
+	onHandleChange: (key: string, value: string) => void
+	onSubmit: () => void
+	onCancel: () => void
+}
 
-	const handleCategory = async () => {
-		const updatedFile = category
-			? await kdbx.updateCategory(newCategory)
-			: await kdbx.addCategory(newCategory)
-		setFile(updatedFile!)
-		const categories = kdbx.listCategories()
-		const entries = kdbx.listEntries()
-		setCategories(categories)
-		setEntries(entries)
-		setOpen(false)
-
-		if (category) {
-			setActiveCategory(newCategory)
-		}
-	}
-
-	const onHandleChange = (key: string, value: string) => {
-		if (key === 'params') {
-			setNewCategory((p) => ({ ...p, params: { color: value } }))
-		} else {
-			setNewCategory((p) => ({ ...p, [key]: value }))
-		}
-	}
-
-	useEffect(() => {
-		if (category) {
-			setNewCategory(category)
-		}
-	}, [category])
-
+export const CategoryForm: React.FC<CategoryFormProps> = ({
+	newCategory,
+	onHandleChange,
+	onSubmit,
+	onCancel,
+}) => {
 	return (
 		<div className='sm:max-w-[500px] w-full border-0 shadow-2xl bg-white rounded-xl p-8'>
 			<div>
@@ -103,17 +79,12 @@ export const NewCategory: React.FC = () => {
 					<span className='sr-only'>Edit</span>
 				</button>
 				<div className='flex gap-2'>
-					<Button
-						content='Cancel'
-						style='secondary'
-						shadows={false}
-						onClick={() => setOpen(false)}
-					/>
+					<Button content='Cancel' style='secondary' shadows={false} onClick={onCancel} />
 					<Button
 						content={newCategory.id ? 'Save Category' : 'Add Category'}
 						style='primary'
 						shadows={false}
-						onClick={handleCategory}
+						onClick={onSubmit}
 					/>
 				</div>
 			</div>

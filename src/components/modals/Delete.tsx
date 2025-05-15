@@ -1,47 +1,45 @@
+import { errorsHandle } from '@/errors/errors'
+import { toasty } from '@/notifications/toast'
 import { getKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'
 import { cn } from '@/utils/cn'
 import { sampleCategory } from '@/utils/constants'
+import { assignKdbxData } from '@/utils/kdbxHelpers'
+import * as kdbxweb from 'kdbxweb'
 import { useEffect } from 'react'
 import { Button } from '../common/Button'
 
 export const Delete: React.FC = () => {
 	const kdbx = getKdbxInstance()
-	const {
-		entry,
-		setEntry,
-		setEntries,
-		setFile,
-		category,
-		setCategory,
-		activeCategory,
-		setActiveCategory,
-		setCategories,
-	} = useAppStore()
+	const { entry, setEntry, category, setCategory, activeCategory, setActiveCategory } =
+		useAppStore()
 	const { setOpen } = useAppStore()
 
 	const isPermanent = entry?.groupName === 'Recycle Bin' || category
 
 	const handleDelete = async () => {
-		if (entry) {
-			const updatedFile = isPermanent
-				? await kdbx.deleteEntryPermanently(entry)
-				: await kdbx.deleteEntry(entry)
-			const entries = kdbx.listEntries()
-			setEntries(entries)
-			setOpen(false)
-			setFile(updatedFile!)
-		}
-		if (category) {
-			const updatedFile = await kdbx.deleteCategory(category)
-			const categories = kdbx.listCategories()
-			const entries = kdbx.listEntries()
-			setCategories(categories)
-			setEntries(entries)
-			setOpen(false)
-			setFile(updatedFile!)
-			if (activeCategory.id === category.id) {
-				setActiveCategory(sampleCategory)
+		try {
+			if (entry) {
+				isPermanent ? await kdbx.deleteEntryPermanently(entry) : await kdbx.deleteEntry(entry)
+				assignKdbxData(kdbx)
+				setOpen(false)
+			}
+			if (category) {
+				await kdbx.deleteCategory(category)
+				assignKdbxData(kdbx)
+				setOpen(false)
+				if (activeCategory.id === category.id) {
+					setActiveCategory(sampleCategory)
+				}
+			}
+		} catch (err) {
+			if (err instanceof DOMException) {
+				errorsHandle(err.name)
+			} else if (err instanceof kdbxweb.KdbxError) {
+				errorsHandle(err.code)
+			} else {
+				console.error(err)
+				toasty.error('An unknown error occurred')
 			}
 		}
 	}

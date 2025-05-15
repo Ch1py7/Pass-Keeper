@@ -1,17 +1,28 @@
 import { availableColors } from './constants'
 
-export const getStrengthColor = (passwordStrength: number) => {
-	if (passwordStrength <= 25) return `bg-red-500 ${passwordStrength > 0 ? 'w-25' : 'w-0'}`
-	if (passwordStrength <= 50) return 'bg-orange-500 w-50'
-	if (passwordStrength <= 75) return 'bg-yellow-500 w-75'
-	return 'bg-green-500 w-100'
-}
-
-export const getStrengthText = (passwordStrength: number) => {
-	if (passwordStrength <= 25) return 'Weak'
-	if (passwordStrength <= 50) return 'Fair'
-	if (passwordStrength <= 75) return 'Good'
-	return 'Strong'
+export const getPasswordStrengthInfo = (passwordStrength: number) => {
+	if (passwordStrength <= 25) {
+		return {
+			color: `bg-red-500 ${passwordStrength > 0 ? 'w-25' : 'w-0'}`,
+			label: 'Weak',
+		}
+	}
+	if (passwordStrength <= 50) {
+		return {
+			color: 'bg-orange-500 w-50',
+			label: 'Fair',
+		}
+	}
+	if (passwordStrength <= 75) {
+		return {
+			color: 'bg-yellow-500 w-75',
+			label: 'Good',
+		}
+	}
+	return {
+		color: 'bg-green-500 w-100',
+		label: 'Strong',
+	}
 }
 
 export const formatDateFromMilliseconds = (milliseconds: number) => {
@@ -26,13 +37,8 @@ export const formatDateFromMilliseconds = (milliseconds: number) => {
 	return `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`
 }
 
-export const readFileAsArrayBuffer = (file: File): Promise<ArrayBuffer> => {
-	return new Promise((resolve, reject) => {
-		const reader = new FileReader()
-		reader.onload = () => resolve(reader.result as ArrayBuffer)
-		reader.onerror = reject
-		reader.readAsArrayBuffer(file)
-	})
+export const typedArrayToBuffer = (array: Uint8Array): ArrayBuffer => {
+	return array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset) as ArrayBuffer
 }
 
 export const totalEntries = (groups: Group[]) => {
@@ -44,3 +50,7 @@ export const totalEntries = (groups: Group[]) => {
 export const getAvailableColor = (name: string) => {
 	return availableColors[name] ?? { name: '', bg: 'from-slate-500 to-slate-600' }
 }
+
+export const containUpperCase = new RegExp(/[A-Z]/)
+export const containNumbers = new RegExp(/[0-9]/)
+export const containSpecialChars = new RegExp(/[^A-Za-z0-9]/)

@@ -15,7 +15,14 @@ export const sampleCategory: Group = {
 	id: '',
 	name: '',
 	params: { color: '' },
-	entries: []
+	entries: [],
+}
+
+export const sampleFile: CFile = {
+	name: '',
+	isUnlocked: false,
+	recycleBinId: '',
+	masterKey: '',
 }
 
 export const availableColors: Record<string, { name: string; bg: string }> = {
