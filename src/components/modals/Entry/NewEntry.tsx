@@ -3,7 +3,7 @@ import { toasty } from '@/notifications/toast'
 import { getKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'
 import { sampleEntry } from '@/utils/constants'
-import { assignKdbxData } from '@/utils/kdbxHelpers'
+import { assignKdbxData, resolveGroupId } from '@/utils/kdbxHelpers'
 import * as kdbxweb from 'kdbxweb'
 import { useEffect, useState } from 'react'
 import { EntryForm } from './EntryForm'
@@ -15,7 +15,7 @@ export const NewEntry: React.FC = () => {
 	const isDefault = ['All', file.recycleBinId].includes(activeCategory.id)
 	const [newEntry, setNewEntry] = useState<Entry>({
 		...sampleEntry,
-		groupId: isDefault ? noDefault[0].id : activeCategory.id,
+		groupId: resolveGroupId(noDefault, isDefault, activeCategory.id),
 	})
 
 	const onHandleChange = (key: string, value: string) => {
@@ -24,7 +24,6 @@ export const NewEntry: React.FC = () => {
 
 	const handleEntry = async () => {
 		try {
-			console.log(newEntry)
 			entry ? await kdbx.updateEntry(newEntry) : await kdbx.addEntry(newEntry)
 			assignKdbxData(kdbx)
 			setOpen(false)
