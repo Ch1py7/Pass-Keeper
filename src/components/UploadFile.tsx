@@ -30,6 +30,7 @@ const handleFileUpload = async (setFile: (value: CFile | ((prev: CFile) => CFile
 
 export const UploadFile: React.FC = () => {
 	const [newFile, setNewFile] = useState(false)
+	const [enter, setEnter] = useState(true)
 	const { file, setFile } = useAppStore()
 	const passwordStrength = usePasswordStrength(file.masterKey)
 
@@ -37,8 +38,12 @@ export const UploadFile: React.FC = () => {
 
 	const createNewFile = async (masterKey: string) => {
 		const kdbx = new Kdbx('')
-		await kdbx.createDatabase(masterKey)
+		await kdbx.createDatabase(masterKey, enter)
 		toasty.success('File created successfully')
+
+		if (enter) {
+			unlockExistingFile({ ...file, masterKey })
+		}
 		resetToWelcomeScreen()
 	}
 
@@ -49,7 +54,7 @@ export const UploadFile: React.FC = () => {
 		setKdbxInstance(kdbx)
 		assignKdbxData(kdbx)
 		setFile((p) => ({ ...p, recycleBinId: kdbx.getRecycleBinId(), isUnlocked: true }))
-		toasty.success('Correct master key')
+		file.name && toasty.success('Correct master key')
 	}
 
 	const handleUnlockFile = async () => {
@@ -90,14 +95,15 @@ export const UploadFile: React.FC = () => {
 					<MasterKey
 						fileName={file.name}
 						masterKey={file.masterKey}
+						enter={enter}
+						setEnter={setEnter}
 						onMasterKeyChange={(val) => setFile((p) => ({ ...p, masterKey: val }))}
 						onSubmit={handleUnlockFile}
 						onBack={resetToWelcomeScreen}
 						passwordStrength={passwordStrength}
 						label={label}
 						color={color}
-						showChecklist={!file.name}
-						disabled={file.name ? file.masterKey.length <= 0 : passwordStrength < 100}
+						showNewFileDetails={!file.name}
 					/>
 				) : (
 					<div className='border-0 shadow-xl'>

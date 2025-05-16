@@ -44,7 +44,7 @@ export const Button: React.FC<ButtonProps> = ({
 			onClick={onClick}
 			disabled={disabled}
 			className={cn(
-				'flex justify-center items-center rounded-md px-4 py-2 transition-all duration-200 gap-2 cursor-pointer',
+				'flex justify-center items-center rounded-md px-4 py-2 transition-colors duration-200 gap-2 cursor-pointer',
 				style === 'primary' && primaryStyles(disabled),
 				style === 'secondary' && secondaryStyles,
 				style === 'tertiary' && tertiaryStyles,

@@ -6,7 +6,7 @@ import * as kdbxweb from 'kdbxweb'
 
 let globalPath: string
 
-export const createFile = async (binaryData: ArrayBuffer): Promise<void> => {
+export const createFile = async (binaryData: ArrayBuffer, enter: boolean) => {
 	const filePath = await save({
 		title: 'Database',
 		defaultPath: 'Database.kdbx',
@@ -16,6 +16,10 @@ export const createFile = async (binaryData: ArrayBuffer): Promise<void> => {
 	if (!filePath) throw new DOMException('', 'AbortError')
 
 	await writeFile(filePath, new Uint8Array(binaryData))
+
+	if (enter) {
+		globalPath = filePath
+	}
 }
 
 export const getFile = async () => {

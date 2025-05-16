@@ -16,7 +16,7 @@ export class Kdbx {
 		this._validateRecycleBin()
 	}
 
-	public async createDatabase(password: string) {
+	public async createDatabase(password: string, enter: boolean) {
 		const credentials = new kdbxweb.Credentials(kdbxweb.ProtectedValue.fromString(password))
 
 		const db = kdbxweb.Kdbx.create(credentials, 'New Database')
@@ -37,7 +37,7 @@ export class Kdbx {
 
 		const binaryData = await db.save()
 
-		await createFile(binaryData)
+		await createFile(binaryData, enter)
 	}
 
 	public async addCategory({ name, params }: Group) {

@@ -1,33 +1,36 @@
 import { Icon } from '@iconify/react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '../common/Button'
 import { MasterKeyChecklist } from './MasterKeyChecklist'
 
 interface MasterKeyProps {
 	fileName: string
 	masterKey: string
+	enter: boolean
+	setEnter: React.Dispatch<React.SetStateAction<boolean>>
 	onMasterKeyChange: (value: string) => void
 	onSubmit: () => void
 	onBack: () => void
 	passwordStrength: number
 	label: string
 	color: string
-	showChecklist: boolean
-	disabled: boolean
+	showNewFileDetails: boolean
 }
 
 export const MasterKey: React.FC<MasterKeyProps> = ({
 	fileName,
 	masterKey,
+	enter,
+	setEnter,
 	onMasterKeyChange,
 	onSubmit,
 	onBack,
 	passwordStrength = 0,
 	label = '',
 	color = '',
-	showChecklist = false,
-	disabled,
+	showNewFileDetails = false,
 }) => {
+	const [showKey, setShowKey] = useState(false)
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	useEffect(() => {
@@ -57,7 +60,7 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 							/>
 							<input
 								id='master-key'
-								type='password'
+								type={showKey ? '' : 'password'}
 								placeholder={fileName ? 'Enter your master key' : 'Create a strong master key'}
 								ref={inputRef}
 								className='pl-10 h-10 rounded-lg w-full border-1 border-solid border-slate-300 shadow-md focus:ring-2 focus:border-transparent'
@@ -65,9 +68,16 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 								onChange={(e) => onMasterKeyChange(e.target.value)}
 								onKeyDown={handleEnterPress}
 							/>
+							<button
+								type='button'
+								className='absolute right-6 top-1 h-4 w-4 mt-1 cursor-pointer'
+								onClick={() => setShowKey((p) => !p)}
+							>
+								<Icon icon={showKey ? 'mdi-light:eye' : 'mdi-light:eye-off'} className='h-6 w-6' />
+							</button>
 						</div>
 
-						{showChecklist && (
+						{showNewFileDetails && (
 							<MasterKeyChecklist
 								masterKey={masterKey}
 								passwordStrength={passwordStrength}
@@ -87,6 +97,13 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 						</div>
 					</div>
 
+					{showNewFileDetails && (
+						<label className='text-md text-slate-500 flex gap-1'>
+							<input checked={enter} onChange={() => setEnter((p) => !p)} type='checkbox' />
+							Enter automatically
+						</label>
+					)}
+
 					<div className='flex gap-3 pt-2'>
 						<Button fullWidth content='Back' style='secondary' onClick={onBack} />
 						<Button
@@ -94,7 +111,6 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 							content={fileName ? 'Unlock' : 'Create'}
 							style='primary'
 							onClick={onSubmit}
-							disabled={disabled}
 						/>
 					</div>
 				</div>
