@@ -10,6 +10,8 @@
     "dialog:default",
     "fs:write-files",
     "fs:read-files",
-    "fs:scope"
+    "fs:scope",
+    "sql:default",
+    "sql:allow-execute"
   ]
 }
