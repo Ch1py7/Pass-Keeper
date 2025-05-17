@@ -46,5 +46,5 @@ export const sampleSqlData: SqlData = {
 	user: '',
 	pass: '',
 	dbname: '',
-	dbtype: 'postgres'
+	dbtype: 'postgres',
 }
