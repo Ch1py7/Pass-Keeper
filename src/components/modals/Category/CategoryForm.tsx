@@ -85,6 +85,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
 						style='primary'
 						shadows={false}
 						onClick={onSubmit}
+						styles='text-white'
 					/>
 				</div>
 			</div>

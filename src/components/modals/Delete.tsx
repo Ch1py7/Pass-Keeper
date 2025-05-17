@@ -1,4 +1,4 @@
-import { errorsHandle } from '@/errors/errors'
+import { kdbxErrorsHandle } from '@/errors/errors'
 import { toasty } from '@/notifications/toast'
 import { getKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'
@@ -33,8 +33,8 @@ export const Delete: React.FC = () => {
 				}
 			}
 		} catch (err) {
-			if (err instanceof DOMException) errorsHandle(err.name)
-			else if (err instanceof kdbxweb.KdbxError) errorsHandle(err.code)
+			if (err instanceof DOMException) kdbxErrorsHandle(err.name)
+			else if (err instanceof kdbxweb.KdbxError) kdbxErrorsHandle(err.code)
 			else {
 				console.error(err)
 				toasty.error('An unknown error occurred')
@@ -75,7 +75,13 @@ export const Delete: React.FC = () => {
 			</div>
 			<div className='flex justify-end gap-2 mt-3'>
 				<Button content='Cancel' style='secondary' shadows={false} onClick={() => setOpen(false)} />
-				<Button content='Delete' style='deleteStyles' shadows={false} onClick={handleDelete} />
+				<Button
+					content='Delete'
+					style='deleteStyles'
+					shadows={false}
+					onClick={handleDelete}
+					styles='text-white'
+				/>
 			</div>
 		</div>
 	)

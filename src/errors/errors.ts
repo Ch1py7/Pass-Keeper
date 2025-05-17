@@ -1,6 +1,6 @@
 import { toasty } from '@/notifications/toast'
 
-export const errorsHandle = (code: string) => {
+export const kdbxErrorsHandle = (code: string) => {
 	switch (code) {
 		case ErrorCode.AbortError:
 			toasty.info('Operation canceled')
@@ -56,4 +56,18 @@ export enum ErrorCode {
 	MergeError = 'MergeError',
 	NotImplemented = 'NotImplemented',
 	Unsupported = 'Unsupported',
+}
+
+export const dbErrorsHandle = (error: string, user: string) => {
+	if (error.includes('No such host is known')) {
+		toasty.warn('Host not found')
+	} else if (error.includes('password authentication failed')) {
+		toasty.warn(`Authentication failed for user "${user}"`)
+	} else if (error.includes('No connection could be made')) {
+		toasty.warn('Active machine refused to make a connection')
+	} else if (error.includes('unexpected or invalid data')) {
+		toasty.warn('Unexpected or invalid data')
+	} else {
+		toasty.warn(error)
+	}
 }

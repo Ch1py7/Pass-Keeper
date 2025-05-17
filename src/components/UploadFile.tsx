@@ -1,4 +1,4 @@
-import { errorsHandle } from '@/errors/errors'
+import { kdbxErrorsHandle } from '@/errors/errors'
 import { usePasswordStrength } from '@/hooks/usePasswordStrength'
 import { toasty } from '@/notifications/toast'
 import { getFile, selectFile } from '@/services/fs'
@@ -19,8 +19,8 @@ const handleFileUpload = async (setFile: (value: CFile | ((prev: CFile) => CFile
 		const name = await selectFile()
 		setFile((p) => ({ ...p, name }))
 	} catch (err) {
-		if (err instanceof DOMException) errorsHandle(err.message)
-		else if (err instanceof kdbxweb.KdbxError) errorsHandle(err.code)
+		if (err instanceof DOMException) kdbxErrorsHandle(err.message)
+		else if (err instanceof kdbxweb.KdbxError) kdbxErrorsHandle(err.code)
 		else {
 			console.error(err)
 			toasty.error('An unknown error occurred')
@@ -65,8 +65,8 @@ export const UploadFile: React.FC = () => {
 				await createNewFile(file.masterKey)
 			}
 		} catch (err) {
-			if (err instanceof DOMException) errorsHandle(err.name)
-			else if (err instanceof kdbxweb.KdbxError) errorsHandle(err.code)
+			if (err instanceof DOMException) kdbxErrorsHandle(err.name)
+			else if (err instanceof kdbxweb.KdbxError) kdbxErrorsHandle(err.code)
 			else {
 				console.error(err)
 				toasty.error('An unknown error occurred')
@@ -133,6 +133,7 @@ export const UploadFile: React.FC = () => {
 										style='primary'
 										iconLeft='lucide:file-plus'
 										fullWidth
+										styles='text-white justify-center'
 									/>
 								</div>
 							</div>

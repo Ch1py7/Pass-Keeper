@@ -2,7 +2,7 @@ interface Params {
 	color: string
 }
 
-type Modals = 'category' | 'entry' | 'delete'
+type Modals = 'category' | 'entry' | 'delete' | 'sync'
 
 interface CFile {
 	name: string

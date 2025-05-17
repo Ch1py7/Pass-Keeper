@@ -33,7 +33,7 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 							setModal('entry')
 						}}
 						style='primary'
-						styles='mx-auto'
+						styles='mx-auto text-white'
 					/>
 				</div>
 			) : (
