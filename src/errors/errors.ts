@@ -8,8 +8,14 @@ export const kdbxErrorsHandle = (code: string) => {
 		case ErrorCode.BadSignature:
 			toasty.error('Bad Signature')
 			break
+		case ErrorCode.DatabaseNotLoaded:
+			toasty.error('Database not loaded')
+			break
 		case ErrorCode.EntryNotFound:
 			toasty.warn('Entry Not Found')
+			break
+		case ErrorCode.EntryHasNoParent:
+			toasty.warn('Entry Has No Parent')
 			break
 		case ErrorCode.FileCorrupt:
 			toasty.error('Corrupted File')
@@ -46,7 +52,9 @@ export const kdbxErrorsHandle = (code: string) => {
 export enum ErrorCode {
 	AbortError = 'AbortError',
 	BadSignature = 'BadSignature',
+	DatabaseNotLoaded = 'DatabaseNotLoaded',
 	EntryNotFound = 'EntryNotFound',
+	EntryHasNoParent = 'EntryHasNoParent',
 	FileCorrupt = 'FileCorrupt',
 	GroupNotFound = 'GroupNotFound',
 	InvalidArg = 'InvalidArg',

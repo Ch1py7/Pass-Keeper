@@ -1,9 +1,58 @@
+import { dbErrorsHandle, kdbxErrorsHandle } from '@/errors/errors'
+import { toasty } from '@/notifications/toast'
 import { getDbInstance } from '@/services/dbSingleton'
+import { getKdbxInstance, setKdbxInstance } from '@/services/kdbxSingleton'
+import { useAppStore } from '@/store/AppStore'
+import { assignKdbxData } from '@/utils/kdbxHelpers'
 import { Icon } from '@iconify/react'
+import * as kdbxweb from 'kdbxweb'
+import { useState } from 'react'
 import { Button } from '../../common/Button'
 
 export const SyncFunc = () => {
+	const [loading, setLoading] = useState(false)
 	const db = getDbInstance()
+	const kdbx = getKdbxInstance()
+	const { setFile } = useAppStore()
+
+	const syncToDb = async () => {
+		try {
+			setLoading(true)
+			const binary = await kdbx.getBinary()
+			await db.syncToDb(binary)
+			toasty.success('Successful synchronization')
+		} catch (err) {
+			if (err instanceof kdbxweb.KdbxError) kdbxErrorsHandle(err.code)
+			else if (typeof err === 'string') dbErrorsHandle(err, '')
+			else {
+				console.error(err)
+				toasty.error('An unknown error occurred')
+			}
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	const syncToLocal = async () => {
+		try {
+			setLoading(true)
+			const base64 = await db.syncToLocal()
+			await kdbx.loadBase64(base64)
+			setKdbxInstance(kdbx)
+			assignKdbxData(kdbx)
+			setFile((p) => ({ ...p, recycleBinId: kdbx.getRecycleBinId() }))
+			toasty.success('Successful synchronization')
+		} catch (err) {
+			if (err instanceof kdbxweb.KdbxError) kdbxErrorsHandle(err.code)
+			else if (typeof err === 'string') dbErrorsHandle(err, '')
+			else {
+				console.error(err)
+				toasty.error('An unknown error occurred')
+			}
+		} finally {
+			setLoading(false)
+		}
+	}
 
 	return (
 		<>
@@ -26,7 +75,8 @@ export const SyncFunc = () => {
 					styles='text-white justify-center'
 					iconLeft='prime:cloud-upload'
 					iconLeftStyles='w-7 h-7'
-					disabled={!db}
+					disabled={!db || loading}
+					onClick={syncToDb}
 				/>
 				<Button
 					fullWidth
@@ -35,7 +85,8 @@ export const SyncFunc = () => {
 					iconLeft='prime:cloud-download'
 					iconLeftStyles='w-7 h-7'
 					styles='bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 disabled:from-blue-300 disabled:to-cyan-200 hover:to-cyan-700 justify-center text-white'
-					disabled={!db}
+					disabled={!db || loading}
+					onClick={syncToLocal}
 				/>
 			</div>
 		</>
