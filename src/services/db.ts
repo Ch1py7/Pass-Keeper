@@ -39,9 +39,9 @@ export class Db {
 
 	public async syncToDb(binaryData: ArrayBuffer) {
 		await this._createTable()
-		const [{ binaryFile }] = await this._selectFile()
+		const [{ file }] = await this._selectFile()
 		const base64 = arrayBufferToBase64(binaryData)
-		if (binaryFile) {
+		if (file) {
 			this._updateFile(base64)
 		} else {
 			this._createFile(base64)
@@ -49,39 +49,51 @@ export class Db {
 	}
 
 	public async syncToLocal() {
-		const [{ binaryFile }] = await this._selectFile()
+		const [{ file }] = await this._selectFile()
 
-		if (!binaryFile) throw String('Non-existent file')
+		if (!file) throw String('Non-existent file')
 
-		return binaryFile
+		return file
 	}
 
 	private async _createTable() {
-		const sql = 'CREATE TABLE IF NOT EXISTS `PassKeeper` (binaryFile TEXT NOT NULL)'
+		const sql =
+			this.credentials.dbtype === 'mysql'
+				? 'CREATE TABLE IF NOT EXISTS `PassKeeper` (file TEXT NOT NULL)'
+				: 'CREATE TABLE IF NOT EXISTS PassKeeper (file TEXT NOT NULL)'
 
 		const db = this._requireDb()
 		await db.execute(sql)
 	}
 
 	private async _selectFile() {
-		const sql = 'SELECT binaryFile from `PassKeeper`'
+		const sql =
+			this.credentials.dbtype === 'mysql'
+				? 'SELECT file from `PassKeeper`'
+				: 'SELECT file from PassKeeper'
 
 		const db = this._requireDb()
-		const selection = (await db.select(sql)) as { binaryFile: string }[]
-		return selection.length === 0 ? [{ binaryFile: '' }] : selection
+		const selection = (await db.select(sql)) as { file: string }[]
+		return selection.length === 0 ? [{ file: '' }] : selection
 	}
 
-	private async _createFile(binaryFile: string) {
-		const sql = 'INSERT into `PassKeeper` (binaryFile) VALUES (?)'
+	private async _createFile(file: string) {
+		const sql =
+			this.credentials.dbtype === 'mysql'
+				? 'INSERT into `PassKeeper` (file) VALUES (?)'
+				: 'INSERT into PassKeeper (file) VALUES ($1)'
 
 		const db = this._requireDb()
-		await db.execute(sql, [binaryFile])
+		await db.execute(sql, [file])
 	}
 
-	private async _updateFile(binaryFile: string) {
-		const sql = 'UPDATE `PassKeeper` SET binaryFile = ?'
+	private async _updateFile(file: string) {
+		const sql =
+			this.credentials.dbtype === 'mysql'
+				? 'UPDATE `PassKeeper` SET file = ?'
+				: 'UPDATE PassKeeper SET file = $1'
 
 		const db = this._requireDb()
-		await db.execute(sql, [binaryFile])
+		await db.execute(sql, [file])
 	}
 }
