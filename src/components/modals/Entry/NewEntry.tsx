@@ -1,4 +1,4 @@
-import { errorsHandle } from '@/errors/errors'
+import { kdbxErrorsHandle } from '@/errors/errors'
 import { toasty } from '@/notifications/toast'
 import { getKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'
@@ -28,8 +28,8 @@ export const NewEntry: React.FC = () => {
 			assignKdbxData(kdbx)
 			setOpen(false)
 		} catch (err) {
-			if (err instanceof DOMException) errorsHandle(err.name)
-			else if (err instanceof kdbxweb.KdbxError) errorsHandle(err.code)
+			if (err instanceof DOMException) kdbxErrorsHandle(err.name)
+			else if (err instanceof kdbxweb.KdbxError) kdbxErrorsHandle(err.code)
 			else {
 				console.error(err)
 				toasty.error('An unknown error occurred')

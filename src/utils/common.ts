@@ -54,3 +54,12 @@ export const getAvailableColor = (name: string) => {
 export const containUpperCase = new RegExp(/[A-Z]/)
 export const containNumbers = new RegExp(/[0-9]/)
 export const containSpecialChars = new RegExp(/[^A-Za-z0-9]/)
+
+export const arrayBufferToBase64 = (buffer: ArrayBuffer) => {
+	const bytes = new Uint8Array(buffer)
+	let binary = ''
+	for (let i = 0; i < bytes.byteLength; i++) {
+		binary += String.fromCharCode(bytes[i])
+	}
+	return btoa(binary)
+}

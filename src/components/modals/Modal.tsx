@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react'
 import { NewCategory } from './Category/NewCategory'
 import { Delete } from './Delete'
 import { NewEntry } from './Entry/NewEntry'
+import { Sync } from './Sync/Sync'
 
 export const Modal: React.FC = () => {
 	const containerRef = useRef<HTMLDivElement>(null)
@@ -38,6 +39,7 @@ export const Modal: React.FC = () => {
 			{modal === 'entry' && <NewEntry />}
 			{modal === 'category' && <NewCategory />}
 			{modal === 'delete' && <Delete />}
+			{modal === 'sync' && <Sync />}
 		</div>
 	)
 }

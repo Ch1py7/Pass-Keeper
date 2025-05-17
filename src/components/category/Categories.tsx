@@ -54,7 +54,6 @@ export const Categories: React.FC = () => {
 							iconLeft='tabler:plus'
 							iconLeftStyles='w-5 h-5'
 							fullWidth
-							styles='text-left flex justify-start'
 							onClick={() => {
 								setOpen(true)
 								setModal('category')

@@ -26,4 +26,3 @@ dist-ssr
 # tauri
 src-tauri/target/
 src-tauri/gen/schemas
-pnpm-lock.yaml

@@ -105,12 +105,19 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 					)}
 
 					<div className='flex gap-3 pt-2'>
-						<Button fullWidth content='Back' style='secondary' onClick={onBack} />
+						<Button
+							fullWidth
+							content='Back'
+							style='secondary'
+							onClick={onBack}
+							styles='justify-center'
+						/>
 						<Button
 							fullWidth
 							content={fileName ? 'Unlock' : 'Create'}
 							style='primary'
 							onClick={onSubmit}
+							styles='text-white justify-center'
 						/>
 					</div>
 				</div>

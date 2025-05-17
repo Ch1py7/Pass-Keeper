@@ -29,7 +29,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					<label className='flex flex-col font-medium text-slate-700'>
 						Title
 						<input
-							className='font-normal flex-1 bg-slate-50 border-1 border-solid border-slate-200 rounded-md py-1 px-3'
+							className='font-normal flex-1  border-1 border-solid border-slate-200 rounded-md py-1 px-3'
 							onChange={(e) => onHandleChange('title', e.target.value)}
 							value={newEntry.title}
 						/>
@@ -39,7 +39,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					<label className='flex flex-col font-medium text-slate-700'>
 						URL
 						<input
-							className='font-normal flex-1 bg-slate-50 border-1 border-solid border-slate-200 rounded-md py-1 px-3'
+							className='font-normal flex-1  border-1 border-solid border-slate-200 rounded-md py-1 px-3'
 							onChange={(e) => onHandleChange('url', e.target.value)}
 							value={newEntry.url}
 						/>
@@ -49,7 +49,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					<label className='flex flex-col font-medium text-slate-700'>
 						Username
 						<input
-							className='font-normal flex-1 bg-slate-50 border-1 border-solid border-slate-200 rounded-md py-1 px-3'
+							className='font-normal flex-1  border-1 border-solid border-slate-200 rounded-md py-1 px-3'
 							onChange={(e) => onHandleChange('username', e.target.value)}
 							value={newEntry.username}
 						/>
@@ -60,7 +60,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 						Password
 						<input
 							type='password'
-							className='font-normal flex-1 bg-slate-50 border-1 border-solid border-slate-200 rounded-md py-1 px-3'
+							className='font-normal flex-1  border-1 border-solid border-slate-200 rounded-md py-1 px-3'
 							onChange={(e) => onHandleChange('password', e.target.value)}
 							value={newEntry.password}
 						/>
@@ -72,7 +72,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 						<select
 							className={cn(
 								'font-normal flex-1 border-1 border-solid border-slate-200 rounded-md py-1 px-3',
-								entry?.id ? 'bg-gray-200' : 'bg-slate-50'
+								entry?.id && 'bg-gray-200'
 							)}
 							value={newEntry.groupId}
 							onChange={(e) => onHandleChange('groupId', e.target.value)}
@@ -102,7 +102,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					<label className='flex flex-col font-medium text-slate-700'>
 						Notes
 						<textarea
-							className='font-normal flex-1 bg-slate-50 border-1 border-solid border-slate-200 rounded-md py-1 px-3'
+							className='font-normal flex-1  border-1 border-solid border-slate-200 rounded-md py-1 px-3'
 							onChange={(e) => onHandleChange('notes', e.target.value)}
 							value={newEntry.notes}
 						/>
@@ -110,8 +110,22 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 				</div>
 			</div>
 			<div className='flex space-x-4'>
-				<Button fullWidth content='Cancel' style='secondary' shadows={false} onClick={onCancel} />
-				<Button fullWidth content='Save Entry' style='primary' shadows={false} onClick={onSubmit} />
+				<Button
+					fullWidth
+					content='Cancel'
+					style='secondary'
+					shadows={false}
+					onClick={onCancel}
+					styles='justify-center'
+				/>
+				<Button
+					fullWidth
+					content='Save Entry'
+					style='primary'
+					shadows={false}
+					onClick={onSubmit}
+					styles='text-white justify-center'
+				/>
 			</div>
 		</div>
 	)

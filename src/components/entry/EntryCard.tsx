@@ -25,11 +25,11 @@ export const EntryCard: React.FC<PasswordCardProps> = ({ entry, category, onEdit
 					<div className='flex items-center gap-3'>
 						<div
 							className={cn(
-								'w-10 h-10 rounded-full bg-gradient-to-r flex items-center justify-center text-white',
+								'w-10 h-10 rounded-full bg-gradient-to-r flex items-center justify-center',
 								getAvailableColor(color).bg
 							)}
 						>
-							<Icon icon={icon} className='h-5 w-5' />
+							<Icon icon={icon} className='h-5 w-5 text-white' />
 						</div>
 						<div>
 							<h3 className='font-bold text-lg'>{entry.title}</h3>

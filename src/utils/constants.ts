@@ -39,3 +39,12 @@ export const availableColors: Record<string, { name: string; bg: string }> = {
 	Lime: { name: 'Lime', bg: 'from-lime-500 to-green-500' },
 	Cyan: { name: 'Cyan', bg: 'from-cyan-500 to-blue-500' },
 }
+
+export const sampleSqlData: SqlData = {
+	host: '',
+	port: '',
+	user: '',
+	pass: '',
+	dbname: '',
+	dbtype: 'postgres',
+}

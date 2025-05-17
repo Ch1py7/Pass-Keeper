@@ -20,15 +20,30 @@ export const Header: React.FC = () => {
 					</div>
 				</div>
 			</div>
-			<Button
-				iconLeft='simple-line-icons:plus'
-				content='Add Password'
-				onClick={() => {
-					setOpen(true)
-					setModal('entry')
-				}}
-				style='primary'
-			/>
+			<div className='flex gap-2'>
+				<Button
+					iconLeft='prime:cloud'
+					iconLeftStyles='w-6 h-6'
+					content='Sync'
+					shadows={false}
+					styles='border-1 border-slate-300 text-black'
+					onClick={() => {
+						setOpen(true)
+						setModal('sync')
+					}}
+					style='tertiary'
+				/>
+				<Button
+					iconLeft='simple-line-icons:plus'
+					content='Add Password'
+					onClick={() => {
+						setOpen(true)
+						setModal('entry')
+					}}
+					style='primary'
+					styles='text-white'
+				/>
+			</div>
 		</header>
 	)
 }

@@ -16,6 +16,14 @@ export class Kdbx {
 		this._validateRecycleBin()
 	}
 
+	public async loadBase64(base64: string) {
+		const binaryData = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0)).buffer
+		this._db = await kdbxweb.Kdbx.load(binaryData, this._credentials)
+		this._db.setKdf(kdbxweb.Consts.KdfId.Aes)
+		this._validateRecycleBin()
+		this._persist()
+	}
+
 	public async createDatabase(password: string, enter: boolean) {
 		const credentials = new kdbxweb.Credentials(kdbxweb.ProtectedValue.fromString(password))
 
@@ -92,7 +100,7 @@ export class Kdbx {
 	public async deleteEntryPermanently(data: Entry) {
 		const entry = this._getEntryById(data.groupId, data.id)
 		const parentGroup = entry.parentGroup
-		if (!parentGroup) throw new Error('Entry has no parent group')
+		if (!parentGroup) throw new kdbxweb.KdbxError(ErrorCode.EntryHasNoParent)
 		parentGroup.entries = parentGroup.entries.filter((e) => e.uuid.id !== data.id)
 		return this._persist()
 	}
@@ -105,6 +113,12 @@ export class Kdbx {
 
 	public getRecycleBinId() {
 		return this._validateRecycleBin().id
+	}
+
+	public async getBinary() {
+		const db = this._requireDb()
+		const binary = await db.save()
+		return binary
 	}
 
 	private _validateRecycleBin() {
@@ -120,11 +134,11 @@ export class Kdbx {
 	private async _persist() {
 		const db = this._requireDb()
 		const data = await db.save()
-		return updateFile(data)
+		updateFile(data)
 	}
 
 	private _requireDb() {
-		if (!this._db) throw new Error('Database not loaded')
+		if (!this._db) throw new kdbxweb.KdbxError(ErrorCode.DatabaseNotLoaded)
 		return this._db
 	}
 
@@ -139,7 +153,7 @@ export class Kdbx {
 	private _getEntryById(groupId: string, entryId: string) {
 		const group = this._getGroupById(groupId)
 		const entry = Array.from(group.allEntries()).find((e) => e.uuid.id === entryId)
-		if (!entry) throw new Error('Entry not found')
+		if (!entry) throw new kdbxweb.KdbxError(ErrorCode.EntryNotFound)
 
 		return entry
 	}
