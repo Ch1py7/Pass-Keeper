@@ -34,7 +34,7 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 	}
 
 	return (
-		<div className='overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-200 rounded-md max-w-72'>
+		<div className='overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-200 rounded-md max-w-72 select-none'>
 			<div className={cn('h-1 bg-gradient-to-r', getAvailableColor(color).bg)} />
 			<div className='p-3'>
 				<div className='flex items-start justify-between mb-4'>

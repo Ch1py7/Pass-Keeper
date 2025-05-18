@@ -1,3 +1,4 @@
+import { toasty } from '@/notifications/toast'
 import { getCategory } from '@/utils/categories'
 import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
@@ -5,7 +6,6 @@ import { Icon } from '@iconify/react'
 import { writeText } from '@tauri-apps/plugin-clipboard-manager'
 import { useState } from 'react'
 import { ActionButton } from '../common/ActionButtons'
-import { toasty } from '@/notifications/toast'
 
 interface EntryCardProps {
 	entry: Entry
