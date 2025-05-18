@@ -36,7 +36,7 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 				<button
 					type='button'
 					className={cn(
-						'w-full text-left px-4 py-3 rounded-lg transition-colors duration-200 flex items-center gap-2 cursor-pointer me-2',
+						'w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 cursor-pointer',
 						isActive && 'bg-gradient-to-r font-medium',
 						isActive && activeBackground(color),
 						!isActive && 'hover:bg-slate-100'
@@ -52,7 +52,7 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 						{total}
 					</span>
 				</button>
-				<div className='flex gap-1'>
+				<div className='flex gap-1 ms-1 min-w-14'>
 					{(!isDefaultCategory || recycleBinId === category.id) && (
 						<ActionButton onClick={onEdit} icon='lucide:edit' />
 					)}

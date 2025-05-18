@@ -7,7 +7,7 @@ import { EntryList } from './entry/EntryList'
 export const UnlockedFile = () => {
 	const [searchQuery, setSearchQuery] = useState('')
 	return (
-		<div className='px-10 py-8 space-y-6'>
+		<div className='px-10 py-8 space-y-6 max-w-7xl mx-auto'>
 			<Header />
 			<div className='mb-8'>
 				<div className='relative max-w-xl mx-auto flex items-center'>
