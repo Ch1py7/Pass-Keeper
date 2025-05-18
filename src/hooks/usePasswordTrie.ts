@@ -22,7 +22,10 @@ export const usePasswordTrie = (searchQuery: string) => {
 	const results = useMemo(() => {
 		const matches = searchQuery ? trie.search(searchQuery) : groups.flatMap((g) => g.entries)
 		return activeCategory.id === 'All'
-			? matches.filter((e) => e.id !== recycleBinId)
+			? matches.filter((e) => {
+					const group = groups.find((g) => g.entries.includes(e))
+					return group?.id !== recycleBinId
+				})
 			: matches.filter((e) => {
 					const group = groups.find((g) => g.entries.includes(e))
 					return group?.id === activeCategory.id

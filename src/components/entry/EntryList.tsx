@@ -1,14 +1,18 @@
 import { usePasswordTrie } from '@/hooks/usePasswordTrie'
 import { useAppStore } from '@/store/AppStore'
+import { cn } from '@/utils/cn'
 import { Icon } from '@iconify/react'
+import { useState } from 'react'
 import { Button } from '../common/Button'
+import { CompactEntryCard } from './CompactEntryCard'
 import { EntryCard } from './EntryCard'
 
 interface PasswordsProps {
 	searchQuery: string
+	isCompact: boolean
 }
 
-export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
+export const EntryList: React.FC<PasswordsProps> = ({ searchQuery, isCompact }) => {
 	const { setOpen, setModal, setEntry, categories, activeCategory } = useAppStore()
 	const results = usePasswordTrie(searchQuery)
 
@@ -26,7 +30,7 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 							: 'Add a new password to get started'}
 					</p>
 					<Button
-						iconLeft='simple-line-icons:plus'
+						iconLeft='lucide:circle-plus'
 						content='Add Password'
 						onClick={() => {
 							setOpen(true)
@@ -37,26 +41,46 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 					/>
 				</div>
 			) : (
-				<div className='grid gap-6 md:grid-cols-2'>
-					{results.map((entry, index) => (
-						<EntryCard
-							key={index}
-							entry={entry}
-							category={
-								categories.find((category) => category.id === entry.groupId) ?? ({} as Group)
-							}
-							onEdit={() => {
-								setEntry(entry)
-								setModal('entry')
-								setOpen(true)
-							}}
-							onDelete={() => {
-								setEntry(entry)
-								setModal('delete')
-								setOpen(true)
-							}}
-						/>
-					))}
+				<div className={cn(isCompact ? 'grid gap-6 md:grid-cols-3' : 'grid gap-6 md:grid-cols-2')}>
+					{results.map((entry, index) => {
+						return isCompact ? (
+							<CompactEntryCard
+								key={index}
+								entry={entry}
+								category={
+									categories.find((category) => category.id === entry.groupId) ?? ({} as Group)
+								}
+								onEdit={() => {
+									setEntry(entry)
+									setModal('entry')
+									setOpen(true)
+								}}
+								onDelete={() => {
+									setEntry(entry)
+									setModal('delete')
+									setOpen(true)
+								}}
+							/>
+						) : (
+							<EntryCard
+								key={index}
+								entry={entry}
+								category={
+									categories.find((category) => category.id === entry.groupId) ?? ({} as Group)
+								}
+								onEdit={() => {
+									setEntry(entry)
+									setModal('entry')
+									setOpen(true)
+								}}
+								onDelete={() => {
+									setEntry(entry)
+									setModal('delete')
+									setOpen(true)
+								}}
+							/>
+						)
+					})}
 				</div>
 			)}
 		</div>

@@ -6,9 +6,11 @@ import { EntryList } from './entry/EntryList'
 
 export const UnlockedFile = () => {
 	const [searchQuery, setSearchQuery] = useState('')
+	const [isCompact, setIsCompact] = useState(true)
+
 	return (
 		<div className='px-10 py-8 space-y-6 max-w-7xl mx-auto'>
-			<Header />
+			<Header isCompact={isCompact} setIsCompact={setIsCompact} />
 			<div className='mb-8'>
 				<div className='relative max-w-xl mx-auto flex items-center'>
 					<Icon
@@ -26,7 +28,7 @@ export const UnlockedFile = () => {
 			</div>
 			<div className='flex flex-col lg:flex-row gap-8'>
 				<Categories />
-				<EntryList searchQuery={searchQuery} />
+				<EntryList searchQuery={searchQuery} isCompact={isCompact} />
 			</div>
 		</div>
 	)
