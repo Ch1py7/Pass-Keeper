@@ -9,7 +9,7 @@ import * as kdbxweb from 'kdbxweb'
 import { useEffect } from 'react'
 import { Button } from '../common/Button'
 
-export const Delete: React.FC = () => {
+export const Delete = () => {
 	const kdbx = getKdbxInstance()
 	const { entry, setEntry, category, setCategory, activeCategory, setActiveCategory } =
 		useAppStore()

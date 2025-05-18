@@ -8,7 +8,7 @@ import * as kdbxweb from 'kdbxweb'
 import { useEffect, useState } from 'react'
 import { EntryForm } from './EntryForm'
 
-export const NewEntry: React.FC = () => {
+export const NewEntry = () => {
 	const kdbx = getKdbxInstance()
 	const { setOpen, entry, activeCategory, noDefaultCategories, file } = useAppStore()
 	const noDefault = noDefaultCategories()

@@ -28,7 +28,7 @@ const handleFileUpload = async (setFile: (value: CFile | ((prev: CFile) => CFile
 	}
 }
 
-export const UploadFile: React.FC = () => {
+export const UploadFile = () => {
 	const [newFile, setNewFile] = useState(false)
 	const [enter, setEnter] = useState(true)
 	const { file, setFile } = useAppStore()

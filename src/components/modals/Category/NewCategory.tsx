@@ -8,7 +8,7 @@ import * as kdbxweb from 'kdbxweb'
 import { useEffect, useState } from 'react'
 import { CategoryForm } from './CategoryForm'
 
-export const NewCategory: React.FC = () => {
+export const NewCategory = () => {
 	const kdbx = getKdbxInstance()
 	const [newCategory, setNewCategory] = useState<Group>(sampleCategory)
 	const { setOpen, category, setActiveCategory } = useAppStore()

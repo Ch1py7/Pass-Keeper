@@ -5,7 +5,7 @@ import { Delete } from './Delete'
 import { NewEntry } from './Entry/NewEntry'
 import { Sync } from './Sync/Sync'
 
-export const Modal: React.FC = () => {
+export const Modal = () => {
 	const containerRef = useRef<HTMLDivElement>(null)
 	const { open, setOpen, modal, setCategory, setEntry } = useAppStore()
 

@@ -3,7 +3,7 @@ import { totalEntries } from '@/utils/common'
 import { Button } from '../common/Button'
 import { CategoryRow } from './CategoryRow'
 
-export const Categories: React.FC = () => {
+export const Categories = () => {
 	const {
 		setOpen,
 		setModal,

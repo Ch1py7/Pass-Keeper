@@ -4,7 +4,7 @@ import { UnlockedFile } from './components/UnlockedFile'
 import { UploadFile } from './components/UploadFile'
 import { useAppStore } from './store/AppStore'
 
-export const App: React.FC = () => {
+export const App = () => {
 	const { file } = useAppStore()
 
 	return (
