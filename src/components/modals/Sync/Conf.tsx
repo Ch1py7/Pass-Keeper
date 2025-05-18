@@ -49,8 +49,8 @@ export const Conf: React.FC<ConfProps> = ({ isConnection, setIsConnection }) => 
 		<div className='mt-4 space-y-4'>
 			<div className='space-y-4'>
 				<div>
-					<p className='inline-flex items-center font-medium'>
-						<Icon icon='solar:database-linear' />
+					<p className='inline-flex items-center font-medium gap-1'>
+						<Icon icon='lucide:database' />
 						Database Type
 					</p>
 					<div className='flex gap-4'>
@@ -102,7 +102,7 @@ export const Conf: React.FC<ConfProps> = ({ isConnection, setIsConnection }) => 
 						>
 							{loading ? (
 								<>
-									<Icon icon='codex:loader' className='h-6 w-6 mr-2 animate-spin' />
+									<Icon icon='lucide:loader-circle' className='h-6 w-6 mr-2 animate-spin' />
 									Testing...
 								</>
 							) : !loading && Boolean(db) ? (

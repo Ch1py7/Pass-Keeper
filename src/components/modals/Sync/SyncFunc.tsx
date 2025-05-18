@@ -73,7 +73,7 @@ export const SyncFunc = () => {
 					shadows={false}
 					style='primary'
 					styles='text-white justify-center'
-					iconLeft='prime:cloud-upload'
+					iconLeft='lucide:cloud-upload'
 					iconLeftStyles='w-7 h-7'
 					disabled={!db || loading}
 					onClick={syncToDb}
@@ -82,7 +82,7 @@ export const SyncFunc = () => {
 					fullWidth
 					content='Sync Database to Local'
 					shadows={false}
-					iconLeft='prime:cloud-download'
+					iconLeft='lucide:cloud-download'
 					iconLeftStyles='w-7 h-7'
 					styles='bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 disabled:from-blue-300 disabled:to-cyan-200 hover:to-cyan-700 justify-center text-white'
 					disabled={!db || loading}

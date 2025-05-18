@@ -13,7 +13,7 @@ export const SqlForm: React.FC<SqlFormProps> = ({ sqlData, setSqlData, db, loadi
 			<div className='flex space-x-4'>
 				<div className='flex flex-col space-y-2'>
 					<label htmlFor='db-host' className='flex items-center gap-2 font-medium'>
-						<Icon icon='clarity:host-line' className='h-4 w-4' />
+						<Icon icon='lucide:container' className='h-4 w-4' />
 						Host
 					</label>
 					<input
@@ -42,7 +42,7 @@ export const SqlForm: React.FC<SqlFormProps> = ({ sqlData, setSqlData, db, loadi
 			<div className='flex space-x-4'>
 				<div className='flex flex-col space-y-2'>
 					<label htmlFor='db-name' className='flex items-center gap-2 font-medium'>
-						<Icon icon='solar:database-linear' className='h-4 w-4' />
+						<Icon icon='lucide:database' className='h-4 w-4' />
 						Database Name
 					</label>
 					<input
@@ -57,7 +57,7 @@ export const SqlForm: React.FC<SqlFormProps> = ({ sqlData, setSqlData, db, loadi
 
 				<div className='flex flex-col space-y-2'>
 					<label htmlFor='db-username' className='flex items-center gap-2 font-medium'>
-						<Icon icon='solar:database-linear' className='h-4 w-4' />
+						<Icon icon='lucide:user' className='h-4 w-4' />
 						Username
 					</label>
 					<input
@@ -73,7 +73,7 @@ export const SqlForm: React.FC<SqlFormProps> = ({ sqlData, setSqlData, db, loadi
 
 			<div className='flex flex-col space-y-2'>
 				<label htmlFor='db-password' className='flex items-center gap-2 font-medium'>
-					<Icon icon='ri:key-2-line' className='h-4 w-4' />
+					<Icon icon='lucide:key-round' className='h-4 w-4' />
 					Password
 				</label>
 				<input

@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
 import { useEffect, useRef, useState } from 'react'
+import { ActionButton } from '../common/ActionButtons'
 import { Button } from '../common/Button'
 import { MasterKeyChecklist } from './MasterKeyChecklist'
 
@@ -63,18 +64,16 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 								type={showKey ? '' : 'password'}
 								placeholder={fileName ? 'Enter your master key' : 'Create a strong master key'}
 								ref={inputRef}
-								className='pl-10 h-10 rounded-lg w-full border-1 border-solid border-slate-300 shadow-md focus:ring-2 focus:border-transparent'
+								className='px-10 h-10 rounded-lg w-full border-1 border-solid border-slate-300 shadow-md focus:ring-2 focus:border-transparent'
 								value={masterKey}
 								onChange={(e) => onMasterKeyChange(e.target.value)}
 								onKeyDown={handleEnterPress}
 							/>
-							<button
-								type='button'
-								className='absolute right-6 top-1 h-4 w-4 mt-1 cursor-pointer'
+							<ActionButton
+								styles='absolute right-3 top-1'
 								onClick={() => setShowKey((p) => !p)}
-							>
-								<Icon icon={showKey ? 'mdi-light:eye' : 'mdi-light:eye-off'} className='h-6 w-6' />
-							</button>
+								icon={showKey ? 'lucide:eye' : 'lucide:eye-off'}
+							/>
 						</div>
 
 						{showNewFileDetails && (

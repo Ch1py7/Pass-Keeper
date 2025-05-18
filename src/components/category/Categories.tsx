@@ -51,7 +51,7 @@ export const Categories: React.FC = () => {
 							shadows={false}
 							style='tertiary'
 							content='Add Category'
-							iconLeft='tabler:plus'
+							iconLeft='lucide:plus'
 							iconLeftStyles='w-5 h-5'
 							fullWidth
 							onClick={() => {

@@ -42,37 +42,37 @@ const categoryColors: Record<string, { bg: string; text: string; icon: string }>
 		bg: availableColors.Pink.bg,
 		// bg: 'from-pink-500 to-rose-600',
 		text: 'text-white',
-		icon: 'ri:user-line',
+		icon: 'lucide:user',
 	},
 	shopping: {
 		bg: availableColors.Orange.bg,
 		// bg: 'from-amber-500 to-orange-600',
 		text: 'text-white',
-		icon: 'ant-design:shopping-outlined',
+		icon: 'lucide:shopping-cart',
 	},
 	banking: {
 		bg: availableColors.Green.bg,
 		// bg: 'from-emerald-500 to-green-600',
 		text: 'text-white',
-		icon: 'mdi:bank',
+		icon: 'lucide:shopping-cart',
 	},
 	work: {
 		bg: availableColors.Teal.bg,
 		// bg: 'from-sky-500 to-blue-600',
 		text: 'text-white',
-		icon: 'material-symbols:work',
+		icon: 'lucide:briefcase-business',
 	},
 	'Recycle Bin': {
 		bg: availableColors.Blue.bg,
 		// bg: 'from-sky-500 to-blue-600',
 		text: 'text-white',
-		icon: 'tabler:trash',
+		icon: 'lucide:trash',
 	},
 	common: {
 		bg: availableColors.Red.bg,
 		// bg: 'from-red-500 to-red-600',
 		text: 'text-white',
-		icon: 'bi:tree',
+		icon: 'lucide:tree-pine',
 	},
 }
 
@@ -81,7 +81,7 @@ export const getCategory = (key: string) => {
 	return (
 		categoryColors[normalized] ?? {
 			bg: '',
-			icon: 'mdi:tag-outline',
+			icon: 'lucide:tag',
 			text: '',
 		}
 	)

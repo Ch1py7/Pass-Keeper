@@ -11,7 +11,7 @@ export const Toast: React.FC = () => {
 			icon={({ type }) => {
 				switch (type) {
 					case 'info':
-						return <Icon icon='material-symbols:info-outline' className='text-indigo-500 h-5 w-5' />
+						return <Icon icon='lucide:info' className='text-indigo-500 h-5 w-5' />
 					case 'error':
 						return <Icon icon='lucide:circle-alert' className='text-red-500 h-5 w-5' />
 					case 'success':

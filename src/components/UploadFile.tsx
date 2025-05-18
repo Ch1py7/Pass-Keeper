@@ -84,7 +84,7 @@ export const UploadFile: React.FC = () => {
 			<div className='max-w-md w-full'>
 				<div className='text-center mb-8'>
 					<div className='bg-gradient-to-r from-purple-600 to-pink-600 p-4 rounded-2xl shadow-lg inline-block mb-4'>
-						<Icon icon='mynaui:lock' className='text-white h-8 w-8' />
+						<Icon icon='lucide:lock' className='text-white h-8 w-8' />
 					</div>
 					<h1 className='text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 mb-2'>
 						Vault Keeper
