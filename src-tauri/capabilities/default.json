@@ -12,6 +12,8 @@
     "fs:read-files",
     "fs:scope",
     "sql:default",
-    "sql:allow-execute"
+    "sql:allow-execute",
+    "clipboard-manager:default",
+    "clipboard-manager:allow-write-text"
   ]
 }
