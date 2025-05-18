@@ -2,8 +2,10 @@ import { getCategory } from '@/utils/categories'
 import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
 import { Icon } from '@iconify/react'
+import { writeText } from '@tauri-apps/plugin-clipboard-manager'
 import { useState } from 'react'
 import { ActionButton } from '../common/ActionButtons'
+import { toasty } from '@/notifications/toast'
 
 interface EntryCardProps {
 	entry: Entry
@@ -16,6 +18,15 @@ export const EntryCard: React.FC<EntryCardProps> = ({ entry, category, onEdit, o
 	const [showEntry, setShowEntry] = useState(false)
 	const { color } = category.params
 	const { icon } = getCategory(entry.groupName)
+
+	const clipboard = async () => {
+		try {
+			await writeText(entry.password)
+			toasty.success('Copy to clipboard!')
+		} catch (err) {
+			console.log(err)
+		}
+	}
 
 	return (
 		<div className='overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-200'>
@@ -32,7 +43,7 @@ export const EntryCard: React.FC<EntryCardProps> = ({ entry, category, onEdit, o
 							<Icon icon={icon} className='h-5 w-5 text-white' />
 						</div>
 						<div className='w-full'>
-							<h3 className='font-bold text-lg inline-block max-w-64 truncate'>{entry.title}</h3>
+							<h3 className='font-bold text-lg inline-block max-w-55 truncate'>{entry.title}</h3>
 							<div
 								className={cn(
 									'px-3 rounded-full bg-gradient-to-r text-white border-0 w-fit max-w-32 truncate',
@@ -44,6 +55,10 @@ export const EntryCard: React.FC<EntryCardProps> = ({ entry, category, onEdit, o
 						</div>
 					</div>
 					<div className='flex gap-1'>
+						<ActionButton
+							onClick={() => setShowEntry((p) => !p)}
+							icon={showEntry ? 'lucide:eye' : 'lucide:eye-off'}
+						/>
 						<ActionButton onClick={onEdit} icon={'lucide:edit'} />
 						<ActionButton onClick={onDelete} icon={'lucide:trash'} />
 					</div>
@@ -58,23 +73,31 @@ export const EntryCard: React.FC<EntryCardProps> = ({ entry, category, onEdit, o
 						</div>
 					</div>
 
-					<div className='flex items-center gap-2 py-1 px-3 bg-slate-100 rounded-lg relative'>
+					<button
+						type='button'
+						className='flex items-center gap-2 py-2 px-9 bg-slate-100 hover:bg-slate-200 transition-color duration-100 rounded-lg relative w-full cursor-pointer'
+						onClick={clipboard}
+					>
 						<Icon
 							icon='lucide:key-round'
 							className='h-4 w-4 text-slate-400 absolute top-1/3 left-3'
 						/>
-						<div className='w-full px-6'>
+						<div
+							className={cn(
+								'absolute right-2 -top-2 px-3 rounded-full text-xs bg-gradient-to-r text-white border-0 w-fit max-w-20 truncate',
+								getAvailableColor(color).bg
+							)}
+						>
+							{entry.groupName}
+						</div>
+						<div className='flex flex-col items-start max-w-full'>
 							<p className='text-xs text-slate-500'>Password</p>
-							<p className='font-medium inline-block max-w-full truncate'>
+							<p className='font-medium max-w-full truncate'>
 								{showEntry ? entry.password : '••••••••'}
 							</p>
 						</div>
-						<ActionButton
-							styles='absolute top-3 right-3'
-							onClick={() => setShowEntry((p) => !p)}
-							icon={showEntry ? 'lucide:eye' : 'lucide:eye-off'}
-						/>
-					</div>
+						<Icon className='absolute right-3 h-4 w-4' icon={'lucide:copy'} />
+					</button>
 
 					{entry.url && (
 						<div className='flex items-center gap-2 py-1 px-3 bg-slate-100 rounded-lg relative'>

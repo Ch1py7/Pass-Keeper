@@ -43,16 +43,13 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 					)}
 					onClick={onSelect}
 				>
-					<Icon
-						icon={category.name === 'All' ? 'lucide:shield' : icon}
-						className='h-5 w-5'
-					/>
+					<Icon icon={category.name === 'All' ? 'lucide:shield' : icon} className='h-5 w-5' />
 					{category.name}
 					<span className='ml-auto bg-slate-200 text-slate-600 text-xs rounded-full px-2 py-1'>
 						{total}
 					</span>
 				</button>
-				<div className='flex gap-1 ms-1 min-w-14'>
+				<div className='flex gap-1 ms-1 min-w-16'>
 					{(!isDefaultCategory || recycleBinId === category.id) && (
 						<ActionButton onClick={onEdit} icon={'lucide:edit'} />
 					)}
