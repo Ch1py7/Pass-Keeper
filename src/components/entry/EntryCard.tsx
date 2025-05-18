@@ -3,7 +3,7 @@ import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
-import { ActionButtons } from '../common/ActionButtons'
+import { ActionButton } from '../common/ActionButtons'
 
 interface PasswordCardProps {
 	entry: Entry
@@ -43,7 +43,10 @@ export const EntryCard: React.FC<PasswordCardProps> = ({ entry, category, onEdit
 							</div>
 						</div>
 					</div>
-					<ActionButtons onClickEdit={onEdit} onClickDelete={onDelete} />
+					<div className='flex gap-1'>
+						<ActionButton onClick={onEdit} icon={'lucide:edit'} />
+						<ActionButton onClick={onDelete} icon={'gg:trash'} />
+					</div>
 				</div>
 
 				<div className='space-y-4 mt-4'>

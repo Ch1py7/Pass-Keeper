@@ -12,7 +12,7 @@ export const Categories: React.FC = () => {
 		entries,
 		setActiveCategory,
 		setCategory,
-		file,
+		file: { recycleBinId },
 	} = useAppStore()
 
 	return (
@@ -27,11 +27,11 @@ export const Categories: React.FC = () => {
 							<CategoryRow
 								key={category.id}
 								category={category}
-								recycleBinId={file.recycleBinId}
+								recycleBinId={recycleBinId}
 								isActive={activeCategory.id === category.id}
 								total={
 									category.name === 'All'
-										? totalEntries(entries.groups)
+										? totalEntries(entries.groups.filter((e) => e.id !== recycleBinId))
 										: totalEntries(entries.groups.filter((p) => p.id === category.id))
 								}
 								onSelect={() => setActiveCategory(category)}

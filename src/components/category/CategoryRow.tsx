@@ -2,7 +2,7 @@ import { getCategory } from '@/utils/categories'
 import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
 import { Icon } from '@iconify/react'
-import { ActionButtons } from '../common/ActionButtons'
+import { ActionButton } from '../common/ActionButtons'
 
 interface CategoryRowProps {
 	recycleBinId: string
@@ -36,7 +36,7 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 				<button
 					type='button'
 					className={cn(
-						'w-full text-left px-4 py-3 rounded-lg transition-colors duration-200 flex items-center gap-2 cursor-pointer',
+						'w-full text-left px-4 py-3 rounded-lg transition-colors duration-200 flex items-center gap-2 cursor-pointer me-2',
 						isActive && 'bg-gradient-to-r font-medium',
 						isActive && activeBackground(color),
 						!isActive && 'hover:bg-slate-100'
@@ -52,7 +52,12 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 						{total}
 					</span>
 				</button>
-				{!isDefaultCategory && <ActionButtons onClickEdit={onEdit} onClickDelete={onDelete} />}
+				<div className='flex gap-1'>
+					{(!isDefaultCategory || recycleBinId === category.id) && (
+						<ActionButton onClick={onEdit} icon='lucide:edit' />
+					)}
+					{!isDefaultCategory && <ActionButton onClick={onDelete} icon='gg:trash' />}
+				</div>
 			</div>
 		</div>
 	)
