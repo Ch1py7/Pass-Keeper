@@ -14,7 +14,7 @@ export const UnlockedFile = () => {
 	return (
 		<div className='max-w-7xl mx-auto flex flex-col items-center'>
 			<Header isCompact={isCompact} setIsCompact={setIsCompact} />
-			<div className='relative w-full max-w-lg flex items-center'>
+			<div className='relative w-full max-w-lg flex items-center pt-6'>
 				<Icon
 					icon='radix-icons:magnifying-glass'
 					className='absolute left-3 h-5 w-5 text-slate-400 mt-1'
