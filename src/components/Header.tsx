@@ -12,7 +12,7 @@ export const Header: React.FC<HeaderProps> = ({ isCompact, setIsCompact }) => {
 	const { setOpen, setModal, file } = useAppStore()
 
 	return (
-		<header className='flex flex-col md:flex-row items-center justify-between mb-8 gap-4'>
+		<header className='flex flex-col md:flex-row w-full items-center justify-between gap-4 select-none pt-8 px-10'>
 			<div className='flex items-center gap-3'>
 				<div className='bg-gradient-to-r from-purple-600 to-pink-600 p-3 rounded-xl shadow-lg'>
 					<Icon icon='lucide:lock' className='text-white h-8 w-8' />

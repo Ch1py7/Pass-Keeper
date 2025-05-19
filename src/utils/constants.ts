@@ -48,3 +48,7 @@ export const sampleSqlData: SqlData = {
 	dbname: '',
 	dbtype: 'postgres',
 }
+
+export const LEFT_MOUSE_BTN = 0
+export const MID_MOUSE_BTN = 1
+export const RIGHT_MOUSE_BTN = 2

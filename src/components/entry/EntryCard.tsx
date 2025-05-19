@@ -24,12 +24,12 @@ export const EntryCard: React.FC<EntryCardProps> = ({ entry, category, onEdit, o
 			await writeText(entry.password)
 			toasty.success('Copy to clipboard!')
 		} catch (err) {
-			console.log(err)
+			console.error(err)
 		}
 	}
 
 	return (
-		<div className='overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-200'>
+		<div className='overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-200 rounded-md w-full h-fit'>
 			<div className={cn('h-2 bg-gradient-to-r', getAvailableColor(color).bg)} />
 			<div className='p-6'>
 				<div className='flex items-start justify-between mb-4'>
@@ -67,7 +67,7 @@ export const EntryCard: React.FC<EntryCardProps> = ({ entry, category, onEdit, o
 				<div className='space-y-2 mt-4'>
 					<div className='flex items-center gap-2 py-1 px-3 bg-slate-100 rounded-lg relative'>
 						<Icon icon='lucide:user' className='h-4 w-4 text-slate-400 absolute top-1/3 left-3' />
-						<div className='w-full ps-6'>
+						<div className='flex flex-col items-start justify-center w-full ps-6'>
 							<p className='text-xs text-slate-500'>Username</p>
 							<p className='font-medium inline-block max-w-full truncate'>{entry.username}</p>
 						</div>
@@ -90,7 +90,7 @@ export const EntryCard: React.FC<EntryCardProps> = ({ entry, category, onEdit, o
 						>
 							{entry.groupName}
 						</div>
-						<div className='flex flex-col items-start max-w-full'>
+						<div className='flex flex-col items-start justify-center max-w-full'>
 							<p className='text-xs text-slate-500'>Password</p>
 							<p className='font-medium max-w-full truncate'>
 								{showEntry ? entry.password : '••••••••'}

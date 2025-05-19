@@ -1,11 +1,12 @@
+import { toasty } from '@/notifications/toast'
 import { getCategory } from '@/utils/categories'
 import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
+import { LEFT_MOUSE_BTN } from '@/utils/constants'
 import { Icon } from '@iconify/react'
 import { writeText } from '@tauri-apps/plugin-clipboard-manager'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { ActionButton } from '../common/ActionButtons'
-import { toasty } from '@/notifications/toast'
 
 interface CompactEntryCardProps {
 	entry: Entry
@@ -29,12 +30,21 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 			await writeText(entry.password)
 			toasty.success('Copy to clipboard!')
 		} catch (err) {
-			console.log(err)
+			console.error(err)
 		}
 	}
 
+	const onMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+		if (e.button === LEFT_MOUSE_BTN) {
+			// console.log('ola')
+		}
+	}, [])
+
 	return (
-		<div className='overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-200 rounded-md max-w-72 select-none'>
+		<div
+			className='overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-200 rounded-md w-full h-fit'
+			onMouseDown={onMouseDown}
+		>
 			<div className={cn('h-1 bg-gradient-to-r', getAvailableColor(color).bg)} />
 			<div className='p-3'>
 				<div className='flex items-start justify-between mb-4'>
