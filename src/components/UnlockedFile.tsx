@@ -19,7 +19,6 @@ export const UnlockedFile = () => {
 					className='absolute left-3 h-5 w-5 text-slate-400 mt-1'
 				/>
 				<input
-					type='search'
 					placeholder='Search passwords...'
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
