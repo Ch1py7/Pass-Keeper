@@ -15,10 +15,17 @@ export class PasswordTrie {
 		}
 	}
 
+	private insertAllSubstrings(text: string, entry: Entry) {
+		const lower = text.toLowerCase()
+		for (let i = 0; i < lower.length; i++) {
+			this.insertWord(lower.slice(i), entry)
+		}
+	}
+
 	public insert(entry: Entry) {
-		this.insertWord(entry.title, entry)
-		this.insertWord(entry.username, entry)
-		this.insertWord(entry.url, entry)
+		this.insertAllSubstrings(entry.title, entry)
+		this.insertAllSubstrings(entry.username, entry)
+		this.insertAllSubstrings(entry.url, entry)
 	}
 
 	public search(prefix: string): Entry[] {

@@ -8,7 +8,7 @@ import { SelectionBox } from './SelectionBox'
 
 export const UnlockedFile = () => {
 	const [searchQuery, setSearchQuery] = useState('')
-	const { canvasContainerRef, clearSelection, selectedItems } = useFileStore()
+	const { canvasContainerRef } = useFileStore()
 
 	return (
 		<div className='max-w-7xl mx-auto flex flex-col items-center'>
