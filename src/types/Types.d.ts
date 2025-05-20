@@ -1,5 +1,6 @@
 interface Params {
-	color: string
+	color: ColorName
+	icon: string
 }
 
 type Modals = 'category' | 'entry' | 'delete' | 'sync'
@@ -55,4 +56,23 @@ interface SqlData {
 	pass: string
 	dbname: string
 	dbtype: 'postgres' | 'mysql'
+}
+
+type ColorName =
+	| 'purple'
+	| 'pink'
+	| 'orange'
+	| 'green'
+	| 'blue'
+	| 'gray'
+	| 'red'
+	| 'teal'
+	| 'violet'
+	| 'yellow'
+	| 'lime'
+	| 'cyan'
+
+interface ColorStyle {
+	bg: string
+	selectedColor: string
 }

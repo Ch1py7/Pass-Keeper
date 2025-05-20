@@ -4,7 +4,6 @@ import { getKdbxInstance } from '@/services/kdbxSingleton'
 import { useFileStore } from '@/store/FileStore'
 import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
-import { getDefaultCategory } from '@/utils/constants'
 import { assignKdbxData } from '@/utils/kdbxHelpers'
 import { Icon } from '@iconify/react'
 import * as kdbxweb from 'kdbxweb'
@@ -22,7 +21,7 @@ interface CategoryRowProps {
 	onDelete: () => void
 }
 
-const activeBackground = (color: string) =>
+const activeBackground = (color: ColorName) =>
 	color ? getAvailableColor(color).bg : 'from-purple-100 to-pink-100 text-purple-700'
 
 export const CategoryRow: React.FC<CategoryRowProps> = ({
@@ -35,12 +34,11 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 	recycleBinId,
 }) => {
 	const isDefaultCategory = [recycleBinId, 'All'].includes(category.id)
-	const { color } = category.params
-	const { icon } = getDefaultCategory(category.name)
+	const { color, icon } = category.params
 	const { selectedItems, setSelectedItems } = useFileStore()
 	const [isHovered, setIsHovered] = useState(false)
 	const kdbx = getKdbxInstance()
-	const { selectedColor } = getAvailableColor(category.params.color)
+	const { selectedColor } = getAvailableColor(color)
 
 	const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
 		if (category.id === 'All') return

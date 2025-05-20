@@ -2,7 +2,7 @@ import { toasty } from '@/notifications/toast'
 import { useFileStore } from '@/store/FileStore'
 import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
-import { getDefaultCategory, LEFT_MOUSE_BTN } from '@/utils/constants'
+import { LEFT_MOUSE_BTN } from '@/utils/constants'
 import { Icon } from '@iconify/react'
 import { writeText } from '@tauri-apps/plugin-clipboard-manager'
 import { useRef, useState } from 'react'
@@ -23,8 +23,7 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 	onDelete,
 }) => {
 	const [showEntry, setShowEntry] = useState(false)
-	const { color: paramColor } = category.params
-	const { icon } = getDefaultCategory(entry.groupName)
+	const { color, icon } = category.params
 	const {
 		selectedItems,
 		clearSelection,
@@ -34,9 +33,9 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 		setIsDragging,
 	} = useFileStore()
 	const isSelected = selectedItems.find((item) => item.id === entry.id)
-	const { bg, selectedColor } = getAvailableColor(paramColor)
 	const isDragging = isSomethingDragging && selectedItems.some(({ id }) => id === entry.id)
 	const draggedItemRef = useRef<HTMLDivElement>(null)
+	const { selectedColor, bg } = getAvailableColor(color)
 
 	const handleShowPassword = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.stopPropagation()

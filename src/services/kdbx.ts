@@ -32,12 +32,14 @@ export class Kdbx {
 
 		const commonGroup = db.createGroup(db.getDefaultGroup(), 'Common')
 		const commonCustomData = {
-			color: 'Red',
+			color: 'red',
+			icon: 'lucide:tree-pine',
 		}
 
 		const recycleBin = db.getGroup(db.meta.recycleBinUuid!)
 		const recycleBinCustomData = {
-			color: 'Cyan',
+			color: 'cyan',
+			icon: 'lucide:trash',
 		}
 
 		commonGroup.notes = JSON.stringify(commonCustomData)

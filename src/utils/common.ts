@@ -1,4 +1,4 @@
-import { availableColors } from './constants'
+import { availableColors, categoryAliases, defaultCategories } from './constants'
 
 export const getPasswordStrengthInfo = (passwordStrength: number) => {
 	if (passwordStrength <= 25) {
@@ -47,7 +47,7 @@ export const totalEntries = (groups: Group[]) => {
 	}, 0)
 }
 
-export const getAvailableColor = (name: string) => {
+export const getAvailableColor = (name: ColorName) => {
 	return (
 		availableColors[name] ?? {
 			name: '',
@@ -68,4 +68,9 @@ export const arrayBufferToBase64 = (buffer: ArrayBuffer) => {
 		binary += String.fromCharCode(bytes[i])
 	}
 	return btoa(binary)
+}
+
+export const getDefaultCategory = (category: string) => {
+	const normalized = categoryAliases[category]
+	return defaultCategories[normalized] ?? { icon: '', color: '' }
 }

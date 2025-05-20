@@ -52,3 +52,30 @@ input[type="password"]::-webkit-password-toggle-button {
 ::-webkit-scrollbar-thumb:hover {
 	background: #b0b0b0;
 }
+
+.tooltip {
+		position: relative;
+		display: inline-block;
+}
+
+.tooltip .tooltiptext {
+		visibility: hidden;
+		width: 200px;
+		background-color: #f1f5f9 ;
+		text-align: center;
+		border: 1px solid #cad5e2;
+		border-radius: 5px;
+		padding: 8px;
+		position: absolute;
+		z-index: 1;
+		top: 0%;
+		right: 100%;
+		opacity: 0;
+		transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+		visibility: visible;
+		opacity: 1;
+}
+/* absolute mt-1 z-10 w-42 rounded-md text-xs font-medium max-w-60 text-black border bg-slate-100 border-slate-300 top-5 right-0 px-2 py-2 text-center shadow-md */
