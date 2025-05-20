@@ -69,7 +69,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
 						/>
 						<Icon
 							icon={newCategory.params.icon}
-							className='h-5 w-5 text-slate-400 absolute top-2.5 right-4'
+							className='h-5 w-5 text-slate-400 absolute bottom-2.5 right-4'
 						/>
 					</div>
 				</div>
