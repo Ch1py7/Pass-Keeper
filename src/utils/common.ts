@@ -48,7 +48,13 @@ export const totalEntries = (groups: Group[]) => {
 }
 
 export const getAvailableColor = (name: string) => {
-	return availableColors[name] ?? { name: '', bg: 'from-slate-500 to-slate-600' }
+	return (
+		availableColors[name] ?? {
+			name: '',
+			bg: 'from-slate-500 to-slate-600',
+			selectedColor: 'ring-2 ring-Slate-500 dark:ring-Slate-400 shadow-[0_0_15px_Slate]',
+		}
+	)
 }
 
 export const containUpperCase = new RegExp(/[A-Z]/)

@@ -3,6 +3,7 @@ import { useAppStore } from '@/store/AppStore'
 import { useFileStore } from '@/store/FileStore'
 import { cn } from '@/utils/cn'
 import { LEFT_MOUSE_BTN } from '@/utils/constants'
+import { getEntriesUnderBox } from '@/utils/selectionBox'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 export const SelectionBox = () => {
@@ -14,6 +15,10 @@ export const SelectionBox = () => {
 	const [clickStartPosition, setClickStartPosition] = useState<Point | null>(null)
 	const [clickEndPosition, setClickEndPosition] = useState<Point | null>(null)
 	const [lastMousePosition, setLastMousePosition] = useState<Point | null>(null)
+	const [isCtrlClicked, setIsCtrlClicked] = useState(false)
+	const [selectedItemsOnClick, setSelectedItemsOnClick] = useState<ManageEntry[]>([])
+
+	const { selectedItems, setSelectedItems, clearSelection } = useFileStore()
 
 	const onMouseDown = useCallback(
 		(e: MouseEvent) => {
@@ -30,9 +35,10 @@ export const SelectionBox = () => {
 				x: e.clientX,
 				y: e.clientY - containerBoundingRect.top + containerBoundingRect.y + scrollTop,
 			})
+			setSelectedItemsOnClick([...selectedItems])
 			setLastMousePosition({ x: e.clientX, y: e.clientY })
 		},
-		[open, itemContainerRef, canvasContainerRef]
+		[open, itemContainerRef, canvasContainerRef, selectedItems]
 	)
 	useEvent(document, 'mousedown', onMouseDown)
 
@@ -43,11 +49,16 @@ export const SelectionBox = () => {
 			setShowSelectionArea(false)
 			setLastMousePosition(null)
 
-			if (clickEndPosition === null && !e.ctrlKey) {
+			if (
+				(e.target === itemContainerRef.current || e.target === canvasContainerRef.current) &&
+				clickEndPosition === null &&
+				!e.ctrlKey
+			) {
+				clearSelection()
 				return
 			}
 		},
-		[clickEndPosition]
+		[clickEndPosition, clearSelection, itemContainerRef, canvasContainerRef]
 	)
 	useEvent(document, 'mouseup', onMouseUp)
 
@@ -84,6 +95,14 @@ export const SelectionBox = () => {
 	}, [clickStartPosition, canvasContainerRef, lastMousePosition])
 	useEvent(document, 'scroll', onScroll)
 
+	useEvent(document, 'keydown', (e: KeyboardEvent) => {
+		setIsCtrlClicked(e.ctrlKey)
+	})
+
+	useEvent(document, 'keyup', (e: KeyboardEvent) => {
+		setIsCtrlClicked(e.ctrlKey)
+	})
+
 	useEffect(() => {
 		if (!clickEndPosition || !clickStartPosition) return
 
@@ -99,12 +118,37 @@ export const SelectionBox = () => {
 			squareRef.current.style.width = `${width}px`
 			squareRef.current.style.height = `${height}px`
 		}
-	}, [clickEndPosition, clickStartPosition])
+
+		const entries = getEntriesUnderBox(x, y, width, height, itemContainerRef)
+
+		if (!isCtrlClicked) {
+			setSelectedItems(entries)
+			return
+		}
+
+		let finalSelection = [...selectedItemsOnClick]
+		entries.forEach((item) => {
+			if (finalSelection.some(({ id }) => id === item.id)) {
+				finalSelection = finalSelection.filter((selectedItem) => selectedItem.id !== item.id)
+				return
+			}
+			finalSelection = [...finalSelection, item]
+		})
+
+		setSelectedItems(finalSelection)
+	}, [
+		clickEndPosition,
+		clickStartPosition,
+		isCtrlClicked,
+		itemContainerRef,
+		selectedItemsOnClick,
+		setSelectedItems,
+	])
 	return (
 		<div
 			ref={squareRef}
 			className={cn(
-				'z-50 absolute block border-2 solid bg-blue-300/50 border-blue-200',
+				'z-50 absolute block border-2 solid bg-gradient-to-r from-purple-600/10 to-pink-600/10 border-fuchsia-300',
 				showSelectionArea ? '' : 'hidden'
 			)}
 		/>

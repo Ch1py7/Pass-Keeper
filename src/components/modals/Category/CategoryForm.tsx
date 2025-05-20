@@ -17,8 +17,14 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
 	onSubmit,
 	onCancel,
 }) => {
+	const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') onSubmit()
+	}
 	return (
-		<div className='sm:max-w-[500px] w-full border-0 shadow-2xl bg-white rounded-xl p-8'>
+		<div
+			onKeyDown={handleEnterPress}
+			className='sm:max-w-[500px] w-full border-0 shadow-2xl bg-white rounded-xl p-8'
+		>
 			<div>
 				<h3 className='text-2xl font-bold'>
 					{newCategory.id ? newCategory.name : 'Add New Category'}

@@ -1,18 +1,19 @@
 import { toasty } from '@/notifications/toast'
-import { getCategory } from '@/utils/categories'
+import { useFileStore } from '@/store/FileStore'
 import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
-import { LEFT_MOUSE_BTN } from '@/utils/constants'
+import { getDefaultCategory, LEFT_MOUSE_BTN } from '@/utils/constants'
 import { Icon } from '@iconify/react'
 import { writeText } from '@tauri-apps/plugin-clipboard-manager'
-import { useCallback, useState } from 'react'
+import { useRef, useState } from 'react'
 import { ActionButton } from '../common/ActionButtons'
+import { DraggedItem } from '../DraggedItem'
 
 interface CompactEntryCardProps {
 	entry: Entry
 	category: Group
-	onEdit: () => void
-	onDelete: () => void
+	onEdit: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+	onDelete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
@@ -22,10 +23,28 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 	onDelete,
 }) => {
 	const [showEntry, setShowEntry] = useState(false)
-	const { color } = category.params
-	const { icon } = getCategory(entry.groupName)
+	const { color: paramColor } = category.params
+	const { icon } = getDefaultCategory(entry.groupName)
+	const {
+		selectedItems,
+		clearSelection,
+		removeSelectedItem,
+		addSelectedItem,
+		isDragging: isSomethingDragging,
+		setIsDragging,
+	} = useFileStore()
+	const isSelected = selectedItems.find((item) => item.id === entry.id)
+	const { bg, selectedColor } = getAvailableColor(paramColor)
+	const isDragging = isSomethingDragging && selectedItems.some(({ id }) => id === entry.id)
+	const draggedItemRef = useRef<HTMLDivElement>(null)
 
-	const clipboard = async () => {
+	const handleShowPassword = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		e.stopPropagation()
+		setShowEntry((p) => !p)
+	}
+
+	const clipboard = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		e.stopPropagation()
 		try {
 			await writeText(entry.password)
 			toasty.success('Copy to clipboard!')
@@ -34,25 +53,64 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 		}
 	}
 
-	const onMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-		if (e.button === LEFT_MOUSE_BTN) {
-			// console.log('ola')
+	const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+		e.stopPropagation()
+		if (e.button !== LEFT_MOUSE_BTN) return
+		if (!e.ctrlKey) clearSelection()
+
+		e.ctrlKey && isSelected
+			? removeSelectedItem({ id: entry.id, groupId: entry.groupId })
+			: addSelectedItem({ id: entry.id, groupId: entry.groupId })
+	}
+
+	const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+		e.stopPropagation()
+		e.dataTransfer.effectAllowed = 'move'
+		if (draggedItemRef.current) {
+			e.dataTransfer.setDragImage(draggedItemRef.current, 0, 0)
 		}
-	}, [])
+
+		setIsDragging(true)
+
+		if (isSelected) return
+
+		if (!e.ctrlKey) clearSelection()
+
+		e.ctrlKey && isSelected
+			? removeSelectedItem({ id: entry.id, groupId: entry.groupId })
+			: addSelectedItem({ id: entry.id, groupId: entry.groupId })
+	}
+
+	const onDragEnd = () => {
+		setIsDragging(false)
+	}
 
 	return (
+		// biome-ignore lint/a11y/useKeyWithClickEvents: le pregunte a mis huevos y dijeron que ta bien
 		<div
-			className='overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-200 rounded-md w-full h-fit'
-			onMouseDown={onMouseDown}
+			className={cn(
+				'overflow-hidden border-0 shadow-md transition-all duration-200 rounded-xl',
+				!isSelected && 'hover:shadow-lg',
+				isSelected && !isDragging && selectedColor,
+				isSelected && !isDragging && '-translate-y-1',
+				isDragging && 'scale-95 opacity-50'
+			)}
+			onClick={onClick}
+			data-id={entry.id}
+			data-groupid={entry.groupId}
+			onDragStart={onDragStart}
+			onDragEnd={onDragEnd}
+			draggable={true}
 		>
-			<div className={cn('h-1 bg-gradient-to-r', getAvailableColor(color).bg)} />
+			<DraggedItem ref={draggedItemRef} />
+			<div className={cn('h-1 bg-gradient-to-r', bg)} />
 			<div className='p-3'>
 				<div className='flex items-start justify-between mb-4'>
 					<div className='flex items-center gap-3'>
 						<div
 							className={cn(
 								'min-w-8 min-h-8 rounded-full bg-gradient-to-r flex items-center justify-center',
-								getAvailableColor(color).bg
+								bg
 							)}
 						>
 							<Icon icon={icon} className='h-5 w-5 text-white' />
@@ -64,7 +122,7 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 					</div>
 					<div className='flex gap-1'>
 						<ActionButton
-							onClick={() => setShowEntry((p) => !p)}
+							onClick={handleShowPassword}
 							icon={showEntry ? 'lucide:eye' : 'lucide:eye-off'}
 						/>
 						<ActionButton onClick={onEdit} icon={'lucide:edit'} />
@@ -79,7 +137,7 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 					<div
 						className={cn(
 							'absolute right-2 -top-2 px-3 rounded-full text-xs bg-gradient-to-r text-white border-0 w-fit max-w-20 truncate',
-							getAvailableColor(color).bg
+							bg
 						)}
 					>
 						{entry.groupName}

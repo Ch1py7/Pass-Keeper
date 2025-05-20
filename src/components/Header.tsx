@@ -1,14 +1,8 @@
 import { useAppStore } from '@/store/AppStore'
 import { Icon } from '@iconify/react'
-import { ActionButton } from './common/ActionButtons'
 import { Button } from './common/Button'
 
-interface HeaderProps {
-	isCompact: boolean
-	setIsCompact: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export const Header: React.FC<HeaderProps> = ({ isCompact, setIsCompact }) => {
+export const Header = () => {
 	const { setOpen, setModal, file } = useAppStore()
 
 	return (
@@ -27,18 +21,6 @@ export const Header: React.FC<HeaderProps> = ({ isCompact, setIsCompact }) => {
 				</div>
 			</div>
 			<div className='flex gap-2'>
-				<div className='flex justify-between bg-slate-200/60 rounded-md p-1 gap-2'>
-					<ActionButton
-						styles={isCompact ? 'bg-white hover:bg-white hover:text-slate-500' : ''}
-						onClick={() => setIsCompact(true)}
-						icon={'lucide:list'}
-					/>
-					<ActionButton
-						styles={!isCompact ? 'bg-white hover:bg-white hover:text-slate-500' : ''}
-						onClick={() => setIsCompact(false)}
-						icon={'lucide:grid-2x2'}
-					/>
-				</div>
 				<Button
 					iconLeft='lucide:cloud'
 					iconLeftStyles='w-6 h-6'

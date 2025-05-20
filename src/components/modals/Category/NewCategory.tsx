@@ -2,7 +2,7 @@ import { kdbxErrorsHandle } from '@/errors/errors'
 import { toasty } from '@/notifications/toast'
 import { getKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'
-import { sampleCategory } from '@/utils/constants'
+import { getDefaultCategory, sampleCategory } from '@/utils/constants'
 import { assignKdbxData } from '@/utils/kdbxHelpers'
 import * as kdbxweb from 'kdbxweb'
 import { useEffect, useState } from 'react'
@@ -13,8 +13,14 @@ export const NewCategory = () => {
 	const [newCategory, setNewCategory] = useState<Group>(sampleCategory)
 	const { setOpen, category, setActiveCategory } = useAppStore()
 
+	const categoryWithColor = () => ({
+		...newCategory,
+		params: { color: getDefaultCategory(newCategory.name).color },
+	})
+
 	const handleCategory = async () => {
 		try {
+			const newCategory = categoryWithColor()
 			category ? await kdbx.updateCategory(newCategory) : await kdbx.addCategory(newCategory)
 			assignKdbxData(kdbx)
 			setOpen(false)

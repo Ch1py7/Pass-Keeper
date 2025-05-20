@@ -1,9 +1,11 @@
+import { kdbxErrorsHandle } from '@/errors/errors'
 import { toasty } from '@/notifications/toast'
-import { getCategory } from '@/utils/categories'
 import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
+import { getDefaultCategory } from '@/utils/constants'
 import { Icon } from '@iconify/react'
 import { writeText } from '@tauri-apps/plugin-clipboard-manager'
+import * as kdbxweb from 'kdbxweb'
 import { useState } from 'react'
 import { ActionButton } from '../common/ActionButtons'
 
@@ -17,14 +19,19 @@ interface EntryCardProps {
 export const EntryCard: React.FC<EntryCardProps> = ({ entry, category, onEdit, onDelete }) => {
 	const [showEntry, setShowEntry] = useState(false)
 	const { color } = category.params
-	const { icon } = getCategory(entry.groupName)
+	const { icon } = getDefaultCategory(entry.groupName)
 
 	const clipboard = async () => {
 		try {
 			await writeText(entry.password)
 			toasty.success('Copy to clipboard!')
 		} catch (err) {
-			console.error(err)
+			if (err instanceof DOMException) kdbxErrorsHandle(err.name)
+			else if (err instanceof kdbxweb.KdbxError) kdbxErrorsHandle(err.code)
+			else {
+				console.error(err)
+				toasty.error('An unknown error occurred')
+			}
 		}
 	}
 

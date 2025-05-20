@@ -1,7 +1,15 @@
-import { getCategory } from '@/utils/categories'
+import { kdbxErrorsHandle } from '@/errors/errors'
+import { toasty } from '@/notifications/toast'
+import { getKdbxInstance } from '@/services/kdbxSingleton'
+import { useFileStore } from '@/store/FileStore'
 import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
+import { getDefaultCategory } from '@/utils/constants'
+import { assignKdbxData } from '@/utils/kdbxHelpers'
 import { Icon } from '@iconify/react'
+import * as kdbxweb from 'kdbxweb'
+import { useState } from 'react'
+import { toast } from 'react-toastify'
 import { ActionButton } from '../common/ActionButtons'
 
 interface CategoryRowProps {
@@ -28,10 +36,56 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 }) => {
 	const isDefaultCategory = [recycleBinId, 'All'].includes(category.id)
 	const { color } = category.params
-	const { icon } = getCategory(category.name)
+	const { icon } = getDefaultCategory(category.name)
+	const { selectedItems, setSelectedItems } = useFileStore()
+	const [isHovered, setIsHovered] = useState(false)
+	const kdbx = getKdbxInstance()
+	const { selectedColor } = getAvailableColor(category.params.color)
+
+	const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+		if (category.id === 'All') return
+		e.preventDefault()
+		setIsHovered(true)
+	}
+
+	const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+		if (category.id === 'All') return
+		e.preventDefault()
+		setIsHovered(false)
+	}
+
+	const onDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+		if (category.id === 'All') return
+		e.preventDefault()
+		const validToMove = selectedItems.filter((entry) => entry.groupId !== category.id)
+		validToMove.map((entry) => kdbx.moveEntry(entry, category.id))
+		try {
+			await kdbx.persist()
+			assignKdbxData(kdbx)
+			setSelectedItems([])
+			setIsHovered(false)
+			validToMove.length !== 0 && toast.success(`${validToMove.length} moved successfully`)
+		} catch (err) {
+			if (err instanceof DOMException) kdbxErrorsHandle(err.name)
+			else if (err instanceof kdbxweb.KdbxError) kdbxErrorsHandle(err.code)
+			else {
+				console.error(err)
+				toasty.error('An unknown error occurred')
+			}
+		}
+	}
 
 	return (
-		<div className='group relative mb-1'>
+		<div
+			data-droppable={true}
+			onDragOver={onDragOver}
+			onDrop={onDrop}
+			onDragLeave={onDragLeave}
+			className={cn(
+				'group relative mb-1 transition-all duration-200 rounded-full',
+				isHovered && `${selectedColor}`
+			)}
+		>
 			<div className='flex items-center'>
 				<button
 					type='button'
@@ -49,7 +103,7 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 						{total}
 					</span>
 				</button>
-				<div className='flex gap-1 ms-1 min-w-16'>
+				<div className='flex gap-1 ms-1 min-w-16 me-3'>
 					{(!isDefaultCategory || recycleBinId === category.id) && (
 						<ActionButton onClick={onEdit} icon={'lucide:edit'} />
 					)}

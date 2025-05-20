@@ -2,7 +2,7 @@ import { cn } from '@/utils/cn'
 import { Icon } from '@iconify/react'
 
 interface ActionButtonProps {
-	onClick: () => void
+	onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 	icon: string
 	styles?: string
 }

@@ -18,8 +18,14 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 	onSubmit,
 	onCancel,
 }) => {
+	const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') onSubmit()
+	}
 	return (
-		<div className='sm:max-w-[450px] border-0 shadow-2xl bg-white rounded-xl p-8'>
+		<div
+			onKeyDown={handleEnterPress}
+			className='sm:max-w-[450px] border-0 shadow-2xl bg-white rounded-xl p-8'
+		>
 			<div>
 				<p className='text-2xl font-bold'>{newEntry.id ? newEntry.title : 'Add New Password'}</p>
 				<p>{newEntry.id ? 'Entry details' : 'Enter the details for the new password entry'}</p>

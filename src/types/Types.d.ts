@@ -35,3 +35,24 @@ interface Entry {
 	creationTime: number
 	lastModTime: number
 }
+
+type ManageEntry = Pick<Entry, 'id' | 'groupId'>
+
+interface Point {
+	x: number
+	y: number
+}
+
+interface Box {
+	start: Point
+	end: Point
+}
+
+interface SqlData {
+	host: string
+	port: string
+	user: string
+	pass: string
+	dbname: string
+	dbtype: 'postgres' | 'mysql'
+}

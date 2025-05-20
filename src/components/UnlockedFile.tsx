@@ -1,19 +1,18 @@
 import { useFileStore } from '@/store/FileStore'
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
-import { Header } from './Header'
 import { Categories } from './category/Categories'
 import { EntryList } from './entry/EntryList'
-import { SelectionBox } from './selectionBox/SelectionBox'
+import { Header } from './Header'
+import { SelectionBox } from './SelectionBox'
 
 export const UnlockedFile = () => {
 	const [searchQuery, setSearchQuery] = useState('')
-	const [isCompact, setIsCompact] = useState(true)
-	const { canvasContainerRef } = useFileStore()
+	const { canvasContainerRef, clearSelection, selectedItems } = useFileStore()
 
 	return (
 		<div className='max-w-7xl mx-auto flex flex-col items-center'>
-			<Header isCompact={isCompact} setIsCompact={setIsCompact} />
+			<Header />
 			<div className='relative w-full max-w-lg flex items-center pt-6'>
 				<Icon
 					icon='radix-icons:magnifying-glass'
@@ -33,7 +32,7 @@ export const UnlockedFile = () => {
 			>
 				<SelectionBox />
 				<Categories />
-				<EntryList searchQuery={searchQuery} isCompact={isCompact} />
+				<EntryList searchQuery={searchQuery} />
 			</div>
 		</div>
 	)
