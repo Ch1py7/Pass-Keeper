@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import { Slide, ToastContainer } from 'react-toastify'
 
-export const Toast: React.FC = () => {
+export const Toast = () => {
 	return (
 		<ToastContainer
 			position='bottom-right'

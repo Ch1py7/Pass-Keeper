@@ -1,4 +1,4 @@
-import { availableColors } from './constants'
+import { availableColors, categoryAliases, defaultCategories } from './constants'
 
 export const getPasswordStrengthInfo = (passwordStrength: number) => {
 	if (passwordStrength <= 25) {
@@ -47,8 +47,14 @@ export const totalEntries = (groups: Group[]) => {
 	}, 0)
 }
 
-export const getAvailableColor = (name: string) => {
-	return availableColors[name] ?? { name: '', bg: 'from-slate-500 to-slate-600' }
+export const getAvailableColor = (name: ColorName) => {
+	return (
+		availableColors[name] ?? {
+			name: '',
+			bg: 'from-slate-500 to-slate-600',
+			selectedColor: 'ring-2 ring-slate-500 shadow-[0_0_15px_#cad5e2]',
+		}
+	)
 }
 
 export const containUpperCase = new RegExp(/[A-Z]/)
@@ -62,4 +68,9 @@ export const arrayBufferToBase64 = (buffer: ArrayBuffer) => {
 		binary += String.fromCharCode(bytes[i])
 	}
 	return btoa(binary)
+}
+
+export const getDefaultCategory = (category: string) => {
+	const normalized = categoryAliases[category]
+	return defaultCategories[normalized] ?? { icon: '', color: '' }
 }

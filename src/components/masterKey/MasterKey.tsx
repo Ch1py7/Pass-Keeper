@@ -64,7 +64,7 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 								type={showKey ? '' : 'password'}
 								placeholder={fileName ? 'Enter your master key' : 'Create a strong master key'}
 								ref={inputRef}
-								className='px-10 h-10 rounded-lg w-full border-1 border-solid border-slate-300 shadow-md focus:ring-2 focus:border-transparent'
+								className='font-normal w-full border-1 border-solid border-slate-300 rounded-lg py-1 px-10 h-10'
 								value={masterKey}
 								onChange={(e) => onMasterKeyChange(e.target.value)}
 								onKeyDown={handleEnterPress}

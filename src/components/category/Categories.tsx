@@ -3,7 +3,7 @@ import { totalEntries } from '@/utils/common'
 import { Button } from '../common/Button'
 import { CategoryRow } from './CategoryRow'
 
-export const Categories: React.FC = () => {
+export const Categories = () => {
 	const {
 		setOpen,
 		setModal,
@@ -16,7 +16,7 @@ export const Categories: React.FC = () => {
 	} = useAppStore()
 
 	return (
-		<div className='w-full lg:w-1/4'>
+		<div className='w-full md:max-w-86 h-fit select-none'>
 			<div className='bg-white rounded-2xl shadow-xl overflow-hidden'>
 				<div className='p-4 bg-gradient-to-r from-purple-600 to-pink-600'>
 					<h2 className='text-xl font-bold text-white'>Categories</h2>

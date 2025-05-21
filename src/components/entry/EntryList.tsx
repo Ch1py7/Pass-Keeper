@@ -1,23 +1,28 @@
 import { usePasswordTrie } from '@/hooks/usePasswordTrie'
 import { useAppStore } from '@/store/AppStore'
+import { useFileStore } from '@/store/FileStore'
 import { cn } from '@/utils/cn'
 import { Icon } from '@iconify/react'
-import { useState } from 'react'
 import { Button } from '../common/Button'
 import { CompactEntryCard } from './CompactEntryCard'
-import { EntryCard } from './EntryCard'
 
 interface PasswordsProps {
 	searchQuery: string
-	isCompact: boolean
 }
 
-export const EntryList: React.FC<PasswordsProps> = ({ searchQuery, isCompact }) => {
+export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 	const { setOpen, setModal, setEntry, categories, activeCategory } = useAppStore()
 	const results = usePasswordTrie(searchQuery)
+	const { itemContainerRef } = useFileStore()
 
 	return (
-		<div className='w-full lg:w-3/4'>
+		<div
+			ref={itemContainerRef}
+			className={cn('select-none w-full grid gap-4 h-fit')}
+			style={{
+				gridTemplateColumns: 'repeat(auto-fit, minmax(15em, 1fr))',
+			}}
+		>
 			{results.length === 0 ? (
 				<div className='bg-white rounded-2xl shadow-xl p-8 text-center'>
 					<div className='w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4'>
@@ -41,47 +46,29 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery, isCompact }) 
 					/>
 				</div>
 			) : (
-				<div className={cn(isCompact ? 'grid gap-6 md:grid-cols-3' : 'grid gap-6 md:grid-cols-2')}>
-					{results.map((entry, index) => {
-						return isCompact ? (
-							<CompactEntryCard
-								key={index}
-								entry={entry}
-								category={
-									categories.find((category) => category.id === entry.groupId) ?? ({} as Group)
-								}
-								onEdit={() => {
-									setEntry(entry)
-									setModal('entry')
-									setOpen(true)
-								}}
-								onDelete={() => {
-									setEntry(entry)
-									setModal('delete')
-									setOpen(true)
-								}}
-							/>
-						) : (
-							<EntryCard
-								key={index}
-								entry={entry}
-								category={
-									categories.find((category) => category.id === entry.groupId) ?? ({} as Group)
-								}
-								onEdit={() => {
-									setEntry(entry)
-									setModal('entry')
-									setOpen(true)
-								}}
-								onDelete={() => {
-									setEntry(entry)
-									setModal('delete')
-									setOpen(true)
-								}}
-							/>
-						)
-					})}
-				</div>
+				<>
+					{results.map((entry, index) => (
+						<CompactEntryCard
+							key={index}
+							entry={entry}
+							category={
+								categories.find((category) => category.id === entry.groupId) ?? ({} as Group)
+							}
+							onEdit={(e) => {
+								e.stopPropagation()
+								setEntry(entry)
+								setModal('entry')
+								setOpen(true)
+							}}
+							onDelete={(e) => {
+								e.stopPropagation()
+								setEntry(entry)
+								setModal('delete')
+								setOpen(true)
+							}}
+						/>
+					))}
+				</>
 			)}
 		</div>
 	)

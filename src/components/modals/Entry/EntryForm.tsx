@@ -18,18 +18,24 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 	onSubmit,
 	onCancel,
 }) => {
+	const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') onSubmit()
+	}
 	return (
-		<div className='sm:max-w-[450px] border-0 shadow-2xl bg-white rounded-xl p-8'>
+		<div
+			onKeyDown={handleEnterPress}
+			className='sm:max-w-[450px] border-0 shadow-2xl bg-white rounded-xl p-8'
+		>
 			<div>
 				<p className='text-2xl font-bold'>{newEntry.id ? newEntry.title : 'Add New Password'}</p>
 				<p>{newEntry.id ? 'Entry details' : 'Enter the details for the new password entry'}</p>
 			</div>
-			<div className='grid grid-cols-2 gap-4 py-4'>
+			<div className='grid grid-cols-2 gap-x-4 gap-y-2 py-4'>
 				<div>
 					<label className='flex flex-col font-medium text-slate-700'>
 						Title
 						<input
-							className='font-normal flex-1  border-1 border-solid border-slate-200 rounded-md py-1 px-3'
+							className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8'
 							onChange={(e) => onHandleChange('title', e.target.value)}
 							value={newEntry.title}
 						/>
@@ -39,7 +45,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					<label className='flex flex-col font-medium text-slate-700'>
 						URL
 						<input
-							className='font-normal flex-1  border-1 border-solid border-slate-200 rounded-md py-1 px-3'
+							className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8'
 							onChange={(e) => onHandleChange('url', e.target.value)}
 							value={newEntry.url}
 						/>
@@ -49,7 +55,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					<label className='flex flex-col font-medium text-slate-700'>
 						Username
 						<input
-							className='font-normal flex-1  border-1 border-solid border-slate-200 rounded-md py-1 px-3'
+							className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8'
 							onChange={(e) => onHandleChange('username', e.target.value)}
 							value={newEntry.username}
 						/>
@@ -60,7 +66,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 						Password
 						<input
 							type='password'
-							className='font-normal flex-1  border-1 border-solid border-slate-200 rounded-md py-1 px-3'
+							className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8'
 							onChange={(e) => onHandleChange('password', e.target.value)}
 							value={newEntry.password}
 						/>
@@ -71,7 +77,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 						Category
 						<select
 							className={cn(
-								'font-normal flex-1 border-1 border-solid border-slate-200 rounded-md py-1 px-3',
+								'font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8',
 								entry?.id && 'bg-gray-200'
 							)}
 							value={newEntry.groupId}
@@ -91,7 +97,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 						<label className='flex flex-col font-medium text-slate-700'>
 							Added On
 							<input
-								className='font-normal flex-1 bg-gray-200 border-1 border-solid border-slate-200 rounded-md py-1 px-3'
+								className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8'
 								value={formatDateFromMilliseconds(newEntry.creationTime)}
 								disabled
 							/>
@@ -102,7 +108,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					<label className='flex flex-col font-medium text-slate-700'>
 						Notes
 						<textarea
-							className='font-normal flex-1  border-1 border-solid border-slate-200 rounded-md py-1 px-3'
+							className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 min-h-12'
 							onChange={(e) => onHandleChange('notes', e.target.value)}
 							value={newEntry.notes}
 						/>

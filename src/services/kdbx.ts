@@ -21,7 +21,7 @@ export class Kdbx {
 		this._db = await kdbxweb.Kdbx.load(binaryData, this._credentials)
 		this._db.setKdf(kdbxweb.Consts.KdfId.Aes)
 		this._validateRecycleBin()
-		this._persist()
+		this.persist()
 	}
 
 	public async createDatabase(password: string, enter: boolean) {
@@ -32,12 +32,14 @@ export class Kdbx {
 
 		const commonGroup = db.createGroup(db.getDefaultGroup(), 'Common')
 		const commonCustomData = {
-			color: 'Red',
+			color: 'red',
+			icon: 'lucide:tree-pine',
 		}
 
 		const recycleBin = db.getGroup(db.meta.recycleBinUuid!)
 		const recycleBinCustomData = {
-			color: 'Cyan',
+			color: 'cyan',
+			icon: 'lucide:trash',
 		}
 
 		commonGroup.notes = JSON.stringify(commonCustomData)
@@ -52,21 +54,21 @@ export class Kdbx {
 		const db = this._requireDb()
 		const group = db.createGroup(db.getDefaultGroup(), name ? name : 'New Category')
 		group.notes = JSON.stringify(params)
-		return this._persist()
+		this.persist()
 	}
 
 	public async updateCategory({ id, name, params }: Group) {
 		const group = this._getGroupById(id)
 		group.name = name
 		group.notes = JSON.stringify(params)
-		return this._persist()
+		this.persist()
 	}
 
 	public async deleteCategory({ id }: Group) {
 		const db = this._requireDb()
 		const group = this._getGroupById(id)
 		db.remove(group)
-		return this._persist()
+		this.persist()
 	}
 
 	public listCategories() {
@@ -80,29 +82,35 @@ export class Kdbx {
 		const group = this._getGroupById(data.groupId)
 		const entry = db.createEntry(group)
 		this._setEntryFields(entry, data)
-		return this._persist()
+		this.persist()
 	}
 
 	public async updateEntry(data: Entry) {
-		const entry = this._getEntryById(data.groupId, data.id)
+		const entry = this._getEntryById(data)
 		entry.pushHistory()
 		this._setEntryFields(entry, data)
 		entry.times.update()
-		return this._persist()
+		this.persist()
 	}
 
-	public async deleteEntry(data: Entry) {
-		const entry = this._getEntryById(data.groupId, data.id)
+	public async deleteEntry(data: ManageEntry) {
+		const entry = this._getEntryById(data)
 		this._requireDb().remove(entry)
-		return this._persist()
+		this.persist()
 	}
 
-	public async deleteEntryPermanently(data: Entry) {
-		const entry = this._getEntryById(data.groupId, data.id)
+	public async deleteEntryPermanently(data: ManageEntry) {
+		const entry = this._getEntryById(data)
 		const parentGroup = entry.parentGroup
 		if (!parentGroup) throw new kdbxweb.KdbxError(ErrorCode.EntryHasNoParent)
 		parentGroup.entries = parentGroup.entries.filter((e) => e.uuid.id !== data.id)
-		return this._persist()
+		this.persist()
+	}
+
+	public moveEntry(data: ManageEntry, groupId: string) {
+		const entry = this._getEntryById(data)
+		const group = this._getGroupById(groupId)
+		this._requireDb().move(entry, group)
 	}
 
 	public listEntries() {
@@ -121,6 +129,12 @@ export class Kdbx {
 		return binary
 	}
 
+	public async persist() {
+		const db = this._requireDb()
+		const data = await db.save()
+		updateFile(data)
+	}
+
 	private _validateRecycleBin() {
 		const db = this._requireDb()
 		let recycleBin = db.meta.recycleBinUuid
@@ -129,12 +143,6 @@ export class Kdbx {
 			recycleBin = db.meta.recycleBinUuid!
 		}
 		return recycleBin
-	}
-
-	private async _persist() {
-		const db = this._requireDb()
-		const data = await db.save()
-		updateFile(data)
 	}
 
 	private _requireDb() {
@@ -150,9 +158,9 @@ export class Kdbx {
 		return group
 	}
 
-	private _getEntryById(groupId: string, entryId: string) {
+	private _getEntryById({ id, groupId }: ManageEntry) {
 		const group = this._getGroupById(groupId)
-		const entry = Array.from(group.allEntries()).find((e) => e.uuid.id === entryId)
+		const entry = Array.from(group.allEntries()).find((e) => e.uuid.id === id)
 		if (!entry) throw new kdbxweb.KdbxError(ErrorCode.EntryNotFound)
 
 		return entry

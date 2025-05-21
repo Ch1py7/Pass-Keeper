@@ -13,10 +13,11 @@
 		"windows": [
 			{
 				"title": "pass-keeper",
-				"width": 800,
-				"height": 600,
+				"width": 1000,
+				"height": 800,
 				"resizable": true,
-				"fullscreen": false
+				"fullscreen": false,
+				"dragDropEnabled": false
 			}
 		],
 		"security": {

@@ -1,10 +1,18 @@
 @import "tailwindcss";
 
+html,
+body,
+#root {
+	min-height: 100vh;
+	user-select: none;
+}
+
 * {
 	box-sizing: border-box;
 	outline: none;
 	list-style: none;
 	text-decoration: none;
+	font-family: "Satoshi", sans-serif;
 }
 
 textarea {
@@ -22,4 +30,51 @@ input[type="password"]::-webkit-inner-spin-button,
 input[type="password"]::-webkit-clear-button,
 input[type="password"]::-webkit-password-toggle-button {
 	display: none;
+}
+
+#root {
+	overflow: hidden;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #909090;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #b0b0b0;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 200px;
+	background-color: #f1f5f9;
+	text-align: center;
+	border: 1px solid #cad5e2;
+	border-radius: 5px;
+	padding: 8px;
+	position: absolute;
+	z-index: 1;
+	top: 0%;
+	right: 100%;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+	opacity: 1;
 }
