@@ -16,7 +16,7 @@ export const Header = () => {
 						Vault Keeper
 					</h1>
 					<div className='flex items-center gap-2'>
-						<p className='text-slate-500 dark:text-slate-400'>{file.name}</p>
+						<p className='text-slate-500'>{file.name}</p>
 					</div>
 				</div>
 			</div>

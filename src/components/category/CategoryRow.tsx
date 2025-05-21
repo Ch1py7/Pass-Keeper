@@ -80,7 +80,7 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 			onDrop={onDrop}
 			onDragLeave={onDragLeave}
 			className={cn(
-				'group relative mb-1 transition-all duration-200 rounded-full',
+				'group relative mb-1 transition-all duration-200 rounded-full text-slate-300',
 				isHovered && `${selectedColor}`
 			)}
 		>
@@ -88,8 +88,8 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 				<button
 					type='button'
 					className={cn(
-						'w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 cursor-pointer',
-						isActive && 'bg-gradient-to-r font-medium',
+						'w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 cursor-pointer text-black',
+						isActive && 'bg-gradient-to-r font-medium text-white',
 						isActive && activeBackground(color),
 						!isActive && 'hover:bg-slate-100'
 					)}

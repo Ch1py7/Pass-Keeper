@@ -52,7 +52,7 @@ export const getAvailableColor = (name: ColorName) => {
 		availableColors[name] ?? {
 			name: '',
 			bg: 'from-slate-500 to-slate-600',
-			selectedColor: 'ring-2 ring-Slate-500 dark:ring-Slate-400 shadow-[0_0_15px_Slate]',
+			selectedColor: 'ring-2 ring-slate-500 shadow-[0_0_15px_#cad5e2]',
 		}
 	)
 }
