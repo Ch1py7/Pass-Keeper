@@ -29,51 +29,51 @@ export const sampleFile: CFile = {
 export const availableColors: Record<ColorName, ColorStyle> = {
 	purple: {
 		bg: 'from-purple-500 to-indigo-600',
-		selectedColor: 'ring-2 ring-purple-500 shadow-[0_0_6px_purple]',
+		selectedColor: 'ring-1 ring-purple-500 shadow-[0_0_6px_purple]',
 	},
 	pink: {
 		bg: 'from-pink-500 to-rose-600',
-		selectedColor: 'ring-2 ring-pink-500 shadow-[0_0_6px_pink]',
+		selectedColor: 'ring-1 ring-pink-500 shadow-[0_0_6px_pink]',
 	},
 	orange: {
 		bg: 'from-amber-500 to-orange-600',
-		selectedColor: 'ring-2 ring-orange-500 shadow-[0_0_6px_orange]',
+		selectedColor: 'ring-1 ring-orange-500 shadow-[0_0_6px_orange]',
 	},
 	green: {
 		bg: 'from-emerald-500 to-green-600',
-		selectedColor: 'ring-2 ring-green-500 shadow-[0_0_6px_green]',
+		selectedColor: 'ring-1 ring-green-500 shadow-[0_0_6px_green]',
 	},
 	blue: {
 		bg: 'from-sky-500 to-blue-600',
-		selectedColor: 'ring-2 ring-blue-500 shadow-[0_0_6px_blue]',
+		selectedColor: 'ring-1 ring-blue-500 shadow-[0_0_6px_blue]',
 	},
 	gray: {
 		bg: 'from-slate-500 to-gray-600',
-		selectedColor: 'ring-2 ring-gray-500 shadow-[0_0_6px_gray]',
+		selectedColor: 'ring-1 ring-gray-500 shadow-[0_0_6px_gray]',
 	},
 	red: {
 		bg: 'from-red-500 to-red-600',
-		selectedColor: 'ring-2 ring-red-500 shadow-[0_0_6px_red]',
+		selectedColor: 'ring-1 ring-red-500 shadow-[0_0_6px_red]',
 	},
 	teal: {
 		bg: 'from-teal-500 to-teal-600',
-		selectedColor: 'ring-2 ring-teal-500 shadow-[0_0_6px_teal]',
+		selectedColor: 'ring-1 ring-teal-500 shadow-[0_0_6px_teal]',
 	},
 	violet: {
 		bg: 'from-violet-500 to-purple-600',
-		selectedColor: 'ring-2 ring-violet-500 shadow-[0_0_6px_violet]',
+		selectedColor: 'ring-1 ring-violet-500 shadow-[0_0_6px_violet]',
 	},
 	yellow: {
 		bg: 'from-yellow-400 to-amber-500',
-		selectedColor: 'ring-2 ring-yellow-500 shadow-[0_0_6px_yellow]',
+		selectedColor: 'ring-1 ring-yellow-500 shadow-[0_0_6px_yellow]',
 	},
 	lime: {
 		bg: 'from-lime-500 to-green-500',
-		selectedColor: 'ring-2 ring-lime-500 shadow-[0_0_6px_lime]',
+		selectedColor: 'ring-1 ring-lime-500 shadow-[0_0_6px_lime]',
 	},
 	cyan: {
 		bg: 'from-cyan-500 to-blue-500',
-		selectedColor: 'ring-2 ring-cyan-500 shadow-[0_0_6px_cyan]',
+		selectedColor: 'ring-1 ring-cyan-500 shadow-[0_0_6px_cyan]',
 	},
 }
 

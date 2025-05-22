@@ -33,16 +33,6 @@ export const Header = () => {
 					}}
 					style='tertiary'
 				/>
-				<Button
-					iconLeft='lucide:circle-plus'
-					content='Add Password'
-					onClick={() => {
-						setOpen(true)
-						setModal('entry')
-					}}
-					style='primary'
-					styles='text-white'
-				/>
 			</div>
 		</header>
 	)

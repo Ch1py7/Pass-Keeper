@@ -77,7 +77,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 						Category
 						<select
 							className={cn(
-								'font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8',
+								'font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8 disabled:bg-slate-200',
 								entry?.id && 'bg-gray-200'
 							)}
 							value={newEntry.groupId}
@@ -97,7 +97,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 						<label className='flex flex-col font-medium text-slate-700'>
 							Added On
 							<input
-								className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8'
+								className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8 disabled:bg-slate-200'
 								value={formatDateFromMilliseconds(newEntry.creationTime)}
 								disabled
 							/>

@@ -8,7 +8,6 @@ import { assignKdbxData } from '@/utils/kdbxHelpers'
 import { Icon } from '@iconify/react'
 import * as kdbxweb from 'kdbxweb'
 import { useState } from 'react'
-import { toast } from 'react-toastify'
 import { ActionButton } from '../common/ActionButtons'
 
 interface CategoryRowProps {
@@ -62,7 +61,7 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 			assignKdbxData(kdbx)
 			setSelectedItems([])
 			setIsHovered(false)
-			validToMove.length !== 0 && toast.success(`${validToMove.length} moved successfully`)
+			validToMove.length !== 0 && toasty.success(`${validToMove.length} moved successfully`)
 		} catch (err) {
 			if (err instanceof DOMException) kdbxErrorsHandle(err.name)
 			else if (err instanceof kdbxweb.KdbxError) kdbxErrorsHandle(err.code)
@@ -80,7 +79,7 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 			onDrop={onDrop}
 			onDragLeave={onDragLeave}
 			className={cn(
-				'group relative mb-1 transition-all duration-200 rounded-full text-slate-300',
+				'group relative mb-1 transition-all duration-200 rounded-lg text-slate-300',
 				isHovered && `${selectedColor}`
 			)}
 		>

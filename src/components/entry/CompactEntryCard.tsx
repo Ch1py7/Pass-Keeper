@@ -13,14 +13,12 @@ interface CompactEntryCardProps {
 	entry: Entry
 	category: Group
 	onEdit: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-	onDelete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 	entry,
 	category,
 	onEdit,
-	onDelete,
 }) => {
 	const [showEntry, setShowEntry] = useState(false)
 	const { color, icon } = category.params
@@ -125,7 +123,6 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 							icon={showEntry ? 'lucide:eye' : 'lucide:eye-off'}
 						/>
 						<ActionButton onClick={onEdit} icon={'lucide:edit'} />
-						<ActionButton onClick={onDelete} icon={'lucide:trash'} />
 					</div>
 				</div>
 				<button

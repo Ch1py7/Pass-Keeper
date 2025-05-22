@@ -93,18 +93,18 @@ export class Kdbx {
 		this.persist()
 	}
 
-	public async deleteEntry(data: ManageEntry) {
+	public async deleteEntry(data: ManageEntry, save = true) {
 		const entry = this._getEntryById(data)
 		this._requireDb().remove(entry)
-		this.persist()
+		save && this.persist()
 	}
 
-	public async deleteEntryPermanently(data: ManageEntry) {
+	public async deleteEntryPermanently(data: ManageEntry, save = true) {
 		const entry = this._getEntryById(data)
 		const parentGroup = entry.parentGroup
 		if (!parentGroup) throw new kdbxweb.KdbxError(ErrorCode.EntryHasNoParent)
 		parentGroup.entries = parentGroup.entries.filter((e) => e.uuid.id !== data.id)
-		this.persist()
+		save && this.persist()
 	}
 
 	public moveEntry(data: ManageEntry, groupId: string) {
