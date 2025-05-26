@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
 	--toastify-color-info: color-mix(in srgb, var(--theme-bg-primary) 50%, hsl(204, 79%, 50%));
@@ -196,10 +195,6 @@
 
 	button {
 		cursor: pointer;
-	}
-
-	body {
-		background-color: var(--background);
 	}
 }
 
