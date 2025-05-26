@@ -29,51 +29,51 @@ export const sampleFile: CFile = {
 export const availableColors: Record<ColorName, ColorStyle> = {
 	purple: {
 		bg: 'from-purple-500 to-indigo-600 text-white',
-		selectedColor: 'ring-2 ring-purple-400 shadow-[0_0_8px_purple]',
+		selectedColor: 'ring-2 ring-purple-400',
 	},
 	pink: {
 		bg: 'from-pink-500 to-rose-600 text-white',
-		selectedColor: 'ring-2 ring-pink-400 shadow-[0_0_8px_pink]',
+		selectedColor: 'ring-2 ring-pink-400',
 	},
 	orange: {
 		bg: 'from-amber-500 to-orange-600 text-white',
-		selectedColor: 'ring-2 ring-orange-400 shadow-[0_0_8px_orange]',
+		selectedColor: 'ring-2 ring-orange-400',
 	},
 	green: {
 		bg: 'from-emerald-500 to-green-600 text-white',
-		selectedColor: 'ring-2 ring-green-400 shadow-[0_0_8px_green]',
+		selectedColor: 'ring-2 ring-green-400',
 	},
 	blue: {
 		bg: 'from-sky-500 to-blue-600 text-white',
-		selectedColor: 'ring-2 ring-blue-400 shadow-[0_0_8px_blue]',
+		selectedColor: 'ring-2 ring-blue-400',
 	},
 	gray: {
 		bg: 'from-slate-500 to-gray-600 text-white',
-		selectedColor: 'ring-2 ring-gray-400 shadow-[0_0_8px_gray]',
+		selectedColor: 'ring-2 ring-gray-400',
 	},
 	red: {
 		bg: 'from-red-500 to-red-600 text-white',
-		selectedColor: 'ring-2 ring-red-400 shadow-[0_0_8px_red]',
+		selectedColor: 'ring-2 ring-red-400',
 	},
 	teal: {
 		bg: 'from-teal-500 to-teal-600 text-white',
-		selectedColor: 'ring-2 ring-teal-400 shadow-[0_0_8px_teal]',
+		selectedColor: 'ring-2 ring-teal-400',
 	},
 	violet: {
 		bg: 'from-violet-500 to-purple-600 text-white',
-		selectedColor: 'ring-2 ring-violet-400 shadow-[0_0_8px_violet]',
+		selectedColor: 'ring-2 ring-violet-400',
 	},
 	yellow: {
 		bg: 'from-yellow-400 to-amber-500 text-black',
-		selectedColor: 'ring-2 ring-yellow-400 shadow-[0_0_8px_yellow]',
+		selectedColor: 'ring-2 ring-yellow-400',
 	},
 	lime: {
 		bg: 'from-lime-500 to-green-500 text-white',
-		selectedColor: 'ring-2 ring-lime-400 shadow-[0_0_8px_lime]',
+		selectedColor: 'ring-2 ring-lime-400',
 	},
 	cyan: {
 		bg: 'from-cyan-500 to-blue-500 text-white',
-		selectedColor: 'ring-2 ring-cyan-400 shadow-[0_0_8px_cyan]',
+		selectedColor: 'ring-2 ring-cyan-400',
 	},
 }
 

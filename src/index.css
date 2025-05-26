@@ -34,7 +34,7 @@
 	--theme-box: hsla(210, 20%, 50%, 0.1);
 	--theme-muted: hsl(0, 0%, 95%);
 	--theme-muted-hover: hsl(0, 0%, 92%);
-	--theme-hover: hsl(0, 0%, 90%);
+	--theme-hover: hsl(0, 0%, 95%);
 }
 
 .theme-dark {
@@ -75,7 +75,7 @@
 	--theme-text-on-primary: hsl(0, 0%, 100%);
 	--theme-text-muted: hsl(28, 30%, 45%);
 	--theme-border: hsl(30, 50%, 65%);
-	--theme-box: hsla(28, 40%, 30%, 0.3);
+	--theme-box: hsla(28, 52%, 42%, 0.3);
 	--theme-muted: hsl(35, 80%, 88%);
 	--theme-muted-hover: hsl(35, 80%, 85%);
 	--theme-hover: hsl(28, 65%, 55%);
@@ -110,7 +110,7 @@
 	--theme-action: hsl(125, 22%, 22%);
 	--theme-entry: hsl(120, 20%, 21%);
 	--theme-card: hsl(120, 18%, 20%);
-	--theme-bg-primary: hsl(125, 30%, 20%);
+	--theme-bg-primary: hsl(124, 29%, 28%);
 	--theme-bg-secondary: hsl(115, 20%, 24%);
 	--theme-hover-bg-primary: hsl(120, 25%, 22%);
 	--theme-hover-bg-secondary: hsl(120, 25%, 28%);
@@ -141,7 +141,7 @@
 	--theme-text-on-primary: hsl(0 0% 100%);
 	--theme-text-muted: hsl(12, 30%, 50%);
 	--theme-border: hsl(15, 60%, 70%);
-	--theme-box: hsla(18, 30%, 35%, 0.4);
+	--theme-box: hsla(19, 36%, 46%, 0.4);
 	--theme-muted: hsl(28, 70%, 85%);
 	--theme-muted-hover: hsl(28, 70%, 80%);
 	--theme-hover: hsl(15, 83%, 82%);
@@ -179,22 +179,27 @@ button {
 }
 
 .btn-primary {
-	background-image: linear-gradient(to right, var(--theme-bg-secondary), var(--theme-bg-primary));
+	background: linear-gradient(
+		to right,
+		var(--theme-bg-secondary),
+		var(--theme-bg-primary),
+		var(--theme-hover-bg-primary),
+		var(--theme-hover-bg-secondary)
+	);
+	background-size: 200% 100%;
+	background-position: left;
 	color: var(--theme-text-on-primary);
 	padding: 0.5rem 1rem;
 	border-radius: 0.375rem;
 	border: none;
 	font-weight: 500;
-	transition: background-color 0.2s ease;
+	transition: background-position 0.5s ease-in-out;
 }
 
 .btn-primary:hover {
-	background-image: linear-gradient(
-		to right,
-		var(--theme-hover-bg-primary),
-		var(--theme-hover-bg-secondary)
-	);
+	background-position: right;
 }
+
 
 html,
 body,

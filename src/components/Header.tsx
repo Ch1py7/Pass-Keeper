@@ -21,7 +21,7 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 	return (
 		<header className='flex flex-col md:flex-row w-full items-center justify-between gap-4 select-none pt-8 px-10'>
 			<div className='flex items-center gap-3'>
-				<div className='bg-gradient-to-r from-[var(--theme-bg-secondary)] to-[var(--theme-bg-primary)] p-3 rounded-xl shadow-[var(--theme-shadow)]'>
+				<div className='bg-gradient-to-r from-[var(--theme-bg-secondary)] to-[var(--theme-bg-primary)] p-3 rounded-xl'>
 					<Icon icon='lucide:lock' className='h-8 w-8 text-[var(--theme-text-on-primary)]' />
 				</div>
 				<div>
@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 						e.stopPropagation()
 						setSearchQuery(e.target.value)
 					}}
-					className='pl-10 h-12 rounded-full bg-[var(--theme-action)] w-full border shadow-[var(--theme-shadow)] focus:ring-2 focus:ring-[var(--theme-bg-secondary)] focus:border-transparent select-none'
+					className='pl-10 h-12 rounded-full bg-[var(--theme-action)] w-full border focus:ring-2 focus:ring-[var(--theme-bg-secondary)] focus:border-transparent select-none'
 				/>
 			</div>
 			<div className='flex gap-2'>

@@ -51,7 +51,7 @@ export const getAvailableColor = (name: ColorName) => {
 	return (
 		availableColors[name] ?? {
 			bg: 'from-[var(--theme-bg-primary)] to-[var(--theme-bg-secondary)] text-[var(--theme-text-on-primary)]',
-			selectedColor: 'ring-2 ring-[var(--theme-bg-primary)] shadow-[var(--theme-shadow)]',
+			selectedColor: 'ring-2 ring-[var(--theme-bg-primary)]',
 		}
 	)
 }

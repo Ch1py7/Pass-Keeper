@@ -84,7 +84,6 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({ entry, categ
 		<article
 			className={cn(
 				'overflow-hidden border-0 shadow-[var(--theme-shadow)] transition-all duration-200 rounded-xl bg-[var(--theme-entry)]',
-				!isSelected && 'hover:shadow-[var(--theme-shadow-lg)]',
 				isSelected && !isDragging && selectedColor,
 				isSelected && !isDragging && '-translate-y-1',
 				isDragging && 'scale-95 opacity-50'

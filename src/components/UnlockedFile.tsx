@@ -25,7 +25,7 @@ export const UnlockedFile = () => {
 						e.stopPropagation()
 						setSearchQuery(e.target.value)
 					}}
-					className='pl-10 h-12 rounded-full bg-[var(--theme-action)] w-full border shadow-[var(--theme-shadow)] focus:ring-2 focus:ring-[var(--theme-bg-secondary)] focus:border-transparent select-none'
+					className='pl-10 h-12 rounded-full bg-[var(--theme-action)] w-full border focus:ring-2 focus:ring-[var(--theme-bg-secondary)] focus:border-transparent select-none'
 				/>
 			</div>
 			<div

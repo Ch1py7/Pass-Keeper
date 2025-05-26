@@ -35,7 +35,7 @@ export const EntryCard: React.FC<EntryCardProps> = ({ entry, category, onEdit, o
 	}
 
 	return (
-		<div className='overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-200 rounded-md w-full h-fit'>
+		<div className='overflow-hidden border-0 transition-all duration-200 rounded-md w-full h-fit'>
 			<div className={cn('h-2 bg-gradient-to-r', getAvailableColor(color).bg)} />
 			<div className='p-6'>
 				<div className='flex items-start justify-between mb-4'>

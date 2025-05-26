@@ -44,7 +44,7 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 	}
 
 	return (
-		<div className='border-0 shadow-[var(--theme-shadow)] rounded-xl'>
+		<div className='border-0 rounded-xl'>
 			<div className='p-6 space-y-6'>
 				<div className='text-center mb-2'>
 					<h2 className='text-xl font-semibold mb-2'>
