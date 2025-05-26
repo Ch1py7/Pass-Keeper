@@ -13,10 +13,10 @@ export const UnlockedFile = () => {
 	return (
 		<div className='container mx-auto flex flex-col items-center' ref={canvasContainerRef}>
 			<Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-			<div className='relative w-full max-w-lg flex lg:hidden items-center pt-6'>
+			<div className='relative w-full flex lg:hidden items-center pt-6 px-10'>
 				<Icon
 					icon='radix-icons:magnifying-glass'
-					className='absolute left-3 h-5 w-5 text-[var(--theme-text)] mt-1'
+					className='absolute left-13 h-5 w-5 text-[var(--theme-text)] mt-1'
 				/>
 				<input
 					placeholder='Search passwords...'

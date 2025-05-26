@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 	})
 
 	return (
-		<header className='flex flex-col md:flex-row w-full items-center justify-between gap-4 select-none pt-8 px-10'>
+		<header className='flex w-full items-center justify-between gap-4 select-none pt-8 px-10'>
 			<div className='flex items-center gap-3'>
 				<div className='bg-gradient-to-r from-[var(--theme-bg-secondary)] to-[var(--theme-bg-primary)] p-3 rounded-xl'>
 					<Icon icon='lucide:lock' className='h-8 w-8 text-[var(--theme-text-on-primary)]' />
@@ -59,10 +59,24 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 					{showMenu && (
 						<div className='absolute right-0 top-full z-10 w-50 rounded-md mt-2 p-2 border bg-[var(--theme-modal)]'>
 							<Button
+								iconLeft='lucide:plus'
+								iconLeftStyles='w-5 h-5'
+								content='Add Entry'
+								styles={cn(
+									'w-full hover:bg-[var(--theme-hover)] text-[var(--theme-text)] py-1 px-2 flex sm:hidden'
+								)}
+								onClick={() => {
+									setOpen(true)
+									setModal('entry')
+								}}
+							/>
+							<Button
 								iconLeft='lucide:cloud'
 								iconLeftStyles='w-5 h-5'
 								content='Sync'
-								styles={cn('w-full hover:bg-[var(--theme-hover)] text-[var(--theme-text)] py-1 px-2')}
+								styles={cn(
+									'w-full hover:bg-[var(--theme-hover)] text-[var(--theme-text)] py-1 px-2'
+								)}
 								onClick={() => {
 									setOpen(true)
 									setModal('sync')
@@ -98,7 +112,7 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 						setOpen(true)
 						setModal('entry')
 					}}
-					styles='btn-primary'
+					styles='btn-primary hidden sm:flex'
 				/>
 			</div>
 		</header>

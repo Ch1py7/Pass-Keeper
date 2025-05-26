@@ -215,7 +215,6 @@ button {
 	background-size: 200% 100%;
 	background-position: left;
 	color: var(--theme-text-on-primary);
-	padding: 0.5rem 1rem;
 	border-radius: 0.375rem;
 	border: none;
 	font-weight: 500;
