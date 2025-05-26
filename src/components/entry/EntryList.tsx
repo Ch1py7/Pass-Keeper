@@ -20,7 +20,7 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 			ref={itemContainerRef}
 			className={cn('grid gap-4 w-full')}
 			style={{
-				gridTemplateColumns: 'repeat(auto-fit, minmax(19em, 1fr))',
+				gridTemplateColumns: 'repeat(auto-fit, minmax(17em, 1fr))',
 			}}
 		>
 			{results.length === 0 ? (

@@ -137,14 +137,6 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({ entry, categ
 					className='flex items-center gap-2 py-2 ps-3 pe-8 bg-[var(--theme-muted)] hover:bg-[var(--theme-muted-hover)] transition-color duration-100 rounded-lg relative w-full'
 					onClick={clipboard}
 				>
-					<div
-						className={cn(
-							'absolute right-2 -top-2 px-3 rounded-full text-xs bg-gradient-to-r border-0 w-fit max-w-20 truncate',
-							bg
-						)}
-					>
-						{entry.groupName}
-					</div>
 					<p className='font-medium max-w truncate'>{showEntry ? entry.password : '••••••••'}</p>
 					<Icon className='absolute right-3 h-4 w-4 text-[var(--theme-text)]' icon={'lucide:copy'} />
 				</button>

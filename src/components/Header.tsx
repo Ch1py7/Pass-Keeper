@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 					<p className='text-[var(--theme-text-muted)]'>{file.name}.kdbx</p>
 				</div>
 			</div>
-			<div className='relative w-full max-w-lg items-center hidden lg:flex'>
+			<div className='relative w-full max-w-md items-center hidden lg:flex'>
 				<Icon
 					icon='radix-icons:magnifying-glass'
 					className='absolute left-3 h-5 w-5 text-[var(--theme-text)] mt-1'
@@ -57,12 +57,12 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 						}}
 					/>
 					{showMenu && (
-						<div className='absolute right-0 top-full z-10 w-50 rounded-md mt-2 border bg-[var(--theme-modal)]'>
+						<div className='absolute right-0 top-full z-10 w-50 rounded-md mt-2 p-2 border bg-[var(--theme-modal)]'>
 							<Button
 								iconLeft='lucide:cloud'
 								iconLeftStyles='w-5 h-5'
 								content='Sync'
-								styles={cn('w-full hover:bg-[var(--theme-hover)] text-[var(--theme-text)]')}
+								styles={cn('w-full hover:bg-[var(--theme-hover)] text-[var(--theme-text)] py-1 px-2')}
 								onClick={() => {
 									setOpen(true)
 									setModal('sync')
@@ -72,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 								iconLeft='lucide:key'
 								iconLeftStyles='w-5 h-5'
 								content='New Master Key'
-								styles='w-full mt-1 hover:bg-[var(--theme-hover)] text-[var(--theme-text)]'
+								styles='w-full mt-1 hover:bg-[var(--theme-hover)] text-[var(--theme-text)] py-1 px-2'
 								onClick={() => {
 									setOpen(true)
 									setModal('key')
@@ -82,7 +82,7 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 								iconLeft='lucide:paintbrush'
 								iconLeftStyles='w-5 h-5'
 								content='Theme'
-								styles='w-full mt-1 hover:bg-[var(--theme-hover)] text-[var(--theme-text)]'
+								styles='w-full mt-1 hover:bg-[var(--theme-hover)] text-[var(--theme-text)] py-1 px-2'
 								onClick={() => {
 									setOpen(true)
 									setModal('theme')

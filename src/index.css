@@ -44,7 +44,7 @@
 	--theme-action: hsl(222, 30%, 16%);
 	--theme-entry: hsl(223, 30%, 15%);
 	--theme-card: hsl(220, 28%, 17%);
-	--theme-bg-primary: hsl(223, 28%, 16%);
+	--theme-bg-primary: hsl(222, 21%, 28%);
 	--theme-bg-secondary: hsl(216, 20%, 24%);
 	--theme-hover-bg-primary: hsl(215, 22%, 26%);
 	--theme-hover-bg-secondary: hsl(215, 22%, 32%);
@@ -88,7 +88,7 @@
 	--theme-action: hsl(208, 60%, 21%);
 	--theme-entry: hsl(207, 55%, 20%);
 	--theme-card: hsl(206, 52%, 19%);
-	--theme-bg-primary: hsl(205, 70%, 18%);
+	--theme-bg-primary: hsl(192, 65%, 22%);
 	--theme-bg-secondary: hsl(200, 40%, 26%);
 	--theme-hover-bg-primary: hsl(200, 45%, 22%);
 	--theme-hover-bg-secondary: hsl(200, 46%, 32%);

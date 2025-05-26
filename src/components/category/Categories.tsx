@@ -45,17 +45,20 @@ export const Categories = () => {
 										? totalEntries(entries.groups.filter((e) => e.id !== recycleBinId))
 										: totalEntries(entries.groups.filter((p) => p.id === category.id))
 								}
-								onSelect={() => {
+								onSelect={(e) => {
+									e.stopPropagation()
 									setSelectedItems([])
 									setActiveCategory(category)
 								}}
-								onEdit={() => {
+								onEdit={(e) => {
+									e.stopPropagation()
 									setSelectedItems([])
 									setCategory(category)
 									setModal('category')
 									setOpen(true)
 								}}
-								onDelete={() => {
+								onDelete={(e) => {
+									e.stopPropagation()
 									setSelectedItems([])
 									setCategory(category)
 									setModal('delete')

@@ -15,9 +15,9 @@ interface CategoryRowProps {
 	category: Group
 	isActive: boolean
 	total: number
-	onSelect: () => void
-	onEdit: () => void
-	onDelete: () => void
+	onSelect: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+	onEdit: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+	onDelete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 export const CategoryRow: React.FC<CategoryRowProps> = ({
@@ -80,38 +80,41 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 				isHovered && `${selectedColor}`
 			)}
 		>
-			<button
-				type='button'
+			<div
 				className={cn(
-					'w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 text-[var(--theme-text-on-card)]',
+					'w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 text-[var(--theme-text-on-card)] justify-between',
 					isActive && 'bg-gradient-to-r font-medium',
 					isActive && bg,
 					isActive && category.id === 'All' && 'text-[var(--theme-text-on-primary)]',
 					!isActive && 'hover:bg-[var(--theme-hover)] hover:text-[var(--theme-text)]'
 				)}
-				onClick={onSelect}
+				onMouseDown={onSelect}
 			>
-				<Icon icon={category.name === 'All' ? 'lucide:shield' : icon} className='h-5 w-5' />
-				{category.name}
-				<span className='ml-auto bg-[var(--theme-bg-primary)] text-xs rounded-full px-2 py-1 text-[var(--theme-text-on-primary)]'>
-					{total}
-				</span>
-			</button>
-			<div className='min-w-16 flex items-center gap-1'>
-				{(!isDefaultCategory || recycleBinId === category.id) && (
-					<ActionButton
-						onClick={onEdit}
-						icon={'lucide:edit'}
-						styles='hover:bg-[var(--theme-hover)] text-[var(--theme-text)] hover:text-[var(--theme-text)] p-2'
-					/>
-				)}
-				{!isDefaultCategory && (
-					<ActionButton
-						onClick={onDelete}
-						icon={'lucide:trash'}
-						styles='hover:bg-[var(--theme-hover)] text-[var(--theme-text)] hover:text-[var(--theme-text)] p-2'
-					/>
-				)}
+				<p className='flex gap-2'>
+					<Icon icon={category.name === 'All' ? 'lucide:shield' : icon} className='h-5 w-5' />
+					{category.name}
+				</p>
+				<div className='flex gap-1'>
+					{(!isDefaultCategory || recycleBinId === category.id) && (
+						<ActionButton
+							onClick={onEdit}
+							icon={'lucide:edit'}
+							styles='text-[var(--theme-text)] hover:text-[var(--theme-text)] p-1 hover:bg-[var(--theme-bg-primary)]'
+							iconStyles='h-4 w-4'
+						/>
+					)}
+					{!isDefaultCategory && (
+						<ActionButton
+							onClick={onDelete}
+							icon={'lucide:trash'}
+							styles='text-[var(--theme-text)] hover:text-[var(--theme-text)] p-1 hover:bg-[var(--theme-bg-primary)]'
+							iconStyles='h-4 w-4'
+						/>
+					)}
+					<span className='bg-[var(--theme-bg-primary)] text-xs rounded-full px-2 py-1 text-[var(--theme-text-on-primary)]'>
+						{total}
+					</span>
+				</div>
 			</div>
 		</div>
 	)
