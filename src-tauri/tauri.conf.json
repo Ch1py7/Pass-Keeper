@@ -15,6 +15,7 @@
 				"title": "pass-keeper",
 				"width": 1000,
 				"height": 800,
+				"minWidth": 412,
 				"resizable": true,
 				"fullscreen": false,
 				"dragDropEnabled": false
