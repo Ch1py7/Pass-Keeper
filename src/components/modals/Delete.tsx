@@ -57,30 +57,37 @@ export const Delete = () => {
 	}, [category, setCategory])
 
 	return (
-		<div className='sm:max-w-[400px] w-full border-0 shadow-2xl bg-white rounded-xl p-8'>
-			<div>
+		<div className='sm:max-w-[400px] w-full border-0 rounded-xl bg-[var(--theme-modal)] p-8 space-y-3'>
+			<div className='space-y-3'>
 				<h3 className='text-2xl font-bold'>
-					Delete {selectedItems.length === 1 ? 'Entry' : 'Entries'}
+					Delete {selectedItems.length ? (selectedItems.length === 1 ? 'Entry' : 'Entries') : ''}
 					{category && 'Category'}
 				</h3>
-				<p className='text-slate-500 text-sm'>
-					Are you sure you want to delete {selectedItems.length === 1 ? 'this' : 'these'}{' '}
-					{selectedItems.length === 1 ? 'entry' : 'entries'}
-					{category && category.name}
-					{category && 'category'}?
-				</p>
-				<p className={cn('text-slate-500 text-sm', isPermanent && 'font-medium')}>
-					{isPermanent ? 'This action cannot be undone' : 'This will move them to the Recycle Bin'}
-				</p>
+				<div>
+					<p className='text-[var(--theme-text-muted)] text-sm'>
+						Are you sure you want to delete{' '}
+						{selectedItems.length ? (selectedItems.length === 1 ? 'this ' : 'these ') : ''}
+						{selectedItems.length ? (selectedItems.length === 1 ? 'Entry' : 'Entries') : ''}
+						{category && `${category.name} `}
+						{category && 'category'}?
+					</p>
+					<p className={cn('text-[var(--theme-text-muted)] text-sm', isPermanent && 'font-medium')}>
+						{isPermanent
+							? 'This action cannot be undone'
+							: 'This will move them to the Recycle Bin'}
+					</p>
+				</div>
 			</div>
-			<div className='flex justify-end gap-2 mt-3'>
-				<Button content='Cancel' style='secondary' shadows={false} onClick={() => setOpen(false)} />
+			<div className='flex justify-end gap-x-3 mt-6'>
+				<Button
+					content='Cancel'
+					styles='text-[var(--theme-text)] border bg-[var(--theme-modal)] hover:bg-[var(--theme-hover)]'
+					onClick={() => setOpen(false)}
+				/>
 				<Button
 					content='Delete'
-					style='deleteStyles'
-					shadows={false}
+					styles='bg-red-500 hover:bg-red-700 text-white'
 					onClick={handleDelete}
-					styles='text-white'
 				/>
 			</div>
 		</div>

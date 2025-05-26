@@ -31,7 +31,7 @@ const handleFileUpload = async (setFile: (value: CFile | ((prev: CFile) => CFile
 export const UploadFile = () => {
 	const [newFile, setNewFile] = useState(false)
 	const [enter, setEnter] = useState(true)
-	const { file, setFile } = useAppStore()
+	const { file, setFile, setOpen, setModal } = useAppStore()
 	const passwordStrength = usePasswordStrength(file.masterKey)
 
 	const { color, label } = getPasswordStrengthInfo(passwordStrength)
@@ -80,16 +80,24 @@ export const UploadFile = () => {
 	}
 
 	return (
-		<div className='min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4'>
+		<div className='min-h-screen flex items-center justify-center p-4'>
+			<button
+				className='absolute top-8 right-8'
+				type='button'
+				onClick={() => {
+					setOpen(true)
+					setModal('theme')
+				}}
+			>
+				<Icon icon='lucide:menu' className='w-8 h-8 text-[var(--theme-text)]' />
+			</button>
 			<div className='max-w-md w-full'>
 				<div className='text-center mb-8'>
-					<div className='bg-gradient-to-r from-purple-600 to-pink-600 p-4 rounded-2xl shadow-lg inline-block mb-4'>
-						<Icon icon='lucide:lock' className='text-white h-8 w-8' />
+					<div className='bg-gradient-to-r from-[var(--theme-bg-secondary)] to-[var(--theme-bg-primary)] p-4 rounded-2xl shadow-[var(--theme-shadow)] inline-block mb-4'>
+						<Icon icon='lucide:lock' className='h-8 w-8 text-[var(--theme-text-on-primary)]' />
 					</div>
-					<h1 className='text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 mb-2'>
-						Vault Keeper
-					</h1>
-					<p className='text-slate-500 text-lg'>Your secure password manager</p>
+					<h1 className='text-4xl font-bold mb-2'>Vault Keeper</h1>
+					<p className='text-lg'>Your secure password manager</p>
 				</div>
 				{file.name || newFile ? (
 					<MasterKey
@@ -106,34 +114,34 @@ export const UploadFile = () => {
 						showNewFileDetails={!file.name}
 					/>
 				) : (
-					<div className='border-0 shadow-xl'>
+					<div className='border-0 shadow-[var(--theme-shadow)] rounded-xl'>
 						<div className='p-6 space-y-6'>
 							<div className='text-center'>
 								<h2 className='text-xl font-semibold mb-2'>Get Started</h2>
-								<p className='text-slate-500 mb-4'>
-									Load an existing password file or create a new one
-								</p>
+								<p className='mb-4'>Load an existing password file or create a new one</p>
 							</div>
 
 							<div className='space-y-4'>
 								<button
 									type='button'
-									className='border-2 border-dashed border-slate-200 rounded-lg p-6 text-center cursor-pointer w-full hover:border-purple-400 transition-colors'
+									className='border-2 border-dashed rounded-lg p-6 text-center w-full hover:border-[var(--theme-bg-primary)] transition-colors'
 									onClick={() => handleFileUpload(setFile)}
 								>
-									<Icon icon='lucide:file-up' className='h-10 w-10 text-slate-400 mx-auto mb-2' />
+									<Icon
+										icon='lucide:file-up'
+										className='h-10 w-10 mx-auto mb-2 text-[var(--theme-text)]'
+									/>
 									<p className='font-medium mb-1'>Upload Password File</p>
-									<p className='text-sm text-slate-500'>Click to select a .kdbx file</p>
+									<p className='text-sm'>Click to select a .kdbx file</p>
 								</button>
 
 								<div className='flex flex-col sm:flex-row gap-3'>
 									<Button
 										onClick={() => setNewFile(true)}
 										content='Create New File'
-										style='primary'
 										iconLeft='lucide:file-plus'
 										fullWidth
-										styles='text-white justify-center'
+										styles='justify-center btn-primary'
 									/>
 								</div>
 							</div>

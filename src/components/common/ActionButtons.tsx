@@ -20,7 +20,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
 		<button
 			type='button'
 			className={cn(
-				'p-2 rounded-sm hover:bg-slate-100 cursor-pointer text-slate-500 hover:text-slate-900 disabled:cursor-default',
+				'rounded-full disabled:cursor-default transition-all duration-200 h-fit w-fit',
 				styles
 			)}
 			disabled={disabled}

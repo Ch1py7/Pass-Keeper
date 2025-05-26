@@ -28,52 +28,52 @@ export const sampleFile: CFile = {
 
 export const availableColors: Record<ColorName, ColorStyle> = {
 	purple: {
-		bg: 'from-purple-500 to-indigo-600',
-		selectedColor: 'ring-1 ring-purple-500 shadow-[0_0_6px_purple]',
+		bg: 'from-purple-500 to-indigo-600 text-white',
+		selectedColor: 'ring-2 ring-purple-400 shadow-[0_0_8px_purple]',
 	},
 	pink: {
-		bg: 'from-pink-500 to-rose-600',
-		selectedColor: 'ring-1 ring-pink-500 shadow-[0_0_6px_pink]',
+		bg: 'from-pink-500 to-rose-600 text-white',
+		selectedColor: 'ring-2 ring-pink-400 shadow-[0_0_8px_pink]',
 	},
 	orange: {
-		bg: 'from-amber-500 to-orange-600',
-		selectedColor: 'ring-1 ring-orange-500 shadow-[0_0_6px_orange]',
+		bg: 'from-amber-500 to-orange-600 text-white',
+		selectedColor: 'ring-2 ring-orange-400 shadow-[0_0_8px_orange]',
 	},
 	green: {
-		bg: 'from-emerald-500 to-green-600',
-		selectedColor: 'ring-1 ring-green-500 shadow-[0_0_6px_green]',
+		bg: 'from-emerald-500 to-green-600 text-white',
+		selectedColor: 'ring-2 ring-green-400 shadow-[0_0_8px_green]',
 	},
 	blue: {
-		bg: 'from-sky-500 to-blue-600',
-		selectedColor: 'ring-1 ring-blue-500 shadow-[0_0_6px_blue]',
+		bg: 'from-sky-500 to-blue-600 text-white',
+		selectedColor: 'ring-2 ring-blue-400 shadow-[0_0_8px_blue]',
 	},
 	gray: {
-		bg: 'from-slate-500 to-gray-600',
-		selectedColor: 'ring-1 ring-gray-500 shadow-[0_0_6px_gray]',
+		bg: 'from-slate-500 to-gray-600 text-white',
+		selectedColor: 'ring-2 ring-gray-400 shadow-[0_0_8px_gray]',
 	},
 	red: {
-		bg: 'from-red-500 to-red-600',
-		selectedColor: 'ring-1 ring-red-500 shadow-[0_0_6px_red]',
+		bg: 'from-red-500 to-red-600 text-white',
+		selectedColor: 'ring-2 ring-red-400 shadow-[0_0_8px_red]',
 	},
 	teal: {
-		bg: 'from-teal-500 to-teal-600',
-		selectedColor: 'ring-1 ring-teal-500 shadow-[0_0_6px_teal]',
+		bg: 'from-teal-500 to-teal-600 text-white',
+		selectedColor: 'ring-2 ring-teal-400 shadow-[0_0_8px_teal]',
 	},
 	violet: {
-		bg: 'from-violet-500 to-purple-600',
-		selectedColor: 'ring-1 ring-violet-500 shadow-[0_0_6px_violet]',
+		bg: 'from-violet-500 to-purple-600 text-white',
+		selectedColor: 'ring-2 ring-violet-400 shadow-[0_0_8px_violet]',
 	},
 	yellow: {
-		bg: 'from-yellow-400 to-amber-500',
-		selectedColor: 'ring-1 ring-yellow-500 shadow-[0_0_6px_yellow]',
+		bg: 'from-yellow-400 to-amber-500 text-black',
+		selectedColor: 'ring-2 ring-yellow-400 shadow-[0_0_8px_yellow]',
 	},
 	lime: {
-		bg: 'from-lime-500 to-green-500',
-		selectedColor: 'ring-1 ring-lime-500 shadow-[0_0_6px_lime]',
+		bg: 'from-lime-500 to-green-500 text-white',
+		selectedColor: 'ring-2 ring-lime-400 shadow-[0_0_8px_lime]',
 	},
 	cyan: {
-		bg: 'from-cyan-500 to-blue-500',
-		selectedColor: 'ring-1 ring-cyan-500 shadow-[0_0_6px_cyan]',
+		bg: 'from-cyan-500 to-blue-500 text-white',
+		selectedColor: 'ring-2 ring-cyan-400 shadow-[0_0_8px_cyan]',
 	},
 }
 
@@ -163,3 +163,48 @@ export const categoryAliases: Record<string, string> = {
 	'Recycle Bin': 'Recycle Bin',
 	'RECYCLE BIN': 'Recycle Bin',
 }
+
+export const themes = [
+	{
+		id: 'light' as Theme,
+		name: 'Light',
+		description: 'Clean and bright',
+		preview: 'bg-gradient-to-br from-slate-50 to-slate-100',
+		accent: 'bg-cyan-700',
+	},
+	{
+		id: 'warm' as Theme,
+		name: 'Warm',
+		description: 'Cozy and inviting',
+		preview: 'bg-gradient-to-br from-amber-50 to-orange-100',
+		accent: 'bg-amber-600',
+	},
+	{
+		id: 'sunset' as Theme,
+		name: 'Sunset',
+		description: 'Warm and vibrant',
+		preview: 'bg-gradient-to-br from-rose-100 to-orange-200',
+		accent: 'bg-rose-500',
+	},
+	{
+		id: 'dark' as Theme,
+		name: 'Dark',
+		description: 'Easy on the eyes',
+		preview: 'bg-gradient-to-br from-slate-900 to-slate-800',
+		accent: 'bg-slate-600',
+	},
+	{
+		id: 'ocean' as Theme,
+		name: 'Ocean',
+		description: 'Deep and calming',
+		preview: 'bg-gradient-to-br from-blue-900 to-cyan-900',
+		accent: 'bg-cyan-500',
+	},
+	{
+		id: 'forest' as Theme,
+		name: 'Forest',
+		description: 'Natural and serene',
+		preview: 'bg-gradient-to-br from-emerald-900 to-green-800',
+		accent: 'bg-emerald-500',
+	},
+]

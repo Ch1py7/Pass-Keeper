@@ -1,4 +1,5 @@
 import { Button } from '@/components/common/Button'
+import { Input } from '@/components/common/Input'
 import { cn } from '@/utils/cn'
 import { formatDateFromMilliseconds } from '@/utils/common'
 interface EntryFormProps {
@@ -24,60 +25,50 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 	return (
 		<div
 			onKeyDown={handleEnterPress}
-			className='sm:max-w-[450px] border-0 shadow-2xl bg-white rounded-xl p-8'
+			className='sm:max-w-[450px] w-full border-0 rounded-xl bg-[var(--theme-modal)] p-8 space-y-3'
 		>
 			<div>
 				<p className='text-2xl font-bold'>{newEntry.id ? newEntry.title : 'Add New Password'}</p>
-				<p>{newEntry.id ? 'Entry details' : 'Enter the details for the new password entry'}</p>
+				<p className='text-[var(--theme-text-muted)] text-sm'>
+					{newEntry.id ? 'Entry details' : 'Enter the details for the new password entry'}
+				</p>
 			</div>
-			<div className='grid grid-cols-2 gap-x-4 gap-y-2 py-4'>
-				<div>
-					<label className='flex flex-col font-medium text-slate-700'>
-						Title
-						<input
-							className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8'
-							onChange={(e) => onHandleChange('title', e.target.value)}
-							value={newEntry.title}
-						/>
-					</label>
-				</div>
-				<div>
-					<label className='flex flex-col font-medium text-slate-700'>
-						URL
-						<input
-							className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8'
-							onChange={(e) => onHandleChange('url', e.target.value)}
-							value={newEntry.url}
-						/>
-					</label>
-				</div>
-				<div>
-					<label className='flex flex-col font-medium text-slate-700'>
-						Username
-						<input
-							className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8'
-							onChange={(e) => onHandleChange('username', e.target.value)}
-							value={newEntry.username}
-						/>
-					</label>
-				</div>
-				<div>
-					<label className='flex flex-col font-medium text-slate-700'>
-						Password
-						<input
-							type='password'
-							className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8'
-							onChange={(e) => onHandleChange('password', e.target.value)}
-							value={newEntry.password}
-						/>
-					</label>
-				</div>
+			<div className='grid grid-cols-2 space-y-3 gap-x-3'>
+				<Input
+					id='Title'
+					label='Title'
+					onChange={(e) => onHandleChange('title', e.target.value)}
+					value={newEntry.title}
+					placeholder='New Entry'
+				/>
+				<Input
+					id='URL'
+					label='URL'
+					onChange={(e) => onHandleChange('url', e.target.value)}
+					value={newEntry.url}
+					placeholder='https://x.com'
+				/>
+				<Input
+					id='Username'
+					label='Username'
+					onChange={(e) => onHandleChange('username', e.target.value)}
+					value={newEntry.username}
+					placeholder='Username'
+				/>
+				<Input
+					id='Password'
+					label='Password'
+					type='password'
+					onChange={(e) => onHandleChange('password', e.target.value)}
+					value={newEntry.password}
+					placeholder='Password'
+				/>
 				<div className={cn(!newEntry.id && 'col-span-2')}>
-					<label className='flex flex-col font-medium text-slate-700'>
+					<label className='flex flex-col font-medium'>
 						Category
 						<select
 							className={cn(
-								'font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8 disabled:bg-slate-200',
+								'h-10 px-3 rounded-lg w-full border-1 border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--text-muted)]',
 								entry?.id && 'bg-gray-200'
 							)}
 							value={newEntry.groupId}
@@ -93,44 +84,37 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					</label>
 				</div>
 				{newEntry.id && (
-					<div>
-						<label className='flex flex-col font-medium text-slate-700'>
-							Added On
-							<input
-								className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 h-8 disabled:bg-slate-200'
-								value={formatDateFromMilliseconds(newEntry.creationTime)}
-								disabled
-							/>
-						</label>
-					</div>
+					<Input
+						label='Added On'
+						placeholder=''
+						onChange={() => {}}
+						value={formatDateFromMilliseconds(newEntry.creationTime)}
+						disabled
+					/>
 				)}
-				<div className='col-span-2 gap-4'>
-					<label className='flex flex-col font-medium text-slate-700'>
+				<div className='col-span-2'>
+					<label className='flex flex-col font-medium'>
 						Notes
 						<textarea
-							className='font-normal border-1 border-solid border-slate-200 rounded-md py-1 px-3 min-h-12'
+							className='font-normal p-3 rounded-lg w-full border-1 bg-[var(--theme-action)] border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--text-muted)]'
 							onChange={(e) => onHandleChange('notes', e.target.value)}
 							value={newEntry.notes}
 						/>
 					</label>
 				</div>
 			</div>
-			<div className='flex space-x-4'>
+			<div className='flex gap-x-3 mt-6'>
 				<Button
 					fullWidth
 					content='Cancel'
-					style='secondary'
-					shadows={false}
 					onClick={onCancel}
-					styles='justify-center'
+					styles='justify-center text-[var(--theme-text)] border bg-[var(--theme-modal)] hover:bg-[var(--theme-hover)]'
 				/>
 				<Button
 					fullWidth
 					content='Save Entry'
-					style='primary'
-					shadows={false}
 					onClick={onSubmit}
-					styles='text-white justify-center'
+					styles='justify-center btn-primary'
 				/>
 			</div>
 		</div>

@@ -13,13 +13,10 @@ interface CompactEntryCardProps {
 	entry: Entry
 	category: Group
 	onEdit: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+	onDelete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
-export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
-	entry,
-	category,
-	onEdit,
-}) => {
+export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({ entry, category, onEdit, onDelete }) => {
 	const [showEntry, setShowEntry] = useState(false)
 	const { color, icon } = category.params
 	const {
@@ -84,10 +81,10 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 
 	return (
 		// biome-ignore lint/a11y/useKeyWithClickEvents: le pregunte a mis huevos y dijeron que ta bien
-		<div
+		<article
 			className={cn(
-				'overflow-hidden border-0 shadow-md transition-all duration-200 rounded-xl',
-				!isSelected && 'hover:shadow-lg',
+				'overflow-hidden border-0 shadow-[var(--theme-shadow)] transition-all duration-200 rounded-xl bg-[var(--theme-entry)]',
+				!isSelected && 'hover:shadow-[var(--theme-shadow-lg)]',
 				isSelected && !isDragging && selectedColor,
 				isSelected && !isDragging && '-translate-y-1',
 				isDragging && 'scale-95 opacity-50'
@@ -110,7 +107,7 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 								bg
 							)}
 						>
-							<Icon icon={icon} className='h-5 w-5 text-white' />
+							<Icon icon={icon} className='h-5 w-5' />
 						</div>
 						<div>
 							<h3 className='font-bold text-sm max-w-25 truncate'>{entry.title}</h3>
@@ -121,27 +118,37 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 						<ActionButton
 							onClick={handleShowPassword}
 							icon={showEntry ? 'lucide:eye' : 'lucide:eye-off'}
+							styles='hover:bg-[var(--theme-hover)] text-[var(--theme-text)] hover:text-[var(--theme-text)] p-2'
 						/>
-						<ActionButton onClick={onEdit} icon={'lucide:edit'} />
+						<ActionButton
+							onClick={onEdit}
+							icon={'lucide:edit'}
+							styles='hover:bg-[var(--theme-hover)] text-[var(--theme-text)] hover:text-[var(--theme-text)] p-2'
+						/>
+						<ActionButton
+							onClick={onDelete}
+							icon={'lucide:trash'}
+							styles='hover:bg-[var(--theme-hover)] text-[var(--theme-text)] hover:text-[var(--theme-text)] p-2'
+						/>
 					</div>
 				</div>
 				<button
 					type='button'
-					className='flex items-center gap-2 py-2 ps-3 pe-8 bg-slate-100 hover:bg-slate-200 transition-color duration-100 rounded-lg relative w-full cursor-pointer'
+					className='flex items-center gap-2 py-2 ps-3 pe-8 bg-[var(--theme-muted)] hover:bg-[var(--theme-muted-hover)] transition-color duration-100 rounded-lg relative w-full'
 					onClick={clipboard}
 				>
 					<div
 						className={cn(
-							'absolute right-2 -top-2 px-3 rounded-full text-xs bg-gradient-to-r text-white border-0 w-fit max-w-20 truncate',
+							'absolute right-2 -top-2 px-3 rounded-full text-xs bg-gradient-to-r border-0 w-fit max-w-20 truncate',
 							bg
 						)}
 					>
 						{entry.groupName}
 					</div>
 					<p className='font-medium max-w truncate'>{showEntry ? entry.password : '••••••••'}</p>
-					<Icon className='absolute right-3 h-4 w-4' icon={'lucide:copy'} />
+					<Icon className='absolute right-3 h-4 w-4 text-[var(--theme-text)]' icon={'lucide:copy'} />
 				</button>
 			</div>
-		</div>
+		</article>
 	)
 }

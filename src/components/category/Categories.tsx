@@ -19,22 +19,20 @@ export const Categories = () => {
 
 	return (
 		<div className='w-full md:max-w-86 h-fit select-none'>
-			<div className='bg-white rounded-2xl shadow-xl overflow-hidden'>
-				<div className='px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 flex justify-between items-center'>
-					<h2 className='text-xl font-bold text-white'>Categories</h2>
-					<div className='flex gap-1'>
-						<ActionButton
-							icon='lucide:plus'
-							onClick={() => {
-								setOpen(true)
-								setModal('category')
-							}}
-							iconStyles='w-5 h-5'
-							styles='hover:text-white hover:bg-black/15 text-white'
-						/>
-					</div>
+			<div className='rounded-2xl overflow-hidden shadow-[var(--theme-shadow-lg)]'>
+				<div className='px-4 py-3 bg-gradient-to-r from-[var(--theme-bg-secondary)] to-[var(--theme-bg-primary)] flex justify-between items-center'>
+					<h2 className='text-xl text-[var(--theme-text-on-primary)] font-bold'>Categories</h2>
+					<ActionButton
+						icon='lucide:plus'
+						onClick={() => {
+							setOpen(true)
+							setModal('category')
+						}}
+						styles='hover:bg-[var(--theme-hover)] text-[var(--theme-text-on-primary)] p-1'
+						iconStyles='w-5 h-5'
+					/>
 				</div>
-				<div className='p-4'>
+				<div className='p-4 bg-[var(--theme-card)]'>
 					<div className='space-y-1'>
 						{categories.map((category) => (
 							<CategoryRow

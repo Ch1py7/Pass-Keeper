@@ -1,8 +1,5 @@
-import { getKdbxInstance } from '@/services/kdbxSingleton'
 import { createRef, type RefObject } from 'react'
 import { create } from 'zustand'
-
-const kdbx = getKdbxInstance()
 
 interface FileStore {
 	itemContainerRef: RefObject<HTMLDivElement>

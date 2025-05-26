@@ -20,9 +20,6 @@ interface CategoryRowProps {
 	onDelete: () => void
 }
 
-const activeBackground = (color: ColorName) =>
-	color ? getAvailableColor(color).bg : 'from-purple-100 to-pink-100 text-purple-700'
-
 export const CategoryRow: React.FC<CategoryRowProps> = ({
 	category,
 	isActive,
@@ -37,7 +34,7 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 	const { selectedItems, setSelectedItems } = useFileStore()
 	const [isHovered, setIsHovered] = useState(false)
 	const kdbx = getKdbxInstance()
-	const { selectedColor } = getAvailableColor(color)
+	const { selectedColor, bg } = getAvailableColor(color)
 
 	const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
 		if (category.id === 'All') return
@@ -79,33 +76,42 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 			onDrop={onDrop}
 			onDragLeave={onDragLeave}
 			className={cn(
-				'group relative mb-1 transition-all duration-200 rounded-lg text-slate-300',
+				'group relative mb-1 transition-all duration-200 rounded-lg flex gap-1',
 				isHovered && `${selectedColor}`
 			)}
 		>
-			<div className='flex items-center'>
-				<button
-					type='button'
-					className={cn(
-						'w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 cursor-pointer text-black',
-						isActive && 'bg-gradient-to-r font-medium text-white',
-						isActive && activeBackground(color),
-						!isActive && 'hover:bg-slate-100'
-					)}
-					onClick={onSelect}
-				>
-					<Icon icon={category.name === 'All' ? 'lucide:shield' : icon} className='h-5 w-5' />
-					{category.name}
-					<span className='ml-auto bg-slate-200 text-slate-600 text-xs rounded-full px-2 py-1'>
-						{total}
-					</span>
-				</button>
-				<div className='flex gap-1 ms-1 min-w-16 me-3'>
-					{(!isDefaultCategory || recycleBinId === category.id) && (
-						<ActionButton onClick={onEdit} icon={'lucide:edit'} />
-					)}
-					{!isDefaultCategory && <ActionButton onClick={onDelete} icon={'lucide:trash'} />}
-				</div>
+			<button
+				type='button'
+				className={cn(
+					'w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 text-[var(--theme-text-on-card)]',
+					isActive && 'bg-gradient-to-r font-medium',
+					isActive && bg,
+					isActive && category.id === 'All' && 'text-[var(--theme-text-on-primary)]',
+					!isActive && 'hover:bg-[var(--theme-hover)] hover:text-[var(--theme-text)]'
+				)}
+				onClick={onSelect}
+			>
+				<Icon icon={category.name === 'All' ? 'lucide:shield' : icon} className='h-5 w-5' />
+				{category.name}
+				<span className='ml-auto bg-[var(--theme-bg-primary)] text-xs rounded-full px-2 py-1 text-[var(--theme-text-on-primary)]'>
+					{total}
+				</span>
+			</button>
+			<div className='min-w-16 flex items-center gap-1'>
+				{(!isDefaultCategory || recycleBinId === category.id) && (
+					<ActionButton
+						onClick={onEdit}
+						icon={'lucide:edit'}
+						styles='hover:bg-[var(--theme-hover)] text-[var(--theme-text)] hover:text-[var(--theme-text)] p-2'
+					/>
+				)}
+				{!isDefaultCategory && (
+					<ActionButton
+						onClick={onDelete}
+						icon={'lucide:trash'}
+						styles='hover:bg-[var(--theme-hover)] text-[var(--theme-text)] hover:text-[var(--theme-text)] p-2'
+					/>
+				)}
 			</div>
 		</div>
 	)

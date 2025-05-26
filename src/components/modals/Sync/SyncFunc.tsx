@@ -57,8 +57,8 @@ export const SyncFunc = () => {
 	return (
 		<>
 			{!db && (
-				<div className='pt-2'>
-					<div className='flex gap-2 bg-amber-50 text-amber-800 border border-amber-200 px-5 py-3 rounded-md'>
+				<div>
+					<div className='flex items-center gap-2 bg-[var(--warning)] border border-[var(--warning-border)] px-5 py-3 rounded-md text-[var(--theme-text)]'>
 						<Icon icon='lucide:triangle-alert' className='h-8 w-8' />
 						<p className='text-sm'>
 							Not connected to database. Please configure connection settings first.
@@ -66,13 +66,11 @@ export const SyncFunc = () => {
 					</div>
 				</div>
 			)}
-			<div className='flex flex-col gap-2 mt-4'>
+			<div className='flex flex-col gap-2'>
 				<Button
 					fullWidth
 					content='Sync Local to Database'
-					shadows={false}
-					style='primary'
-					styles='text-white justify-center'
+					styles='justify-center'
 					iconLeft='lucide:cloud-upload'
 					iconLeftStyles='w-7 h-7'
 					disabled={!db || loading}
@@ -81,10 +79,9 @@ export const SyncFunc = () => {
 				<Button
 					fullWidth
 					content='Sync Database to Local'
-					shadows={false}
+					styles='justify-center'
 					iconLeft='lucide:cloud-download'
 					iconLeftStyles='w-7 h-7'
-					styles='bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 disabled:from-blue-300 disabled:to-cyan-200 hover:to-cyan-700 justify-center text-white'
 					disabled={!db || loading}
 					onClick={syncToLocal}
 				/>

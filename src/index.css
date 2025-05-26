@@ -1,4 +1,200 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	--theme-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	--theme-shadow-lg: 0 6px 16px rgba(0, 0, 0, 0.2);
+	--warning: hsl(35 100% 90%);
+	--warning-border: hsl(35 80% 70%);
+}
+
+.dark {
+	--theme-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+	--theme-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+	--warning: hsl(35 80% 20%);
+	--warning-border: hsl(35 70% 35%);
+}
+
+.theme-light {
+	--theme-bg-from: hsl(0, 0%, 98%);
+	--theme-bg-to: hsl(220, 40%, 97%);
+	--theme-modal: hsl(0, 0%, 100%);
+	--theme-action: hsl(0, 0%, 99%);
+	--theme-entry: hsl(0, 0%, 98%);
+	--theme-card: hsl(0, 0%, 100%);
+	--theme-bg-primary: hsl(0, 0%, 90%);
+	--theme-bg-secondary: hsl(210, 20%, 85%);
+	--theme-hover-bg-primary: hsl(210, 25%, 88%);
+	--theme-hover-bg-secondary: hsl(210, 30%, 80%);
+	--theme-text: hsl(220 15% 20%);
+	--theme-text-on-card: hsl(220 15% 20%);
+	--theme-text-on-primary: hsl(0 0% 10%);
+	--theme-text-muted: hsl(215 12% 50%);
+	--theme-border: hsl(0, 0%, 85%);
+	--theme-box: hsla(210, 20%, 50%, 0.1);
+	--theme-muted: hsl(0, 0%, 95%);
+	--theme-muted-hover: hsl(0, 0%, 92%);
+	--theme-hover: hsl(0, 0%, 90%);
+}
+
+.theme-dark {
+	--theme-bg-from: hsl(222, 28%, 12%);
+	--theme-bg-to: hsl(224, 32%, 10%);
+	--theme-modal: hsl(222, 30%, 14%);
+	--theme-action: hsl(222, 30%, 16%);
+	--theme-entry: hsl(223, 30%, 15%);
+	--theme-card: hsl(220, 28%, 17%);
+	--theme-bg-primary: hsl(223, 28%, 16%);
+	--theme-bg-secondary: hsl(216, 20%, 24%);
+	--theme-hover-bg-primary: hsl(215, 22%, 26%);
+	--theme-hover-bg-secondary: hsl(215, 22%, 32%);
+	--theme-text: hsl(210, 20%, 92%);
+	--theme-text-on-card: hsl(210, 30%, 90%);
+	--theme-text-on-primary: hsl(0, 0%, 100%);
+	--theme-text-muted: hsl(215, 12%, 60%);
+	--theme-border: hsl(215, 14%, 35%);
+	--theme-box: hsla(220, 20%, 30%, 0.35);
+	--theme-muted: hsl(217, 18%, 20%);
+	--theme-muted-hover: hsl(217, 18%, 23%);
+	--theme-hover: hsl(219, 15%, 32%);
+}
+
+.theme-warm {
+	--theme-bg-from: hsl(35, 100%, 95%);
+	--theme-bg-to: hsl(30, 90%, 88%);
+	--theme-modal: hsl(35, 100%, 94%);
+	--theme-action: hsl(35, 90%, 92%);
+	--theme-entry: hsl(35, 85%, 91%);
+	--theme-card: hsl(35, 85%, 90%);
+	--theme-bg-primary: hsl(35, 90%, 60%);
+	--theme-bg-secondary: hsl(35, 85%, 70%);
+	--theme-hover-bg-primary: hsl(28, 60%, 45%);
+	--theme-hover-bg-secondary: hsl(25, 60%, 38%);
+	--theme-text: hsl(30, 60%, 20%);
+	--theme-text-on-card: hsl(30, 25%, 28%);
+	--theme-text-on-primary: hsl(0, 0%, 100%);
+	--theme-text-muted: hsl(28, 30%, 45%);
+	--theme-border: hsl(30, 50%, 65%);
+	--theme-box: hsla(28, 40%, 30%, 0.3);
+	--theme-muted: hsl(35, 80%, 88%);
+	--theme-muted-hover: hsl(35, 80%, 85%);
+	--theme-hover: hsl(28, 65%, 55%);
+}
+
+.theme-ocean {
+	--theme-bg-from: hsl(210, 80%, 14%);
+	--theme-bg-to: hsl(205, 70%, 18%);
+	--theme-modal: hsl(210, 60%, 19%);
+	--theme-action: hsl(208, 60%, 21%);
+	--theme-entry: hsl(207, 55%, 20%);
+	--theme-card: hsl(206, 52%, 19%);
+	--theme-bg-primary: hsl(205, 70%, 18%);
+	--theme-bg-secondary: hsl(200, 40%, 26%);
+	--theme-hover-bg-primary: hsl(200, 45%, 22%);
+	--theme-hover-bg-secondary: hsl(200, 46%, 32%);
+	--theme-text: hsl(190, 100%, 92%);
+	--theme-text-on-card: hsl(190, 70%, 85%);
+	--theme-text-on-primary: hsl(0, 0%, 100%);
+	--theme-text-muted: hsl(190, 40%, 68%);
+	--theme-border: hsl(200, 40%, 32%);
+	--theme-box: hsla(200, 40%, 30%, 0.35);
+	--theme-muted: hsl(200, 40%, 28%);
+	--theme-muted-hover: hsl(200, 40%, 31%);
+	--theme-hover: hsl(200, 55%, 48%);
+}
+
+.theme-forest {
+	--theme-bg-from: hsl(125, 30%, 12%);
+	--theme-bg-to: hsl(120, 30%, 18%);
+	--theme-modal: hsl(125, 20%, 20%);
+	--theme-action: hsl(125, 22%, 22%);
+	--theme-entry: hsl(120, 20%, 21%);
+	--theme-card: hsl(120, 18%, 20%);
+	--theme-bg-primary: hsl(125, 30%, 20%);
+	--theme-bg-secondary: hsl(115, 20%, 24%);
+	--theme-hover-bg-primary: hsl(120, 25%, 22%);
+	--theme-hover-bg-secondary: hsl(120, 25%, 28%);
+	--theme-text: hsl(135, 70%, 85%);
+	--theme-text-on-card: hsl(135, 60%, 78%);
+	--theme-text-on-primary: hsl(0, 0%, 100%);
+	--theme-text-muted: hsl(130, 30%, 65%);
+	--theme-border: hsl(120, 20%, 30%);
+	--theme-box: hsla(120, 20%, 30%, 0.35);
+	--theme-muted: hsl(120, 25%, 18%);
+	--theme-muted-hover: hsl(120, 25%, 22%);
+	--theme-hover: hsl(120, 35%, 30%);
+}
+
+.theme-sunset {
+	--theme-bg-from: hsl(10, 80%, 90%);
+	--theme-bg-to: hsl(28, 100%, 85%);
+	--theme-modal: hsl(18, 100%, 94%);
+	--theme-action: hsl(18, 90%, 92%);
+	--theme-entry: hsl(18, 85%, 91%);
+	--theme-card: hsl(18, 80%, 90%);
+	--theme-bg-primary: hsl(340, 70%, 58%);
+	--theme-bg-secondary: hsl(340, 75%, 68%);
+	--theme-hover-bg-primary: hsl(340, 80%, 65%);
+	--theme-hover-bg-secondary: hsl(340, 70%, 75%);
+	--theme-text: hsl(0, 60%, 20%);
+	--theme-text-on-card: hsl(18, 25%, 25%);
+	--theme-text-on-primary: hsl(0 0% 100%);
+	--theme-text-muted: hsl(12, 30%, 50%);
+	--theme-border: hsl(15, 60%, 70%);
+	--theme-box: hsla(18, 30%, 35%, 0.4);
+	--theme-muted: hsl(28, 70%, 85%);
+	--theme-muted-hover: hsl(28, 70%, 80%);
+	--theme-hover: hsl(15, 83%, 82%);
+}
+
+@layer base {
+	* {
+		border: var(--theme-border);
+		transition: background-color 0.2s ease;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	p,
+	input,
+	label {
+		color: var(--theme-text);
+	}
+
+	button {
+		cursor: pointer;
+	}
+
+	body {
+		background-color: var(--background);
+	}
+}
+
+button {
+	box-sizing: border-box;
+	font-family: inherit;
+	cursor: pointer;
+}
+
+.btn-primary {
+	background-image: linear-gradient(to right, var(--theme-bg-secondary), var(--theme-bg-primary));
+	color: var(--theme-text-on-primary);
+	padding: 0.5rem 1rem;
+	border-radius: 0.375rem;
+	border: none;
+	font-weight: 500;
+	transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+	background-image: linear-gradient(
+		to right,
+		var(--theme-hover-bg-primary),
+		var(--theme-hover-bg-secondary)
+	);
+}
 
 html,
 body,
@@ -19,21 +215,40 @@ textarea {
 	resize: none;
 }
 
-input[type="password"]::-ms-reveal,
-input[type="password"]::-ms-clear,
-input[type="password"]::-webkit-credentials-auto-fill-button,
-input[type="password"]::-webkit-textfield-decoration-container {
+input[type="password"]::-ms-reveal {
 	display: none;
 }
-
-input[type="password"]::-webkit-inner-spin-button,
-input[type="password"]::-webkit-clear-button,
 input[type="password"]::-webkit-password-toggle-button {
 	display: none;
 }
 
-#root {
-	overflow: hidden;
+input[type="checkbox"] {
+	appearance: none;
+	width: 1.1rem;
+	height: 1.1rem;
+	border: 2px solid var(--theme-border);
+	background-color: var(--theme-muted);
+	border-radius: 0.25rem;
+	transition: all 0.2s ease;
+	display: inline-block;
+	position: relative;
+}
+
+input[type="checkbox"]:checked {
+	background-color: var(--theme-bg-primary);
+	border-color: var(--theme-bg-primary);
+}
+
+input[type="checkbox"]:checked::after {
+	content: "";
+	position: absolute;
+	left: 4px;
+	top: 1px;
+	width: 5px;
+	height: 10px;
+	border: solid var(--theme-text);
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
 }
 
 ::-webkit-scrollbar {

@@ -26,7 +26,9 @@ export const SelectionBox = () => {
 			if (open) return
 			if (!canvasContainerRef.current) return
 			if (!itemContainerRef.current) return
-			if (e.target !== itemContainerRef.current && e.target !== canvasContainerRef.current) return
+			const target = e.target as HTMLElement
+			if (target.closest('button')) return
+			if (target.closest('article')) return
 
 			const scrollTop = window.scrollY
 			const containerBoundingRect = canvasContainerRef.current.getBoundingClientRect()
@@ -148,7 +150,7 @@ export const SelectionBox = () => {
 		<div
 			ref={squareRef}
 			className={cn(
-				'z-50 absolute block border-2 solid bg-gradient-to-r from-purple-600/10 to-pink-600/10 border-fuchsia-300',
+				'z-50 absolute block border-2 bg-[var(--theme-box)] border-[var(--theme-bg-primary)]',
 				showSelectionArea ? '' : 'hidden'
 			)}
 		/>

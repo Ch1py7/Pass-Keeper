@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react'
 import { useEffect, useRef, useState } from 'react'
 import { ActionButton } from '../common/ActionButtons'
 import { Button } from '../common/Button'
+import { Input } from '../common/Input'
 import { MasterKeyChecklist } from './MasterKeyChecklist'
 
 interface MasterKeyProps {
@@ -43,34 +44,31 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 	}
 
 	return (
-		<div className='border-0 shadow-xl'>
+		<div className='border-0 shadow-[var(--theme-shadow)] rounded-xl'>
 			<div className='p-6 space-y-6'>
 				<div className='text-center mb-2'>
-					<h2 className='text-xl font-semibold mb-2'>{fileName || 'New Password File'}</h2>
+					<h2 className='text-xl font-semibold mb-2'>
+						{fileName ? `${fileName}.kdbx` : 'New Password File'}
+					</h2>
 				</div>
 
 				<div className='space-y-4'>
 					<div className='space-y-2'>
-						<label htmlFor='master-key' className='text-sm font-medium'>
-							Master Key
-						</label>
 						<div className='relative'>
 							<Icon
 								icon='lucide:key-round'
-								className='absolute left-3 top-2 h-4 w-4 text-slate-400 mt-1'
+								className='absolute left-3 bottom-3 h-4 w-4 mt-1 text-[var(--theme-text)]'
 							/>
-							<input
-								id='master-key'
+							<Input
+								label='Master Key'
 								type={showKey ? '' : 'password'}
 								placeholder={fileName ? 'Enter your master key' : 'Create a strong master key'}
-								ref={inputRef}
-								className='font-normal w-full border-1 border-solid border-slate-300 rounded-lg py-1 px-10 h-10'
 								value={masterKey}
 								onChange={(e) => onMasterKeyChange(e.target.value)}
-								onKeyDown={handleEnterPress}
+								styles='px-9'
 							/>
 							<ActionButton
-								styles='absolute right-3 top-1'
+								styles='absolute right-3 bottom-3 text-[var(--theme-text)]'
 								onClick={() => setShowKey((p) => !p)}
 								icon={showKey ? 'lucide:eye' : 'lucide:eye-off'}
 							/>
@@ -87,7 +85,7 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 					</div>
 
 					<div className='pt-2'>
-						<div className='flex gap-2 bg-amber-50 text-amber-800 border border-amber-200 px-5 py-3 rounded-md'>
+						<div className='flex gap-2 bg-[var(--warning)] border border-[var(--warning-border)] px-5 py-3 rounded-md text-[var(--theme-text)]'>
 							<Icon icon='lucide:triangle-alert' className='h-8 w-8' />
 							<p className='text-xs'>
 								This key is required to access your passwords. If you forget it, your data cannot be
@@ -97,7 +95,7 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 					</div>
 
 					{showNewFileDetails && (
-						<label className='text-md text-slate-500 flex gap-1'>
+						<label className='text-md flex gap-2 items-center'>
 							<input checked={enter} onChange={() => setEnter((p) => !p)} type='checkbox' />
 							Enter automatically
 						</label>
@@ -107,16 +105,15 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 						<Button
 							fullWidth
 							content='Back'
-							style='secondary'
 							onClick={onBack}
-							styles='justify-center'
+							styles='justify-center text-[var(--theme-text)] border bg-[var(--theme-modal)] hover:bg-[var(--theme-hover)]'
 						/>
 						<Button
 							fullWidth
 							content={fileName ? 'Unlock' : 'Create'}
-							style='primary'
 							onClick={onSubmit}
-							styles='text-white justify-center'
+							iconLeftStyles='text-white'
+							styles='justify-center text-white btn-primary'
 						/>
 					</div>
 				</div>

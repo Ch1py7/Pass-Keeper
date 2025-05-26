@@ -1,15 +1,7 @@
 import { cn } from '@/utils/cn'
 import { Icon } from '@iconify/react'
 
-const primaryStyles =
-	'hover:from-purple-700 hover:to-pink-700 bg-gradient-to-r from-purple-600 to-pink-600 disabled:from-purple-300 disabled:to-pink-300'
-const secondaryStyles = 'border border-slate-200 hover:bg-slate-200'
-const tertiaryStyles = 'text-purple-600 hover:bg-purple-50'
-const deleteStyles = 'bg-red-500 hover:bg-red-400'
-const shadowStyles = 'shadow-md hover:shadow-lg'
-
 type ButtonProps = {
-	style?: 'primary' | 'secondary' | 'tertiary' | 'deleteStyles'
 	content: string
 	styles?: string
 	iconLeft?: string
@@ -19,11 +11,9 @@ type ButtonProps = {
 	onClick?: React.MouseEventHandler<HTMLButtonElement>
 	disabled?: boolean
 	fullWidth?: boolean
-	shadows?: boolean
 }
 
 export const Button: React.FC<ButtonProps> = ({
-	style,
 	styles,
 	content,
 	iconLeft,
@@ -31,7 +21,6 @@ export const Button: React.FC<ButtonProps> = ({
 	onClick,
 	disabled = false,
 	fullWidth = false,
-	shadows = true,
 	iconLeftStyles,
 	iconRightStyles,
 }) => {
@@ -41,13 +30,8 @@ export const Button: React.FC<ButtonProps> = ({
 			onClick={onClick}
 			disabled={disabled}
 			className={cn(
-				'flex items-center rounded-md px-4 py-2 transition-colors duration-200 gap-2 cursor-pointer disabled:cursor-default',
-				style === 'primary' && primaryStyles,
-				style === 'secondary' && secondaryStyles,
-				style === 'tertiary' && tertiaryStyles,
-				style === 'deleteStyles' && deleteStyles,
+				'flex items-center rounded-md px-4 py-2 transition-colors duration-200 gap-2 disabled:cursor-default disabled:bg-[var(--theme-muted)]',
 				fullWidth && 'flex-1 w-full',
-				shadows && shadowStyles,
 				styles
 			)}
 		>

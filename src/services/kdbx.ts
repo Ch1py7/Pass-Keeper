@@ -119,6 +119,12 @@ export class Kdbx {
 		return passwords
 	}
 
+	public async changeMasterKey(value: string) {
+		const db = this._requireDb()
+		db.credentials = new kdbxweb.Credentials(kdbxweb.ProtectedValue.fromString(value))
+		await this.persist()
+	}
+
 	public getRecycleBinId() {
 		return this._validateRecycleBin().id
 	}
