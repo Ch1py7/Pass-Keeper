@@ -1,6 +1,23 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+  --toastify-color-info: color-mix(in srgb, var(--theme-bg-primary) 50%, hsl(204, 79%, 50%));
+  --toastify-color-success: color-mix(in srgb, var(--theme-bg-primary) 50%, hsl(122, 80%, 46%));
+  --toastify-color-warning: color-mix(in srgb, var(--theme-bg-primary) 50%, hsl(48, 99%, 47%));
+  --toastify-color-error: color-mix(in srgb, var(--theme-bg-primary) 50%, hsl(6, 78%, 51%));
+
+	--toastify-text-color-info: var(--theme-text);
+  --toastify-text-color-success: var(--theme-text);
+  --toastify-text-color-warning: var(--theme-text);
+  --toastify-text-color-error: var(--theme-text);
+
+	--toastify-icon-color-info: color-mix(in srgb, var(--theme-text) 50%, var(--toastify-color-info));
+	--toastify-icon-color-success: color-mix(in srgb, var(--theme-text) 50%, var(--toastify-color-success));
+	--toastify-icon-color-warning: color-mix(in srgb, var(--theme-text) 50%, var(--toastify-color-warning));
+	--toastify-icon-color-error: color-mix(in srgb, var(--theme-text) 50%, var(--toastify-color-error));
+}
+
 @theme {
 	--theme-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 	--theme-shadow-lg: 0 6px 16px rgba(0, 0, 0, 0.2);
@@ -146,6 +163,7 @@
 	--theme-muted-hover: hsl(28, 70%, 80%);
 	--theme-hover: hsl(15, 83%, 82%);
 }
+
 
 @layer base {
 	* {
