@@ -30,7 +30,6 @@ export const UnlockedFile = () => {
 			</div>
 			<div
 				className='flex flex-col md:flex-row items-center md:items-start h-full w-full pt-6 pb-8 px-10 gap-6'
-				onMouseDown={() => setSelectedItems([])}
 			>
 				<SelectionBox />
 				<Categories />

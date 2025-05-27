@@ -18,7 +18,7 @@ export const Categories = () => {
 	const { setSelectedItems } = useFileStore()
 
 	return (
-		<div className='w-full md:max-w-86 h-fit select-none'>
+		<div className='w-full md:max-w-86 h-fit select-none' onMouseDown={() => setSelectedItems([])}>
 			<div className='rounded-2xl overflow-hidden shadow-[var(--theme-shadow-lg)]'>
 				<div className='px-4 py-3 bg-gradient-to-r from-[var(--theme-bg-secondary)] to-[var(--theme-bg-primary)] flex justify-between items-center'>
 					<h2 className='text-xl text-[var(--theme-text-on-primary)] font-bold'>Categories</h2>

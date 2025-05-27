@@ -70,7 +70,7 @@ export const SyncFunc = () => {
 				<Button
 					fullWidth
 					content='Sync Local to Database'
-					styles='justify-center'
+					styles='justify-center bg-[var(--theme-bg-primary)]'
 					iconLeft='lucide:cloud-upload'
 					iconLeftStyles='w-7 h-7'
 					disabled={!db || loading}
@@ -79,7 +79,7 @@ export const SyncFunc = () => {
 				<Button
 					fullWidth
 					content='Sync Database to Local'
-					styles='justify-center'
+					styles='justify-center bg-[var(--theme-bg-primary)]'
 					iconLeft='lucide:cloud-download'
 					iconLeftStyles='w-7 h-7'
 					disabled={!db || loading}
