@@ -1,6 +1,8 @@
 import { useEvent } from '@/hooks/useEvent'
+import { setKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'
 import { cn } from '@/utils/cn'
+import { sampleFile } from '@/utils/constants'
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
 import { Button } from './common/Button'
@@ -11,7 +13,7 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) => {
-	const { setOpen, setModal, file } = useAppStore()
+	const { setOpen, setModal, file, setFile } = useAppStore()
 	const [showMenu, setShowMenu] = useState(false)
 
 	useEvent(document, 'click', () => {
@@ -100,6 +102,16 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 								onClick={() => {
 									setOpen(true)
 									setModal('theme')
+								}}
+							/>
+							<Button
+								iconLeft='lucide:log-out'
+								iconLeftStyles='w-5 h-5'
+								content='Leave'
+								styles='w-full mt-1 hover:bg-[var(--theme-hover)] text-[var(--theme-text)] py-1 px-2'
+								onClick={() => {
+									setFile(sampleFile)
+									setKdbxInstance(null)
 								}}
 							/>
 						</div>

@@ -2,7 +2,7 @@ import type { Kdbx } from './kdbx'
 
 let kdbxInstance: Kdbx | null = null
 
-export const setKdbxInstance = (instance: Kdbx) => {
+export const setKdbxInstance = (instance: Kdbx | null) => {
 	kdbxInstance = instance
 }
 
