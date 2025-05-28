@@ -1,5 +1,6 @@
 import { ErrorCode } from '@/errors/errors'
 import { typedArrayToBuffer } from '@/utils/common'
+import { basename } from '@tauri-apps/api/path'
 import { open, save } from '@tauri-apps/plugin-dialog'
 import { readFile, writeFile } from '@tauri-apps/plugin-fs'
 import * as kdbxweb from 'kdbxweb'
@@ -27,16 +28,19 @@ export const getFile = async () => {
 	return typedArrayToBuffer(fileContent)
 }
 
-export const selectFile = async (): Promise<string> => {
+export const getName = async () => {
+	const fileName = await basename(globalPath)
+	const [name, ext] = fileName.split('.')
+	if (ext !== 'kdbx') throw new kdbxweb.KdbxError(ErrorCode.Unsupported)
+	return name
+}
+
+export const selectFile = async () => {
 	const filePath = await open({
 		filters: [{ name: 'KeePass KDBX Files', extensions: ['kdbx'] }],
 	})
-
 	if (!filePath) throw new DOMException(ErrorCode.AbortError)
-	const [name, ext] = filePath.split('\\').pop()!.split('.')
-	if (ext !== 'kdbx') throw new kdbxweb.KdbxError(ErrorCode.Unsupported)
 	globalPath = filePath
-	return name ?? 'My Database'
 }
 
 export const updateFile = async (binaryData: ArrayBuffer): Promise<void> => {

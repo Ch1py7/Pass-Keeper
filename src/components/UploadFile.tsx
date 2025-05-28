@@ -1,7 +1,7 @@
 import { kdbxErrorsHandle } from '@/errors/errors'
 import { usePasswordStrength } from '@/hooks/usePasswordStrength'
 import { toasty } from '@/notifications/toast'
-import { getFile, selectFile } from '@/services/fs'
+import { getFile, getName, selectFile } from '@/services/fs'
 import { Kdbx } from '@/services/kdbx'
 import { setKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'
@@ -16,7 +16,9 @@ import { MasterKey } from './masterKey/MasterKey'
 
 const handleFileUpload = async (setFile: (value: CFile | ((prev: CFile) => CFile)) => void) => {
 	try {
-		const name = await selectFile()
+		await selectFile()
+		console.log('ola')
+		const name = await getName()
 		setFile((p) => ({ ...p, name }))
 	} catch (err) {
 		if (err instanceof DOMException) kdbxErrorsHandle(err.message)
@@ -53,7 +55,8 @@ export const UploadFile = () => {
 		await kdbx.load(fileBuffer)
 		setKdbxInstance(kdbx)
 		assignKdbxData(kdbx)
-		setFile((p) => ({ ...p, recycleBinId: kdbx.getRecycleBinId(), isUnlocked: true }))
+		const name = await getName()
+		setFile((p) => ({ ...p, recycleBinId: kdbx.getRecycleBinId(), isUnlocked: true, name }))
 		file.name && toasty.success('Correct master key')
 	}
 
