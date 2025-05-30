@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react'
 
 interface ActionButtonProps {
 	onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+	onMouseDown?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 	icon: string
 	styles?: string
 	iconStyles?: string
@@ -11,6 +12,7 @@ interface ActionButtonProps {
 
 export const ActionButton: React.FC<ActionButtonProps> = ({
 	onClick,
+	onMouseDown,
 	icon,
 	styles,
 	iconStyles,
@@ -25,6 +27,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
 			)}
 			disabled={disabled}
 			onClick={onClick}
+			onMouseDown={onMouseDown}
 		>
 			<Icon icon={icon} className={cn('h-4 w-4', iconStyles)} />
 		</button>

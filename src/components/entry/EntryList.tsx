@@ -11,7 +11,7 @@ interface PasswordsProps {
 }
 
 export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
-	const { setModal, setEntry, categories, activeCategory } = useAppStore()
+	const { setModal, setEntryToEdit: setEntry, categories, activeCategory } = useAppStore()
 	const results = usePasswordTrie(searchQuery)
 	const { itemContainerRef, clearSelection, setSelectedItems } = useFileStore()
 
@@ -54,13 +54,14 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 							}
 							onEdit={(e) => {
 								e.stopPropagation()
-								clearSelection()
+								// clearSelection()
 								setEntry(entry)
 								setModal('entry')
 							}}
 							onDelete={(e) => {
 								e.stopPropagation()
-								setSelectedItems([entry])
+								// clearSelection()
+								// setSelectedItems([entry])
 								setModal('delete')
 							}}
 						/>

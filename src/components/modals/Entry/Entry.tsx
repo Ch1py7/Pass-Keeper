@@ -8,23 +8,23 @@ import * as kdbxweb from 'kdbxweb'
 import { useEffect, useState } from 'react'
 import { EntryForm } from './EntryForm'
 
-export const NewEntry = () => {
+export const Entry = () => {
 	const kdbx = getKdbxInstance()
-	const { setModal, entry, activeCategory, noDefaultCategories, file } = useAppStore()
+	const { setModal, entryToEdit, activeCategory, noDefaultCategories, file } = useAppStore()
 	const noDefault = noDefaultCategories()
 	const isDefault = ['All', file.recycleBinId].includes(activeCategory.id)
-	const [newEntry, setNewEntry] = useState<Entry>({
+	const [entry, setEntry] = useState<Entry>({
 		...sampleEntry,
 		groupId: resolveGroupId(noDefault, isDefault, activeCategory.id),
 	})
 
 	const onHandleChange = (key: string, value: string) => {
-		setNewEntry((p) => ({ ...p, [key]: value }))
+		setEntry((p) => ({ ...p, [key]: value }))
 	}
 
 	const handleEntry = async () => {
 		try {
-			entry ? await kdbx.updateEntry(newEntry) : await kdbx.addEntry(newEntry)
+			entryToEdit ? await kdbx.updateEntry(entry) : await kdbx.addEntry(entry)
 			assignKdbxData(kdbx)
 			setModal(null)
 		} catch (err) {
@@ -38,16 +38,15 @@ export const NewEntry = () => {
 	}
 
 	useEffect(() => {
-		if (entry) {
-			setNewEntry(entry)
+		if (entryToEdit) {
+			setEntry(entryToEdit)
 		}
-	}, [entry])
+	}, [entryToEdit])
 
 	return (
 		<EntryForm
-			entry={entry}
 			noDefaultCategories={noDefault}
-			newEntry={newEntry}
+			entry={entry}
 			onHandleChange={onHandleChange}
 			onSubmit={handleEntry}
 			onCancel={() => setModal(null)}

@@ -36,7 +36,7 @@ export const Input: React.FC<InputProps> = ({
 				ref={ref}
 				disabled={disabled}
 				className={cn(
-					'h-10 px-3 bg-[var(--theme-action)] rounded-lg w-full border-1 border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--text-muted)]',
+					'h-10 px-3 bg-[var(--theme-action)] rounded-lg w-full border-1 border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--theme-text-muted)]',
 					styles
 				)}
 				id={id}

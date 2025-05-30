@@ -20,8 +20,8 @@ interface AppState {
 	setSearchQuery: (value: string) => void
 
 	// Entries
-	entry: Entry | null
-	setEntry: (value: Entry | null) => void
+	entryToEdit: Entry | null
+	setEntryToEdit: (value: Entry | null) => void
 	entries: Entries
 	setEntries: (value: Entries) => void
 
@@ -60,13 +60,13 @@ export const useAppStore = create<AppState>()((set, get) => ({
 	// Search
 	searchQuery: '',
 	setSearchQuery: (value) => {
-		set({searchQuery: value})
+		set({ searchQuery: value })
 	},
 
 	// Entries
-	entry: null,
-	setEntry: (value) => {
-		set({ entry: value })
+	entryToEdit: null,
+	setEntryToEdit: (value) => {
+		set({ entryToEdit: value })
 	},
 	entries: {
 		name: '',

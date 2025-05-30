@@ -24,7 +24,7 @@ const getParams = (newCategory: Group) => {
 	}
 }
 
-export const NewCategory = () => {
+export const Category = () => {
 	const kdbx = getKdbxInstance()
 	const [newCategory, setNewCategory] = useState<Group>(sampleCategory)
 	const { setModal, category, setActiveCategory } = useAppStore()
@@ -67,7 +67,7 @@ export const NewCategory = () => {
 
 	return (
 		<CategoryForm
-			newCategory={newCategory}
+			category={newCategory}
 			onHandleChange={onHandleChange}
 			onSubmit={handleCategory}
 			onCancel={() => setModal(null)}

@@ -97,6 +97,7 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 					{(!isDefaultCategory || recycleBinId === category.id) && (
 						<ActionButton
 							onClick={onEdit}
+							onMouseDown={(e) => e.stopPropagation()}
 							icon={'lucide:edit'}
 							styles={cn(
 								'text-[var(--theme-text)] hover:text-[var(--theme-text)] p-1 hover:bg-[var(--theme-bg-primary)]',
@@ -108,6 +109,7 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 					{!isDefaultCategory && (
 						<ActionButton
 							onClick={onDelete}
+							onMouseDown={(e) => e.stopPropagation()}
 							icon={'lucide:trash'}
 							styles={cn(
 								'text-[var(--theme-text)] hover:text-[var(--theme-text)] p-1 hover:bg-[var(--theme-bg-primary)]',

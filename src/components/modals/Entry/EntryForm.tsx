@@ -4,18 +4,16 @@ import { cn } from '@/utils/cn'
 import { formatDateFromMilliseconds } from '@/utils/common'
 import { useEffect, useRef } from 'react'
 interface EntryFormProps {
-	entry: Entry | null
 	noDefaultCategories: Group[]
-	newEntry: Entry
+	entry: Entry
 	onHandleChange: (key: string, value: string) => void
 	onSubmit: () => void
 	onCancel: () => void
 }
 
 export const EntryForm: React.FC<EntryFormProps> = ({
-	entry,
 	noDefaultCategories,
-	newEntry,
+	entry,
 	onHandleChange,
 	onSubmit,
 	onCancel,
@@ -35,9 +33,9 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 			className='sm:max-w-[450px] w-full border-0 rounded-xl bg-[var(--theme-modal)] p-8 space-y-3'
 		>
 			<div>
-				<p className='text-2xl font-bold'>{newEntry.id ? newEntry.title : 'Add New Password'}</p>
+				<p className='text-2xl font-bold'>{entry.id ? 'Edit entry' : 'Add new entry'}</p>
 				<p className='text-[var(--theme-text-muted)] text-sm'>
-					{newEntry.id ? 'Entry details' : 'Enter the details for the new password entry'}
+					{entry.id ? 'Entry details' : 'Enter the details for the new password entry'}
 				</p>
 			</div>
 			<div className='grid grid-cols-2 space-y-3 gap-x-3'>
@@ -45,7 +43,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					id='Title'
 					label='Title'
 					onChange={(e) => onHandleChange('title', e.target.value)}
-					value={newEntry.title}
+					value={entry.title}
 					placeholder='New Entry'
 					ref={inputRef}
 				/>
@@ -53,14 +51,14 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					id='URL'
 					label='URL'
 					onChange={(e) => onHandleChange('url', e.target.value)}
-					value={newEntry.url}
+					value={entry.url}
 					placeholder='https://x.com'
 				/>
 				<Input
 					id='Username'
 					label='Username'
 					onChange={(e) => onHandleChange('username', e.target.value)}
-					value={newEntry.username}
+					value={entry.username}
 					placeholder='Username'
 				/>
 				<Input
@@ -68,35 +66,32 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					label='Password'
 					type='password'
 					onChange={(e) => onHandleChange('password', e.target.value)}
-					value={newEntry.password}
+					value={entry.password}
 					placeholder='Password'
 				/>
-				<div className={cn(!newEntry.id && 'col-span-2')}>
+				<div className={cn(!entry.id && 'col-span-2')}>
 					<label className='flex flex-col font-medium'>
 						Category
 						<select
-							className={cn(
-								'h-10 px-3 rounded-lg w-full border-1 border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--text-muted)]',
-								entry?.id && 'bg-gray-200'
-							)}
-							value={newEntry.groupId}
+							className='h-10 px-3 rounded-lg w-full border-1 border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--text-muted)]'
+							value={entry.groupId}
 							onChange={(e) => onHandleChange('groupId', e.target.value)}
-							disabled={Boolean(entry)}
+							disabled={Boolean(entry.id)}
 						>
 							{noDefaultCategories.map((e) => (
-								<option key={e.id} value={e.id}>
+								<option key={e.id} value={e.id} className='bg-[var(--theme-bg-secondary)]'>
 									{e.name}
 								</option>
 							))}
 						</select>
 					</label>
 				</div>
-				{newEntry.id && (
+				{entry.id && (
 					<Input
 						label='Added On'
 						placeholder=''
 						onChange={() => {}}
-						value={formatDateFromMilliseconds(newEntry.creationTime)}
+						value={formatDateFromMilliseconds(entry.creationTime)}
 						disabled
 					/>
 				)}
@@ -106,7 +101,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 						<textarea
 							className='font-normal p-3 rounded-lg w-full border-1 bg-[var(--theme-action)] border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--text-muted)]'
 							onChange={(e) => onHandleChange('notes', e.target.value)}
-							value={newEntry.notes}
+							value={entry.notes}
 						/>
 					</label>
 				</div>
