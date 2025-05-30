@@ -89,9 +89,12 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 				)}
 				onMouseDown={onSelect}
 			>
-				<p className={cn('flex gap-2', isActive && text)}>
-					<Icon icon={category.id === 'All' ? 'lucide:shield' : icon} className='h-5 w-5' />
-					{category.name}
+				<p className='flex items-center gap-2 truncate'>
+					<Icon
+						icon={category.id === 'All' ? 'lucide:shield' : icon}
+						className={cn('min-h-5 min-w-5', isActive && text)}
+					/>
+					<span className={cn('truncate', isActive && text)}>{category.name}</span>
 				</p>
 				<div className='flex gap-1'>
 					{(!isDefaultCategory || recycleBinId === category.id) && (

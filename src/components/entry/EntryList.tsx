@@ -54,14 +54,11 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 							}
 							onEdit={(e) => {
 								e.stopPropagation()
-								// clearSelection()
 								setEntry(entry)
 								setModal('entry')
 							}}
 							onDelete={(e) => {
 								e.stopPropagation()
-								// clearSelection()
-								// setSelectedItems([entry])
 								setModal('delete')
 							}}
 						/>

@@ -104,7 +104,7 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 			<div className={cn('h-1 bg-gradient-to-r', bg)} />
 			<div className='p-3 space-y-1'>
 				<div className='flex items-start justify-between mb-4'>
-					<div className='flex items-center gap-3'>
+					<div className='flex items-center gap-3 truncate'>
 						<div
 							className={cn(
 								'min-w-8 min-h-8 rounded-full bg-gradient-to-r flex items-center justify-center',
@@ -114,10 +114,7 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 						>
 							<Icon icon={icon} className='h-5 w-5' />
 						</div>
-						<div>
-							<h3 className='font-bold text-sm max-w-25 truncate'>{entry.title}</h3>
-							<p className='text-xs text-slate-400 truncate max-w-25'>{}</p>
-						</div>
+						<h3 className='font-bold text-sm truncate'>{entry.title}</h3>
 					</div>
 					<div className='flex gap-1'>
 						<ActionButton
@@ -143,7 +140,7 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 					onClick={(e) => clipboard(e, 'username')}
 					value='username'
 				>
-					<p className='font-medium max-w truncate'>{entry.username}</p>
+					<p className='font-medium truncate'>{entry.username}</p>
 					<Icon
 						className='absolute right-3 h-4 w-4 text-[var(--theme-text)]'
 						icon={'lucide:copy'}
@@ -155,7 +152,7 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 					onClick={(e) => clipboard(e, 'password')}
 					value='password'
 				>
-					<p className='font-medium max-w truncate'>{showEntry ? entry.password : '••••••••'}</p>
+					<p className='font-medium truncate'>{showEntry ? entry.password : '••••••••'}</p>
 					<Icon
 						className='absolute right-3 h-4 w-4 text-[var(--theme-text)]'
 						icon={'lucide:copy'}
