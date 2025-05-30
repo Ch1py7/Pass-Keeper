@@ -1,5 +1,5 @@
-import { kdbxErrorsHandle } from '@/errors/errors'
-import { toasty } from '@/notifications/toast'
+import { kdbxErrorsHandle } from '@/errors'
+import { toasty } from '@/notifications'
 import { getKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'
 import { useFileStore } from '@/store/FileStore'
@@ -14,7 +14,7 @@ export const Delete = () => {
 	const kdbx = getKdbxInstance()
 	const { category, setCategory, activeCategory, setActiveCategory } = useAppStore()
 	const { selectedItems } = useFileStore()
-	const { setOpen } = useAppStore()
+	const { setModal } = useAppStore()
 
 	const isPermanent = activeCategory.id === kdbx.getRecycleBinId() || category
 
@@ -27,12 +27,12 @@ export const Delete = () => {
 				await kdbx.persist()
 				toasty.success(`${selectedItems.length} deleted successfully`)
 				assignKdbxData(kdbx)
-				setOpen(false)
+				setModal(null)
 			}
 			if (category) {
 				await kdbx.deleteCategory(category)
 				assignKdbxData(kdbx)
-				setOpen(false)
+				setModal(null)
 				if (activeCategory.id === category.id) {
 					setActiveCategory(sampleCategory)
 				}
@@ -60,14 +60,26 @@ export const Delete = () => {
 		<div className='sm:max-w-[400px] w-full border-0 rounded-xl bg-[var(--theme-modal)] p-8 space-y-3'>
 			<div className='space-y-3'>
 				<h3 className='text-2xl font-bold'>
-					Delete {selectedItems.length ? (selectedItems.length === 1 ? 'Entry' : 'Entries') : ''}
+					Delete{' '}
+					{selectedItems.length ? (
+						selectedItems.length === 1 ? (
+							'Entry'
+						) : (
+							<>
+								Entries{' '}
+								<span className='text-[var(--theme-text-muted)]'>({selectedItems.length})</span>
+							</>
+						)
+					) : (
+						''
+					)}
 					{category && 'Category'}
 				</h3>
 				<div>
 					<p className='text-[var(--theme-text-muted)] text-sm'>
 						Are you sure you want to delete{' '}
 						{selectedItems.length ? (selectedItems.length === 1 ? 'this ' : 'these ') : ''}
-						{selectedItems.length ? (selectedItems.length === 1 ? 'Entry' : 'Entries') : ''}
+						{selectedItems.length ? (selectedItems.length === 1 ? 'entry' : 'entries') : ''}
 						{category && `${category.name} `}
 						{category && 'category'}?
 					</p>
@@ -82,7 +94,7 @@ export const Delete = () => {
 				<Button
 					content='Cancel'
 					styles='text-[var(--theme-text)] border bg-[var(--theme-modal)] hover:bg-[var(--theme-hover)]'
-					onClick={() => setOpen(false)}
+					onClick={() => setModal(null)}
 				/>
 				<Button
 					content='Delete'

@@ -3,7 +3,7 @@ interface Params {
 	icon: string
 }
 
-type Modals = 'category' | 'entry' | 'delete' | 'sync' | 'key' | 'theme'
+type Modals = 'category' | 'entry' | 'delete' | 'sync' | 'key' | 'theme' | null
 
 interface CFile {
 	name: string
@@ -75,6 +75,7 @@ type ColorName =
 interface ColorStyle {
 	bg: string
 	selectedColor: string
+	text: string
 }
 
 type Theme = 'light' | 'dark' | 'warm' | 'ocean' | 'forest' | 'sunset'

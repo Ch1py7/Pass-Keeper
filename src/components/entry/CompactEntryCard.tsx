@@ -1,4 +1,4 @@
-import { toasty } from '@/notifications/toast'
+import { toasty } from '@/notifications'
 import { useFileStore } from '@/store/FileStore'
 import { cn } from '@/utils/cn'
 import { getAvailableColor } from '@/utils/common'
@@ -16,11 +16,17 @@ interface CompactEntryCardProps {
 	onDelete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
-export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({ entry, category, onEdit, onDelete }) => {
+export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
+	entry,
+	category,
+	onEdit,
+	onDelete,
+}) => {
 	const [showEntry, setShowEntry] = useState(false)
 	const { color, icon } = category.params
 	const {
 		selectedItems,
+		setSelectedItems,
 		clearSelection,
 		removeSelectedItem,
 		addSelectedItem,
@@ -30,17 +36,17 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({ entry, categ
 	const isSelected = selectedItems.find((item) => item.id === entry.id)
 	const isDragging = isSomethingDragging && selectedItems.some(({ id }) => id === entry.id)
 	const draggedItemRef = useRef<HTMLDivElement>(null)
-	const { selectedColor, bg } = getAvailableColor(color)
+	const { selectedColor, bg, text } = getAvailableColor(color)
 
 	const handleShowPassword = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.stopPropagation()
 		setShowEntry((p) => !p)
 	}
 
-	const clipboard = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+	const clipboard = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, value: string) => {
 		e.stopPropagation()
 		try {
-			await writeText(entry.password)
+			await writeText(value === 'username' ? entry.username : entry.password)
 			toasty.success('Copy to clipboard!')
 		} catch (err) {
 			console.error(err)
@@ -97,20 +103,21 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({ entry, categ
 		>
 			<DraggedItem ref={draggedItemRef} />
 			<div className={cn('h-1 bg-gradient-to-r', bg)} />
-			<div className='p-3'>
+			<div className='p-3 space-y-1'>
 				<div className='flex items-start justify-between mb-4'>
 					<div className='flex items-center gap-3'>
 						<div
 							className={cn(
 								'min-w-8 min-h-8 rounded-full bg-gradient-to-r flex items-center justify-center',
-								bg
+								bg,
+								text
 							)}
 						>
 							<Icon icon={icon} className='h-5 w-5' />
 						</div>
 						<div>
 							<h3 className='font-bold text-sm max-w-25 truncate'>{entry.title}</h3>
-							<p className='text-xs text-slate-400 truncate max-w-25'>{entry.username}</p>
+							<p className='text-xs text-slate-400 truncate max-w-25'>{}</p>
 						</div>
 					</div>
 					<div className='flex gap-1'>
@@ -134,10 +141,26 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({ entry, categ
 				<button
 					type='button'
 					className='flex items-center gap-2 py-2 ps-3 pe-8 bg-[var(--theme-muted)] hover:bg-[var(--theme-muted-hover)] transition-color duration-100 rounded-lg relative w-full'
-					onClick={clipboard}
+					onClick={(e) => clipboard(e, 'username')}
+					value='username'
+				>
+					<p className='font-medium max-w truncate'>{entry.username}</p>
+					<Icon
+						className='absolute right-3 h-4 w-4 text-[var(--theme-text)]'
+						icon={'lucide:copy'}
+					/>
+				</button>
+				<button
+					type='button'
+					className='flex items-center gap-2 py-2 ps-3 pe-8 bg-[var(--theme-muted)] hover:bg-[var(--theme-muted-hover)] transition-color duration-100 rounded-lg relative w-full'
+					onClick={(e) => clipboard(e, 'password')}
+					value='password'
 				>
 					<p className='font-medium max-w truncate'>{showEntry ? entry.password : '••••••••'}</p>
-					<Icon className='absolute right-3 h-4 w-4 text-[var(--theme-text)]' icon={'lucide:copy'} />
+					<Icon
+						className='absolute right-3 h-4 w-4 text-[var(--theme-text)]'
+						icon={'lucide:copy'}
+					/>
 				</button>
 			</div>
 		</article>

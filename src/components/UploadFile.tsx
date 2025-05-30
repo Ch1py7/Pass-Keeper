@@ -1,6 +1,6 @@
-import { kdbxErrorsHandle } from '@/errors/errors'
+import { kdbxErrorsHandle } from '@/errors'
 import { usePasswordStrength } from '@/hooks/usePasswordStrength'
-import { toasty } from '@/notifications/toast'
+import { toasty } from '@/notifications'
 import { getFile, getName, selectFile } from '@/services/fs'
 import { Kdbx } from '@/services/kdbx'
 import { setKdbxInstance } from '@/services/kdbxSingleton'
@@ -17,7 +17,6 @@ import { MasterKey } from './masterKey/MasterKey'
 const handleFileUpload = async (setFile: (value: CFile | ((prev: CFile) => CFile)) => void) => {
 	try {
 		await selectFile()
-		console.log('ola')
 		const name = await getName()
 		setFile((p) => ({ ...p, name }))
 	} catch (err) {
@@ -33,7 +32,7 @@ const handleFileUpload = async (setFile: (value: CFile | ((prev: CFile) => CFile
 export const UploadFile = () => {
 	const [newFile, setNewFile] = useState(false)
 	const [enter, setEnter] = useState(true)
-	const { file, setFile, setOpen, setModal } = useAppStore()
+	const { file, setFile, setModal } = useAppStore()
 	const passwordStrength = usePasswordStrength(file.masterKey)
 
 	const { color, label } = getPasswordStrengthInfo(passwordStrength)
@@ -88,7 +87,6 @@ export const UploadFile = () => {
 				className='absolute top-8 right-8'
 				type='button'
 				onClick={() => {
-					setOpen(true)
 					setModal('theme')
 				}}
 			>

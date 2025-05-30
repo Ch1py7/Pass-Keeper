@@ -1,5 +1,5 @@
-import { dbErrorsHandle, kdbxErrorsHandle } from '@/errors/errors'
-import { toasty } from '@/notifications/toast'
+import { dbErrorsHandle, kdbxErrorsHandle } from '@/errors'
+import { toasty } from '@/notifications'
 import { getDbInstance } from '@/services/dbSingleton'
 import { getKdbxInstance, setKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'

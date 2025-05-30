@@ -1,5 +1,5 @@
-import { kdbxErrorsHandle } from '@/errors/errors'
-import { toasty } from '@/notifications/toast'
+import { kdbxErrorsHandle } from '@/errors'
+import { toasty } from '@/notifications'
 import { getKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'
 import { sampleEntry } from '@/utils/constants'
@@ -10,7 +10,7 @@ import { EntryForm } from './EntryForm'
 
 export const NewEntry = () => {
 	const kdbx = getKdbxInstance()
-	const { setOpen, entry, activeCategory, noDefaultCategories, file } = useAppStore()
+	const { setModal, entry, activeCategory, noDefaultCategories, file } = useAppStore()
 	const noDefault = noDefaultCategories()
 	const isDefault = ['All', file.recycleBinId].includes(activeCategory.id)
 	const [newEntry, setNewEntry] = useState<Entry>({
@@ -26,7 +26,7 @@ export const NewEntry = () => {
 		try {
 			entry ? await kdbx.updateEntry(newEntry) : await kdbx.addEntry(newEntry)
 			assignKdbxData(kdbx)
-			setOpen(false)
+			setModal(null)
 		} catch (err) {
 			if (err instanceof DOMException) kdbxErrorsHandle(err.name)
 			else if (err instanceof kdbxweb.KdbxError) kdbxErrorsHandle(err.code)
@@ -50,7 +50,7 @@ export const NewEntry = () => {
 			newEntry={newEntry}
 			onHandleChange={onHandleChange}
 			onSubmit={handleEntry}
-			onCancel={() => setOpen(false)}
+			onCancel={() => setModal(null)}
 		/>
 	)
 }

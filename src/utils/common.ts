@@ -50,8 +50,9 @@ export const totalEntries = (groups: Group[]) => {
 export const getAvailableColor = (name: ColorName) => {
 	return (
 		availableColors[name] ?? {
-			bg: 'from-[var(--theme-bg-primary)] to-[var(--theme-bg-secondary)] text-[var(--theme-text-on-primary)]',
+			bg: 'from-[var(--theme-bg-primary)] to-[var(--theme-bg-secondary)]',
 			selectedColor: 'ring-2 ring-[var(--theme-bg-primary)]',
+			text: 'text-[var(--theme-text-on-primary)]',
 		}
 	)
 }

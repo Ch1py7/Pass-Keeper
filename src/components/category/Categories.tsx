@@ -6,7 +6,6 @@ import { CategoryRow } from './CategoryRow'
 
 export const Categories = () => {
 	const {
-		setOpen,
 		setModal,
 		categories,
 		activeCategory,
@@ -15,17 +14,16 @@ export const Categories = () => {
 		setCategory,
 		file: { recycleBinId },
 	} = useAppStore()
-	const { setSelectedItems } = useFileStore()
+	const { clearSelection } = useFileStore()
 
 	return (
-		<div className='w-full md:max-w-86 h-fit select-none' onMouseDown={() => setSelectedItems([])}>
+		<div className='w-full md:max-w-86 h-fit select-none' onMouseDown={() => clearSelection()}>
 			<div className='rounded-2xl overflow-hidden shadow-[var(--theme-shadow-lg)]'>
 				<div className='px-4 py-3 bg-gradient-to-r from-[var(--theme-bg-secondary)] to-[var(--theme-bg-primary)] flex justify-between items-center'>
 					<h2 className='text-xl text-[var(--theme-text-on-primary)] font-bold'>Categories</h2>
 					<ActionButton
 						icon='lucide:plus'
 						onClick={() => {
-							setOpen(true)
 							setModal('category')
 						}}
 						styles='hover:bg-[var(--theme-hover)] text-[var(--theme-text-on-primary)] p-1'
@@ -47,22 +45,20 @@ export const Categories = () => {
 								}
 								onSelect={(e) => {
 									e.stopPropagation()
-									setSelectedItems([])
+									clearSelection()
 									setActiveCategory(category)
 								}}
 								onEdit={(e) => {
 									e.stopPropagation()
-									setSelectedItems([])
+									clearSelection()
 									setCategory(category)
 									setModal('category')
-									setOpen(true)
 								}}
 								onDelete={(e) => {
 									e.stopPropagation()
-									setSelectedItems([])
+									clearSelection()
 									setCategory(category)
 									setModal('delete')
-									setOpen(true)
 								}}
 							/>
 						))}

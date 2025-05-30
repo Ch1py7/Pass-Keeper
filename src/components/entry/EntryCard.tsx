@@ -1,5 +1,5 @@
-import { kdbxErrorsHandle } from '@/errors/errors'
-import { toasty } from '@/notifications/toast'
+import { kdbxErrorsHandle } from '@/errors'
+import { toasty } from '@/notifications'
 import { cn } from '@/utils/cn'
 import { getAvailableColor, getDefaultCategory } from '@/utils/common'
 import { Icon } from '@iconify/react'

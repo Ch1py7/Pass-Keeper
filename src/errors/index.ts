@@ -1,4 +1,4 @@
-import { toasty } from '@/notifications/toast'
+import { toasty } from '@/notifications'
 
 export const kdbxErrorsHandle = (code: string) => {
 	switch (code) {

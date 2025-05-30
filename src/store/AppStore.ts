@@ -3,8 +3,6 @@ import { create } from 'zustand'
 
 interface AppState {
 	// Modal
-	open: boolean
-	setOpen: (value: boolean) => void
 	modal: Modals
 	setModal: (value: Modals) => void
 
@@ -16,6 +14,10 @@ interface AppState {
 	activeCategory: Group
 	setActiveCategory: (value: Group) => void
 	noDefaultCategories: () => Group[]
+
+	// Search
+	searchQuery: string
+	setSearchQuery: (value: string) => void
 
 	// Entries
 	entry: Entry | null
@@ -30,11 +32,7 @@ interface AppState {
 
 export const useAppStore = create<AppState>()((set, get) => ({
 	// Modal
-	open: false,
-	setOpen: (value) => {
-		set({ open: value })
-	},
-	modal: 'category',
+	modal: null,
 	setModal: (value) => {
 		set({ modal: value })
 	},
@@ -57,6 +55,12 @@ export const useAppStore = create<AppState>()((set, get) => ({
 		return categories.filter(
 			(category) => category.id !== file.recycleBinId && category.id !== 'All'
 		)
+	},
+
+	// Search
+	searchQuery: '',
+	setSearchQuery: (value) => {
+		set({searchQuery: value})
 	},
 
 	// Entries

@@ -1,4 +1,4 @@
-import { ErrorCode } from '@/errors/errors'
+import { ErrorCode } from '@/errors'
 import { typedArrayToBuffer } from '@/utils/common'
 import { basename } from '@tauri-apps/api/path'
 import { open, save } from '@tauri-apps/plugin-dialog'

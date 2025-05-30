@@ -9,19 +9,19 @@ import { ThemeSelector } from './ThemeSelector'
 
 export const Modal = () => {
 	const containerRef = useRef<HTMLDivElement>(null)
-	const { open, setOpen, modal, setCategory, setEntry } = useAppStore()
+	const { modal, setModal, setCategory, setEntry } = useAppStore()
 
 	useEffect(() => {
-		if (!open) {
+		if (!modal) {
 			setCategory(null)
 			setEntry(null)
 		}
-	}, [open, setCategory, setEntry])
+	}, [modal, setCategory, setEntry])
 
 	useEffect(() => {
 		const onClick = (e: MouseEvent) => {
 			if (e.target === containerRef.current) {
-				setOpen(false)
+				setModal(null)
 			}
 		}
 		document.addEventListener('click', onClick)
@@ -29,9 +29,9 @@ export const Modal = () => {
 		return () => {
 			document.removeEventListener('click', onClick)
 		}
-	}, [setOpen])
+	}, [setModal])
 
-	if (!open) return null
+	if (!modal) return null
 
 	return (
 		<div

@@ -1,5 +1,5 @@
-import { dbErrorsHandle } from '@/errors/errors'
-import { toasty } from '@/notifications/toast'
+import { dbErrorsHandle } from '@/errors'
+import { toasty } from '@/notifications'
 import { Db } from '@/services/db'
 import { getDbInstance, setDbInstance } from '@/services/dbSingleton'
 import { useAppStore } from '@/store/AppStore'
@@ -16,7 +16,7 @@ export const Sync = () => {
 	const [sqlData, setSqlData] = useState<SqlData>(sampleSqlData)
 	const [loading, setLoading] = useState(false)
 	const [tab, setTab] = useState<'sync' | 'conf'>('sync')
-	const { setOpen } = useAppStore()
+	const { setModal } = useAppStore()
 	const db = getDbInstance()
 
 	const reset = () => {
@@ -139,7 +139,7 @@ export const Sync = () => {
 				<Button
 					fullWidth={isConnection}
 					content='Close'
-					onClick={() => setOpen(false)}
+					onClick={() => setModal(null)}
 					styles='ms-auto justify-center w-full col-start-2 text-[var(--theme-text)] border bg-[var(--theme-modal)] hover:bg-[var(--theme-hover)]'
 				/>
 			</div>

@@ -1,5 +1,5 @@
-import { kdbxErrorsHandle } from '@/errors/errors'
-import { toasty } from '@/notifications/toast'
+import { kdbxErrorsHandle } from '@/errors'
+import { toasty } from '@/notifications'
 import { getKdbxInstance } from '@/services/kdbxSingleton'
 import { useFileStore } from '@/store/FileStore'
 import { cn } from '@/utils/cn'
@@ -31,10 +31,10 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 }) => {
 	const isDefaultCategory = [recycleBinId, 'All'].includes(category.id)
 	const { color, icon } = category.params
-	const { selectedItems, setSelectedItems } = useFileStore()
+	const { selectedItems, clearSelection } = useFileStore()
 	const [isHovered, setIsHovered] = useState(false)
 	const kdbx = getKdbxInstance()
-	const { selectedColor, bg } = getAvailableColor(color)
+	const { selectedColor, bg, text } = getAvailableColor(color)
 
 	const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
 		if (category.id === 'All') return
@@ -56,7 +56,7 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 		try {
 			await kdbx.persist()
 			assignKdbxData(kdbx)
-			setSelectedItems([])
+			clearSelection()
 			setIsHovered(false)
 			validToMove.length !== 0 && toasty.success(`${validToMove.length} moved successfully`)
 		} catch (err) {
@@ -82,16 +82,15 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 		>
 			<div
 				className={cn(
-					'w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 text-[var(--theme-text-on-card)] justify-between',
+					'w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 justify-between',
 					isActive && 'bg-gradient-to-r font-medium',
 					isActive && bg,
-					isActive && category.id === 'All' && 'text-[var(--theme-text-on-primary)]',
 					!isActive && 'hover:bg-[var(--theme-hover)] hover:text-[var(--theme-text)]'
 				)}
 				onMouseDown={onSelect}
 			>
-				<p className='flex gap-2'>
-					<Icon icon={category.name === 'All' ? 'lucide:shield' : icon} className='h-5 w-5' />
+				<p className={cn('flex gap-2', isActive && text)}>
+					<Icon icon={category.id === 'All' ? 'lucide:shield' : icon} className='h-5 w-5' />
 					{category.name}
 				</p>
 				<div className='flex gap-1'>
@@ -99,7 +98,10 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 						<ActionButton
 							onClick={onEdit}
 							icon={'lucide:edit'}
-							styles='text-[var(--theme-text)] hover:text-[var(--theme-text)] p-1 hover:bg-[var(--theme-bg-primary)]'
+							styles={cn(
+								'text-[var(--theme-text)] hover:text-[var(--theme-text)] p-1 hover:bg-[var(--theme-bg-primary)]',
+								isActive && text
+							)}
 							iconStyles='h-4 w-4'
 						/>
 					)}
@@ -107,7 +109,10 @@ export const CategoryRow: React.FC<CategoryRowProps> = ({
 						<ActionButton
 							onClick={onDelete}
 							icon={'lucide:trash'}
-							styles='text-[var(--theme-text)] hover:text-[var(--theme-text)] p-1 hover:bg-[var(--theme-bg-primary)]'
+							styles={cn(
+								'text-[var(--theme-text)] hover:text-[var(--theme-text)] p-1 hover:bg-[var(--theme-bg-primary)]',
+								isActive && text
+							)}
 							iconStyles='h-4 w-4'
 						/>
 					)}

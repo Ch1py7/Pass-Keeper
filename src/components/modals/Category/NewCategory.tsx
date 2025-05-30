@@ -1,5 +1,5 @@
-import { kdbxErrorsHandle } from '@/errors/errors'
-import { toasty } from '@/notifications/toast'
+import { kdbxErrorsHandle } from '@/errors'
+import { toasty } from '@/notifications'
 import { getKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'
 import { getDefaultCategory } from '@/utils/common'
@@ -27,14 +27,14 @@ const getParams = (newCategory: Group) => {
 export const NewCategory = () => {
 	const kdbx = getKdbxInstance()
 	const [newCategory, setNewCategory] = useState<Group>(sampleCategory)
-	const { setOpen, category, setActiveCategory } = useAppStore()
+	const { setModal, category, setActiveCategory } = useAppStore()
 
 	const handleCategory = async () => {
 		try {
 			const parsedCategory = getParams(newCategory) as Group
 			category ? await kdbx.updateCategory(parsedCategory) : await kdbx.addCategory(parsedCategory)
 			assignKdbxData(kdbx)
-			setOpen(false)
+			setModal(null)
 
 			if (category) {
 				setActiveCategory(parsedCategory)
@@ -70,7 +70,7 @@ export const NewCategory = () => {
 			newCategory={newCategory}
 			onHandleChange={onHandleChange}
 			onSubmit={handleCategory}
-			onCancel={() => setOpen(false)}
+			onCancel={() => setModal(null)}
 		/>
 	)
 }

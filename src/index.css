@@ -232,6 +232,10 @@ body,
 	user-select: none;
 }
 
+body {
+	background-image: linear-gradient(to bottom right, var(--theme-bg-from), var(--theme-bg-to))
+}
+
 * {
 	box-sizing: border-box;
 	outline: none;

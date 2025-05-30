@@ -5,15 +5,10 @@ import { cn } from '@/utils/cn'
 import { sampleFile } from '@/utils/constants'
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
-import { Button } from './common/Button'
+import { Button } from './Button'
 
-interface HeaderProps {
-	searchQuery: string
-	setSearchQuery: React.Dispatch<React.SetStateAction<string>>
-}
-
-export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) => {
-	const { setOpen, setModal, file, setFile } = useAppStore()
+export const Header: React.FC = () => {
+	const { setModal, file, setFile, searchQuery, setSearchQuery } = useAppStore()
 	const [showMenu, setShowMenu] = useState(false)
 
 	useEvent(document, 'click', () => {
@@ -68,7 +63,6 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 									'w-full hover:bg-[var(--theme-hover)] text-[var(--theme-text)] py-1 px-2 flex sm:hidden'
 								)}
 								onClick={() => {
-									setOpen(true)
 									setModal('entry')
 								}}
 							/>
@@ -80,7 +74,6 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 									'w-full hover:bg-[var(--theme-hover)] text-[var(--theme-text)] py-1 px-2'
 								)}
 								onClick={() => {
-									setOpen(true)
 									setModal('sync')
 								}}
 							/>
@@ -90,7 +83,6 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 								content='New Master Key'
 								styles='w-full mt-1 hover:bg-[var(--theme-hover)] text-[var(--theme-text)] py-1 px-2'
 								onClick={() => {
-									setOpen(true)
 									setModal('key')
 								}}
 							/>
@@ -100,7 +92,6 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 								content='Theme'
 								styles='w-full mt-1 hover:bg-[var(--theme-hover)] text-[var(--theme-text)] py-1 px-2'
 								onClick={() => {
-									setOpen(true)
 									setModal('theme')
 								}}
 							/>
@@ -121,7 +112,6 @@ export const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery }) =
 					content='Add Entry'
 					iconLeft='lucide:plus'
 					onClick={() => {
-						setOpen(true)
 						setModal('entry')
 					}}
 					styles='btn-primary hidden sm:flex'

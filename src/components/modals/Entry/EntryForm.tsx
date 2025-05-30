@@ -2,6 +2,7 @@ import { Button } from '@/components/common/Button'
 import { Input } from '@/components/common/Input'
 import { cn } from '@/utils/cn'
 import { formatDateFromMilliseconds } from '@/utils/common'
+import { useEffect, useRef } from 'react'
 interface EntryFormProps {
 	entry: Entry | null
 	noDefaultCategories: Group[]
@@ -19,6 +20,12 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 	onSubmit,
 	onCancel,
 }) => {
+	const inputRef = useRef<HTMLInputElement>(null)
+
+	useEffect(() => {
+		inputRef.current?.focus()
+	}, [])
+
 	const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter') onSubmit()
 	}
@@ -40,6 +47,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					onChange={(e) => onHandleChange('title', e.target.value)}
 					value={newEntry.title}
 					placeholder='New Entry'
+					ref={inputRef}
 				/>
 				<Input
 					id='URL'

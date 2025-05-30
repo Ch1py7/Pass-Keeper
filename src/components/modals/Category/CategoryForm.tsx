@@ -4,6 +4,7 @@ import { cn } from '@/utils/cn'
 import { availableColors } from '@/utils/constants'
 import { Icon } from '@iconify/react'
 import type React from 'react'
+import { useEffect, useRef } from 'react'
 import { IconExplanation } from './IconExplanation'
 
 interface CategoryFormProps {
@@ -19,6 +20,11 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
 	onSubmit,
 	onCancel,
 }) => {
+	const inputRef = useRef<HTMLInputElement>(null)
+
+	useEffect(() => {
+		inputRef.current?.focus()
+	}, [])
 	const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter') onSubmit()
 	}
@@ -43,6 +49,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
 				onChange={(e) => onHandleChange('name', e.target.value)}
 				value={newCategory.name}
 				placeholder='New Category'
+				ref={inputRef}
 			/>
 			<div className='flex flex-col relative'>
 				<label htmlFor='icon' className='flex items-center justify-between font-medium'>

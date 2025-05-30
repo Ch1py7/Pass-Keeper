@@ -28,52 +28,64 @@ export const sampleFile: CFile = {
 
 export const availableColors: Record<ColorName, ColorStyle> = {
 	purple: {
-		bg: 'from-purple-500 to-indigo-600 text-white',
+		bg: 'from-purple-500 to-indigo-600',
 		selectedColor: 'ring-2 ring-purple-400',
+		text: 'text-white',
 	},
 	pink: {
-		bg: 'from-pink-500 to-rose-600 text-white',
+		bg: 'from-pink-500 to-rose-600',
 		selectedColor: 'ring-2 ring-pink-400',
+		text: 'text-white',
 	},
 	orange: {
-		bg: 'from-amber-500 to-orange-600 text-white',
+		bg: 'from-amber-500 to-orange-600',
 		selectedColor: 'ring-2 ring-orange-400',
+		text: 'text-white',
 	},
 	green: {
-		bg: 'from-emerald-500 to-green-600 text-white',
+		bg: 'from-emerald-500 to-green-600',
 		selectedColor: 'ring-2 ring-green-400',
+		text: 'text-white',
 	},
 	blue: {
-		bg: 'from-sky-500 to-blue-600 text-white',
+		bg: 'from-sky-500 to-blue-600',
 		selectedColor: 'ring-2 ring-blue-400',
+		text: 'text-white',
 	},
 	gray: {
-		bg: 'from-slate-500 to-gray-600 text-white',
+		bg: 'from-slate-500 to-gray-600',
 		selectedColor: 'ring-2 ring-gray-400',
+		text: 'text-white',
 	},
 	red: {
-		bg: 'from-red-500 to-red-600 text-white',
+		bg: 'from-red-500 to-red-600',
 		selectedColor: 'ring-2 ring-red-400',
+		text: 'text-white',
 	},
 	teal: {
-		bg: 'from-teal-500 to-teal-600 text-white',
+		bg: 'from-teal-500 to-teal-600',
 		selectedColor: 'ring-2 ring-teal-400',
+		text: 'text-white',
 	},
 	violet: {
-		bg: 'from-violet-500 to-purple-600 text-white',
+		bg: 'from-violet-500 to-purple-600',
 		selectedColor: 'ring-2 ring-violet-400',
+		text: 'text-white',
 	},
 	yellow: {
-		bg: 'from-yellow-400 to-amber-500 text-black',
+		bg: 'from-yellow-400 to-amber-500',
 		selectedColor: 'ring-2 ring-yellow-400',
+		text: 'text-black',
 	},
 	lime: {
-		bg: 'from-lime-500 to-green-500 text-white',
+		bg: 'from-lime-500 to-green-500',
 		selectedColor: 'ring-2 ring-lime-400',
+		text: 'text-white',
 	},
 	cyan: {
-		bg: 'from-cyan-500 to-blue-500 text-white',
+		bg: 'from-cyan-500 to-blue-500',
 		selectedColor: 'ring-2 ring-cyan-400',
+		text: 'text-white',
 	},
 }
 

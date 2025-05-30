@@ -1,4 +1,5 @@
 import { Input } from '@/components/common/Input'
+import { useEffect, useRef } from 'react'
 
 interface SqlFormProps {
 	sqlData: SqlData
@@ -8,6 +9,11 @@ interface SqlFormProps {
 }
 
 export const SqlForm: React.FC<SqlFormProps> = ({ sqlData, setSqlData, db, loading }) => {
+	const inputRef = useRef<HTMLInputElement>(null)
+
+	useEffect(() => {
+		inputRef.current?.focus()
+	}, [])
 	return (
 		<div className='grid grid-cols-2 space-y-3 gap-x-3'>
 			<Input
@@ -18,6 +24,7 @@ export const SqlForm: React.FC<SqlFormProps> = ({ sqlData, setSqlData, db, loadi
 				placeholder='localhost'
 				value={sqlData.host}
 				onChange={(e) => setSqlData((p) => ({ ...p, host: e.target.value }))}
+				ref={inputRef}
 			/>
 			<Input
 				label='Port'

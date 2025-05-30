@@ -9,7 +9,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 export const SelectionBox = () => {
 	const squareRef = useRef<HTMLDivElement>(null)
 	const { itemContainerRef, canvasContainerRef } = useFileStore()
-	const { open } = useAppStore()
+	const { modal } = useAppStore()
 
 	const [showSelectionArea, setShowSelectionArea] = useState(false)
 	const [clickStartPosition, setClickStartPosition] = useState<Point | null>(null)
@@ -23,12 +23,17 @@ export const SelectionBox = () => {
 	const onMouseDown = useCallback(
 		(e: MouseEvent) => {
 			if (e.button !== LEFT_MOUSE_BTN) return
-			if (open) return
+			if (modal) return
 			if (!canvasContainerRef.current) return
 			if (!itemContainerRef.current) return
 			const target = e.target as HTMLElement
-			if (target.closest('button')) return
-			if (target.closest('article')) return
+			if (target.closest('button') || target.closest('input') || target.closest('main')) {
+				clearSelection()
+				return
+			}
+			if (target.closest('article')) {
+				return
+			}
 
 			const scrollTop = window.scrollY
 			const containerBoundingRect = canvasContainerRef.current.getBoundingClientRect()
@@ -40,7 +45,7 @@ export const SelectionBox = () => {
 			setSelectedItemsOnClick([...selectedItems])
 			setLastMousePosition({ x: e.clientX, y: e.clientY })
 		},
-		[open, itemContainerRef, canvasContainerRef, selectedItems]
+		[itemContainerRef, canvasContainerRef, selectedItems, modal, clearSelection]
 	)
 	useEvent(document, 'mousedown', onMouseDown)
 
@@ -66,7 +71,7 @@ export const SelectionBox = () => {
 
 	const onMouseMove = useCallback(
 		(e: MouseEvent) => {
-			if (open) return
+			if (modal) return
 			if (!clickStartPosition) return
 
 			setShowSelectionArea(true)
@@ -79,7 +84,7 @@ export const SelectionBox = () => {
 			})
 			setLastMousePosition({ x: e.clientX, y: e.clientY })
 		},
-		[open, clickStartPosition, canvasContainerRef]
+		[modal, clickStartPosition, canvasContainerRef]
 	)
 	useEvent(document, 'mousemove', onMouseMove)
 

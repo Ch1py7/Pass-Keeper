@@ -1,18 +1,24 @@
 import { Button } from '@/components/common/Button'
-import { kdbxErrorsHandle } from '@/errors/errors'
-import { toasty } from '@/notifications/toast'
+import { kdbxErrorsHandle } from '@/errors'
+import { toasty } from '@/notifications'
 import { getKdbxInstance, setKdbxInstance } from '@/services/kdbxSingleton'
 import { useAppStore } from '@/store/AppStore'
 import { assignKdbxData } from '@/utils/kdbxHelpers'
 import * as kdbxweb from 'kdbxweb'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Input } from '../common/Input'
 
 export const ChangeKey = () => {
 	const [newKey, setNewKey] = useState('')
 	const kdbx = getKdbxInstance()
 
-	const { setOpen } = useAppStore()
+	const inputRef = useRef<HTMLInputElement>(null)
+
+	useEffect(() => {
+		inputRef.current?.focus()
+	}, [])
+
+	const { setModal } = useAppStore()
 
 	const onSubmit = async () => {
 		try {
@@ -20,7 +26,7 @@ export const ChangeKey = () => {
 			toasty.success('Master key updated successfully')
 			setKdbxInstance(kdbx)
 			assignKdbxData(kdbx)
-			setOpen(false)
+			setModal(null)
 		} catch (err) {
 			if (err instanceof DOMException) kdbxErrorsHandle(err.name)
 			else if (err instanceof kdbxweb.KdbxError) kdbxErrorsHandle(err.code)
@@ -50,12 +56,13 @@ export const ChangeKey = () => {
 				placeholder=''
 				onChange={(e) => setNewKey(e.target.value)}
 				value={newKey}
+				ref={inputRef}
 			/>
 			<div className='flex mt-6 gap-x-2'>
 				<Button
 					fullWidth
 					content='Cancel'
-					onClick={() => setOpen(false)}
+					onClick={() => setModal(null)}
 					styles='justify-center text-[var(--theme-text)] border bg-[var(--theme-modal)] hover:bg-[var(--theme-hover)]'
 				/>
 				<Button

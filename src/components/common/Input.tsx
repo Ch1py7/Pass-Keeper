@@ -11,6 +11,7 @@ interface InputProps {
 	type?: string
 	disabled?: boolean
 	styles?: string
+	ref?: React.RefObject<HTMLInputElement | null>
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -22,7 +23,8 @@ export const Input: React.FC<InputProps> = ({
 	type,
 	disabled,
 	id = '',
-	styles
+	styles,
+	ref,
 }) => {
 	return (
 		<div>
@@ -31,13 +33,18 @@ export const Input: React.FC<InputProps> = ({
 				{label}
 			</label>
 			<input
+				ref={ref}
 				disabled={disabled}
-				className={cn('h-10 px-3 bg-[var(--theme-action)] rounded-lg w-full border-1 border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--text-muted)]', styles)}
+				className={cn(
+					'h-10 px-3 bg-[var(--theme-action)] rounded-lg w-full border-1 border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--text-muted)]',
+					styles
+				)}
 				id={id}
 				placeholder={placeholder}
 				value={value}
 				onChange={onChange}
 				type={type ?? 'text'}
+				checked
 			/>
 		</div>
 	)

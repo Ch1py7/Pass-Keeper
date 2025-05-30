@@ -1,4 +1,4 @@
-import { ErrorCode } from '@/errors/errors'
+import { ErrorCode } from '@/errors'
 import { passwordsParser } from '@/services/parser'
 import * as kdbxweb from 'kdbxweb'
 import { createFile, updateFile } from './fs'

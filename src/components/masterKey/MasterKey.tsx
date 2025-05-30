@@ -44,7 +44,7 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 	}
 
 	return (
-		<div className='border-0 shadow-[var(--theme-shadow)] rounded-xl'>
+		<div className='border-0 shadow-[var(--theme-shadow)] rounded-xl' onKeyDown={handleEnterPress}>
 			<div className='p-6 space-y-6'>
 				<div className='text-center mb-2'>
 					<h2 className='text-xl font-semibold mb-2'>
@@ -66,6 +66,7 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 								value={masterKey}
 								onChange={(e) => onMasterKeyChange(e.target.value)}
 								styles='px-9'
+								ref={inputRef}
 							/>
 							<ActionButton
 								styles='absolute right-3 bottom-3 text-[var(--theme-text)]'

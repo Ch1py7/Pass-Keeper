@@ -11,16 +11,16 @@ interface PasswordsProps {
 }
 
 export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
-	const { setOpen, setModal, setEntry, categories, activeCategory } = useAppStore()
+	const { setModal, setEntry, categories, activeCategory } = useAppStore()
 	const results = usePasswordTrie(searchQuery)
-	const { itemContainerRef, setSelectedItems } = useFileStore()
+	const { itemContainerRef, clearSelection, setSelectedItems } = useFileStore()
 
 	return (
 		<div
 			ref={itemContainerRef}
 			className={cn('grid gap-4 w-full')}
 			style={{
-				gridTemplateColumns: 'repeat(auto-fit, minmax(17em, 1fr))',
+				gridTemplateColumns: 'repeat(auto-fit, minmax(16em, 1fr))',
 			}}
 		>
 			{results.length === 0 ? (
@@ -38,7 +38,6 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 						iconLeft='lucide:circle-plus'
 						content='Add Password'
 						onClick={() => {
-							setOpen(true)
 							setModal('entry')
 						}}
 						styles='mx-auto btn-primary'
@@ -55,16 +54,14 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 							}
 							onEdit={(e) => {
 								e.stopPropagation()
-								setSelectedItems([])
+								clearSelection()
 								setEntry(entry)
 								setModal('entry')
-								setOpen(true)
 							}}
 							onDelete={(e) => {
 								e.stopPropagation()
 								setSelectedItems([entry])
 								setModal('delete')
-								setOpen(true)
 							}}
 						/>
 					))}

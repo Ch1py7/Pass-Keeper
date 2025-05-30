@@ -1,9 +1,9 @@
-import { createRef, type RefObject } from 'react'
+import { createRef } from 'react'
 import { create } from 'zustand'
 
 interface FileStore {
-	itemContainerRef: RefObject<HTMLDivElement>
-	canvasContainerRef: RefObject<HTMLDivElement>
+	itemContainerRef: React.RefObject<HTMLDivElement>
+	canvasContainerRef: React.RefObject<HTMLDivElement>
 
 	selectedItems: {
 		id: string
@@ -14,14 +14,14 @@ interface FileStore {
 	clearSelection: () => void
 	removeSelectedItem: (entry: ManageEntry) => void
 
-	dragRef: RefObject<HTMLDivElement | null>
+	dragRef: React.RefObject<HTMLDivElement | null>
 	isDragging: boolean
 	setIsDragging: (value: boolean) => void
 }
 
 export const useFileStore = create<FileStore>()((set, get) => ({
-	canvasContainerRef: createRef<HTMLDivElement>() as RefObject<HTMLDivElement>,
-	itemContainerRef: createRef<HTMLDivElement>() as RefObject<HTMLDivElement>,
+	canvasContainerRef: createRef<HTMLDivElement>() as React.RefObject<HTMLDivElement>,
+	itemContainerRef: createRef<HTMLDivElement>() as React.RefObject<HTMLDivElement>,
 	selectedItems: [],
 	setSelectedItems: (value) => {
 		set({ selectedItems: [...value] })
@@ -36,7 +36,7 @@ export const useFileStore = create<FileStore>()((set, get) => ({
 			selectedItems: state.selectedItems.filter((item) => item.id !== entry.id),
 		}))
 	},
-	dragRef: createRef<HTMLDivElement>() as RefObject<HTMLDivElement>,
+	dragRef: createRef<HTMLDivElement>() as React.RefObject<HTMLDivElement>,
 	isDragging: false,
 	setIsDragging: (value) => set({ isDragging: value }),
 }))
