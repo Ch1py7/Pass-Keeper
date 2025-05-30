@@ -310,9 +310,7 @@ input[type="checkbox"]:checked::after {
 .tooltip .tooltiptext {
 	visibility: hidden;
 	width: 200px;
-	background-color: #f1f5f9;
 	text-align: center;
-	border: 1px solid #cad5e2;
 	border-radius: 5px;
 	padding: 8px;
 	position: absolute;
