@@ -73,7 +73,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({
 					<label className='flex flex-col font-medium'>
 						Category
 						<select
-							className='h-10 px-3 rounded-lg w-full border-1 border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--text-muted)]'
+							className='h-10 px-3 rounded-lg w-full border-1 border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--text-muted)] bg-[var(--theme-action)]'
 							value={entry.groupId}
 							onChange={(e) => onHandleChange('groupId', e.target.value)}
 							disabled={Boolean(entry.id)}
