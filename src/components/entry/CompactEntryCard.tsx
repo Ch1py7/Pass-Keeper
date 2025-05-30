@@ -26,7 +26,6 @@ export const CompactEntryCard: React.FC<CompactEntryCardProps> = ({
 	const { color, icon } = category.params
 	const {
 		selectedItems,
-		setSelectedItems,
 		clearSelection,
 		removeSelectedItem,
 		addSelectedItem,

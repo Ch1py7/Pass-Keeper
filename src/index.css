@@ -192,16 +192,17 @@
 	span {
 		color: var(--theme-text);
 	}
-
-	button {
-		cursor: pointer;
-	}
 }
 
 button {
 	box-sizing: border-box;
 	font-family: inherit;
 	cursor: pointer;
+}
+
+svg,
+svg path {
+  pointer-events: none;
 }
 
 .btn-primary {
