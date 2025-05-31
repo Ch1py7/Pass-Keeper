@@ -13,7 +13,7 @@ interface PasswordsProps {
 export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 	const { setModal, setEntryToEdit: setEntry, categories, activeCategory } = useAppStore()
 	const results = usePasswordTrie(searchQuery)
-	const { itemContainerRef, clearSelection, setSelectedItems } = useFileStore()
+	const { itemContainerRef } = useFileStore()
 
 	return (
 		<div
@@ -29,7 +29,7 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 						<Icon icon='tabler:lock' className='h-10 w-10 text-slate-400' />
 					</div>
 					<h3 className='text-xl font-bold mb-2'>No passwords found</h3>
-					<p className='text-slate-500 mb-6'>
+					<p className='text-[var(--theme-text-muted)] mb-6'>
 						{activeCategory.id !== 'All'
 							? `No passwords found in the "${activeCategory.name}" category.`
 							: 'Add a new password to get started'}
@@ -45,9 +45,9 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 				</div>
 			) : (
 				<>
-					{results.map((entry, index) => (
+					{results.map((entry) => (
 						<CompactEntryCard
-							key={index}
+							key={entry.id}
 							entry={entry}
 							category={
 								categories.find((category) => category.id === entry.groupId) ?? ({} as Group)

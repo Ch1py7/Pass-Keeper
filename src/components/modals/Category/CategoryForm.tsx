@@ -95,7 +95,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
 				<Button
 					content=''
 					iconLeft='majesticons:restricted'
-					styles='flex items-center w-fit text-sm text-red-500 hover:text-red-700 hover:bg-red-50 rounded-md border border-slate-200 col-span-1 justify-center'
+					styles='flex items-center w-fit text-sm text-red-500 hover:text-red-700 hover:bg-red-400/40 rounded-md border col-span-1 justify-center'
 					onClick={() => onHandleChange('color', '')}
 				/>
 				<Button
