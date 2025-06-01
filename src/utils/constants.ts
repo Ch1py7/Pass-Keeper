@@ -220,3 +220,16 @@ export const themes = [
 		accent: 'bg-emerald-500',
 	},
 ]
+
+export const samplePasswordParams: PasswordGenParams = {
+	upperCase: false,
+	lowerCase: false,
+	digits: false,
+	minusChar: false,
+	underlineChar: false,
+	spaceChar: false,
+	bracketsChars: false,
+	specialChars: false,
+	customChars: '',
+	length: 10
+}

@@ -8,9 +8,10 @@ interface InputProps {
 	label: string
 	id?: string
 	icon?: string
-	type?: string
+	type?: React.InputHTMLAttributes<HTMLInputElement>['type']
 	disabled?: boolean
-	styles?: string
+	inputStyles?: string
+	genStyles?: string
 	ref?: React.RefObject<HTMLInputElement | null>
 }
 
@@ -23,11 +24,12 @@ export const Input: React.FC<InputProps> = ({
 	type,
 	disabled,
 	id = '',
-	styles,
+	inputStyles,
+	genStyles,
 	ref,
 }) => {
 	return (
-		<div>
+		<div className={genStyles}>
 			<label htmlFor={id} className='flex items-center gap-2 font-medium'>
 				{icon && <Icon icon={icon} className='h-4 w-4' />}
 				{label}
@@ -37,7 +39,7 @@ export const Input: React.FC<InputProps> = ({
 				disabled={disabled}
 				className={cn(
 					'h-10 px-3 bg-[var(--theme-action)] rounded-lg w-full border-1 border-[var(--theme-border)] disabled:bg-[var(--theme-muted)] disabled:text-[var(--theme-text-muted)]',
-					styles
+					inputStyles
 				)}
 				id={id}
 				placeholder={placeholder}

@@ -65,7 +65,7 @@ export const MasterKey: React.FC<MasterKeyProps> = ({
 								placeholder={fileName ? 'Enter your master key' : 'Create a strong master key'}
 								value={masterKey}
 								onChange={(e) => onMasterKeyChange(e.target.value)}
-								styles='px-9'
+								inputStyles='px-9'
 								ref={inputRef}
 							/>
 							<ActionButton

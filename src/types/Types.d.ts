@@ -79,3 +79,16 @@ interface ColorStyle {
 }
 
 type Theme = 'light' | 'dark' | 'warm' | 'ocean' | 'forest' | 'sunset'
+
+interface PasswordGenParams {
+	upperCase: boolean
+	lowerCase: boolean
+	digits: boolean
+	minusChar: boolean
+	underlineChar: boolean
+	spaceChar: boolean
+	bracketsChars: boolean
+	specialChars: boolean
+	customChars: string
+	length: number
+}

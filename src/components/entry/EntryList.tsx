@@ -44,26 +44,21 @@ export const EntryList: React.FC<PasswordsProps> = ({ searchQuery }) => {
 					/>
 				</div>
 			) : (
-				<>
-					{results.map((entry) => (
-						<CompactEntryCard
-							key={entry.id}
-							entry={entry}
-							category={
-								categories.find((category) => category.id === entry.groupId) ?? ({} as Group)
-							}
-							onEdit={(e) => {
-								e.stopPropagation()
-								setEntry(entry)
-								setModal('entry')
-							}}
-							onDelete={(e) => {
-								e.stopPropagation()
-								setModal('delete')
-							}}
-						/>
-					))}
-				</>
+				results.map((entry) => (
+					<CompactEntryCard
+						key={entry.id}
+						entry={entry}
+						category={categories.find((category) => category.id === entry.groupId) ?? ({} as Group)}
+						onEdit={(e) => {
+							e.stopPropagation()
+							setEntry(entry)
+							setModal('entry')
+						}}
+						onDelete={() => {
+							setModal('delete')
+						}}
+					/>
+				))
 			)}
 		</div>
 	)
