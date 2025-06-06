@@ -95,7 +95,6 @@ export class Kdbx {
 
 	public async deleteEntry(data: ManageEntry, save = true) {
 		const entry = this._getEntryById(data)
-		console.log(entry)
 		this._requireDb().remove(entry)
 		save && this.persist()
 	}
