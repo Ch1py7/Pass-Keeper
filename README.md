@@ -1,4 +1,4 @@
-<div align="center"> <img src="https://raw.githubusercontent.com/Ch1py7/Pass-Keeper/refs/heads/main/public/readme/screenshot.webp" alt="Screenshot Preview" width="600"/> </div> <div align="center"> <span>📁</span> <a href="#-project-structure">View Project Structure</a> </div>
+<div align="center"> <img src="https://raw.githubusercontent.com/Ch1py7/Pass-Keeper/refs/heads/main/public/readme/screenshot.webp" alt="Screenshot Preview" width="600"/> </div> <div align="center"> <span>📁</span> <a href="#%EF%B8%8F-project-structure">View Project Structure</a> </div>
 
 # 🌟 Pass Keeper
 
